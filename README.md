@@ -1,59 +1,94 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Nirmala Premium Catering CMS & Landing Page
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Website Company Profile Premium sekaligus CMS Admin Panel untuk mengelola data Landing Page Nirmala Catering. Dibangun menggunakan **Laravel 11**, **Inertia.js (React + TypeScript)**, dan **Tailwind CSS**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🛠️ Langkah-Langkah Setup Lokal (Setelah Clone)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Bagi rekan developer yang melakukan `clone` atau `pull` proyek ini, silakan ikuti langkah-langkah berikut untuk menjalankannya di komputer lokal:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
+### 1. Masuk ke Direktori Proyek
+Buka terminal dan masuk ke folder proyek:
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+cd catering
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. Install Dependensi PHP
+Unduh dan pasang library PHP yang dibutuhkan menggunakan Composer:
+```bash
+composer install
+```
 
-## Contributing
+### 3. Install Dependensi JavaScript (React & Tailwind)
+Unduh library Node.js menggunakan npm:
+```bash
+npm install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 4. Salin Konfigurasi Environment (`.env`)
+Salin file `.env.example` menjadi `.env` baru:
+```bash
+cp .env.example .env
+```
 
-## Code of Conduct
+### 5. Generate Application Key
+Buat kunci enkripsi aplikasi Laravel yang baru:
+```bash
+php artisan key:generate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 6. Konfigurasi Database di `.env`
+Buka file `.env` yang baru dibuat, lalu sesuaikan koneksi database Anda (misalnya menggunakan MySQL/MariaDB):
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nama_database_anda
+DB_USERNAME=root
+DB_PASSWORD=kata_sandi_mysql_anda
+```
+*Catatan: Pastikan Anda sudah membuat database kosong di MySQL sesuai dengan nama di `DB_DATABASE` sebelum melangkah ke tahap berikutnya.*
 
-## Security Vulnerabilities
+### 7. Jalankan Migrasi & Seeder Database
+Buat seluruh struktur tabel database beserta data pengaturan default, menu, faq, testimoni, mitra, dan akun admin awal:
+```bash
+php artisan migrate --seed
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 8. Hubungkan Symlink Storage
+Hubungkan folder asset media upload agar gambar menu/katalog dapat diakses publik:
+```bash
+php artisan storage:link
+```
 
-## License
+### 9. Jalankan Server Pengembangan
+Jalankan dua perintah berikut di jendela terminal terpisah (atau gunakan tools seperti Laravel Herd):
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# web-katering
+*   **Terminal 1 (Backend Laravel Server)**:
+    ```bash
+    php artisan serve
+    ```
+    *Aplikasi akan berjalan di [http://localhost:8000](http://localhost:8000)*
+
+*   **Terminal 2 (Frontend Assets Compiler)**:
+    ```bash
+    npm run dev
+    ```
+
+---
+
+## 🔑 Informasi Akun Admin Default
+
+Setelah database berhasil di-seed, Anda dapat login ke Dashboard Admin menggunakan akun berikut:
+- **URL Login**: [http://localhost:8000/login](http://localhost:8000/login)
+- **Email**: `admin@nirmala.com`
+- **Password**: `nirmalapremium123`
+
+---
+
+## 🚀 Perintah Build untuk Produksi
+Jika ingin mem-build aplikasi untuk kebutuhan deployment hosting:
+```bash
+npm run build
+```
