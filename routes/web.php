@@ -40,6 +40,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Settings bulk update
     Route::patch('/admin/settings', [CateringController::class, 'updateSettings'])->name('admin.settings.update');
+
+    // Portfolios CRUD
+    Route::post('/admin/portfolios', [CateringController::class, 'storePortfolio'])->name('admin.portfolio.store');
+    Route::put('/admin/portfolios/{portfolio}', [CateringController::class, 'updatePortfolio'])->name('admin.portfolio.update');
+    Route::delete('/admin/portfolios/{portfolio}', [CateringController::class, 'destroyPortfolio'])->name('admin.portfolio.destroy');
 });
 
 // Profile Routes

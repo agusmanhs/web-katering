@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import {
     Phone, Mail, Calendar, Users, FileText, CheckCircle,
     Plus, Edit, Trash2, Settings as SettingsIcon, MessageSquare,
-    HelpCircle, ChefHat, Building, Star, Award, ShieldCheck, Sparkles, Check, X, Sliders
+    HelpCircle, ChefHat, Building, Star, Award, ShieldCheck, Sparkles, Check, X, Sliders, Image
 } from 'lucide-react';
 
 interface QuoteRequest {
@@ -64,6 +64,14 @@ interface PartnerItem {
     order_num: number;
 }
 
+interface PortfolioItem {
+    id: number;
+    title: string;
+    category: string;
+    image_path: string;
+    description: string | null;
+}
+
 interface DashboardProps {
     quoteRequests: QuoteRequest[];
     stats: {
@@ -77,6 +85,7 @@ interface DashboardProps {
     faqs: FaqItem[];
     services: ServiceItem[];
     partners: PartnerItem[];
+    portfolios: PortfolioItem[];
     settings: Record<string, string>;
 }
 
@@ -88,6 +97,7 @@ export default function Dashboard({
     faqs = [],
     services = [],
     partners = [],
+    portfolios = [],
     settings = {}
 }: DashboardProps) {
     const [activeTab, setActiveTab] = useState<string>('leads');
@@ -122,6 +132,13 @@ export default function Dashboard({
     const [partnerForm, setPartnerForm] = useState({
         name: '', order_num: 1
     });
+
+    const [isPortfolioModalOpen, setIsPortfolioModalOpen] = useState(false);
+    const [editingPortfolio, setEditingPortfolio] = useState<PortfolioItem | null>(null);
+    const [portfolioForm, setPortfolioForm] = useState({
+        title: '', category: 'wedding', description: ''
+    });
+    const [portfolioImageFile, setPortfolioImageFile] = useState<File | null>(null);
 
     // settingsForm state
     const [settingsForm, setSettingsForm] = useState({
@@ -368,6 +385,66 @@ export default function Dashboard({
         }
     };
 
+    // Portfolio CRUD Handlers
+    const openPortfolioModal = (port: PortfolioItem | null = null) => {
+        if (port) {
+            setEditingPortfolio(port);
+            setPortfolioForm({
+                title: port.title,
+                category: port.category,
+                description: port.description || ''
+            });
+            setPortfolioImageFile(null);
+        } else {
+            setEditingPortfolio(null);
+            setPortfolioForm({
+                title: '',
+                category: 'wedding',
+                description: ''
+            });
+            setPortfolioImageFile(null);
+        }
+        setIsPortfolioModalOpen(true);
+    };
+
+    const handlePortfolioSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        
+        const formData = new FormData();
+        formData.append('title', portfolioForm.title);
+        formData.append('category', portfolioForm.category);
+        formData.append('description', portfolioForm.description);
+        
+        if (portfolioImageFile) {
+            formData.append('image', portfolioImageFile);
+        }
+        
+        if (editingPortfolio) {
+            formData.append('_method', 'PUT');
+            router.post(`/admin/portfolios/${editingPortfolio.id}`, formData, {
+                forceFormData: true,
+                onSuccess: () => {
+                    setIsPortfolioModalOpen(false);
+                    setPortfolioImageFile(null);
+                }
+            });
+        } else {
+            router.post('/admin/portfolios', formData, {
+                forceFormData: true,
+                onSuccess: () => {
+                    setIsPortfolioModalOpen(false);
+                    setPortfolioImageFile(null);
+                }
+            });
+        }
+    };
+
+    const deletePortfolio = (id: number) => {
+        if (confirm('Hapus item portofolio ini?')) {
+            router.delete(`/admin/portfolios/${id}`);
+        }
+    };
+
     // Settings Form submit
     const handleSettingsSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -420,6 +497,7 @@ export default function Dashboard({
         { id: 'faqs', label: 'FAQs & QAs', icon: <HelpCircle className="w-4 h-4" />, onClick: () => setActiveTab('faqs'), active: activeTab === 'faqs' },
         { id: 'services', label: 'Layanan Kami', icon: <Award className="w-4 h-4" />, onClick: () => setActiveTab('services'), active: activeTab === 'services' },
         { id: 'partners', label: 'Mitra / Klien', icon: <Building className="w-4 h-4" />, onClick: () => setActiveTab('partners'), active: activeTab === 'partners' },
+        { id: 'portfolios', label: 'Portofolio Gallery', icon: <Image className="w-4 h-4" />, onClick: () => setActiveTab('portfolios'), active: activeTab === 'portfolios' },
         {
             id: 'settings',
             label: 'Web Settings',
@@ -444,6 +522,7 @@ export default function Dashboard({
                     {activeTab === 'faqs' && 'Frequently Asked Questions'}
                     {activeTab === 'services' && 'Layanan Catering'}
                     {activeTab === 'partners' && 'Mitra & Klien'}
+                    {activeTab === 'portfolios' && 'Dokumentasi Portofolio Gallery'}
                     {activeTab === 'settings-hero' && 'Web Settings > Hero & Slider'}
                     {activeTab === 'settings-contact' && 'Web Settings > Kontak & Sosmed'}
                     {activeTab === 'settings-features' && 'Web Settings > Keunggulan & Stats'}
@@ -735,6 +814,62 @@ export default function Dashboard({
                                                 </td>
                                             </tr>
                                         ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Portfolios CRUD Tab */}
+                    {activeTab === 'portfolios' && (
+                        <div className="bg-white shadow sm:rounded-lg dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+                            <div className="flex justify-between items-center border-b border-gray-200 px-6 py-5 dark:border-gray-700">
+                                <h3 className="text-lg font-medium text-gray-900 dark:text-white">Dokumentasi Acara Portofolio</h3>
+                                <button onClick={() => openPortfolioModal()} className="flex items-center space-x-1.5 px-4 py-2 bg-[#C7A856] text-white text-xs font-bold rounded-lg hover:bg-[#b09245] shadow-sm transition-all cursor-pointer">
+                                    <Plus className="w-4 h-4" />
+                                    <span>Tambah Portofolio</span>
+                                </button>
+                            </div>
+                            <div className="px-6 py-6 overflow-x-auto">
+                                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+                                    <thead className="bg-emerald-50/30 dark:bg-emerald-950/10">
+                                        <tr className="text-left text-gray-500 dark:text-gray-400 font-bold uppercase tracking-wider text-[10px]">
+                                            <th className="px-4 py-3 w-28">Preview</th>
+                                            <th className="px-4 py-3">Judul Acara</th>
+                                            <th className="px-4 py-3">Kategori</th>
+                                            <th className="px-4 py-3">Deskripsi</th>
+                                            <th className="px-4 py-3 text-right">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-gray-100 dark:divide-gray-700 text-gray-700 dark:text-gray-300">
+                                        {portfolios.length === 0 ? (
+                                            <tr>
+                                                <td colSpan={5} className="px-4 py-8 text-center text-gray-400">Belum ada data portofolio. Silakan klik Tambah Portofolio.</td>
+                                            </tr>
+                                        ) : (
+                                            portfolios.map((p) => (
+                                                <tr key={p.id} className="align-middle hover:bg-gray-50 dark:hover:bg-gray-900/30">
+                                                    <td className="px-4 py-3">
+                                                        {p.image_path ? (
+                                                            <img src={p.image_path} alt={p.title} className="w-20 h-12 object-cover rounded-lg shadow-xs border dark:border-gray-700" />
+                                                        ) : (
+                                                            <div className="w-20 h-12 bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-[10px] text-gray-400 rounded-lg">No Image</div>
+                                                        )}
+                                                    </td>
+                                                    <td className="px-4 py-3 font-bold text-gray-900 dark:text-white">{p.title}</td>
+                                                    <td className="px-4 py-3">
+                                                        <span className="inline-block px-2 py-0.5 text-[10px] font-bold rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-900/60 uppercase">
+                                                            {p.category}
+                                                        </span>
+                                                    </td>
+                                                    <td className="px-4 py-3 max-w-xs truncate text-gray-500 dark:text-gray-400">{p.description || '-'}</td>
+                                                    <td className="px-4 py-3 text-right space-x-1.5 whitespace-nowrap">
+                                                        <button onClick={() => openPortfolioModal(p)} className="p-1.5 text-gray-400 hover:text-[#C7A856] dark:hover:text-[#C7A856] transition-colors cursor-pointer"><Edit className="w-4 h-4" /></button>
+                                                        <button onClick={() => deletePortfolio(p.id)} className="p-1.5 text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors cursor-pointer"><Trash2 className="w-4 h-4" /></button>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        )}
                                     </tbody>
                                 </table>
                             </div>
@@ -1310,6 +1445,58 @@ export default function Dashboard({
                                 <input type="number" required value={partnerForm.order_num} onChange={(e) => setPartnerForm({ ...partnerForm, order_num: Number(e.target.value) })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#0F5132] focus:ring-1 focus:ring-[#0F5132] text-gray-900 dark:text-white" />
                             </div>
                             <button type="submit" className="w-full py-2.5 bg-[#C7A856] hover:bg-[#b09245] text-white font-bold text-xs rounded transition-all shadow-md">Simpan Mitra</button>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Portfolio CRUD Modal */}
+            {isPortfolioModalOpen && (
+                <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+                    <div className="bg-white dark:bg-gray-800 max-w-md w-full rounded-xl overflow-hidden shadow-2xl p-6 relative">
+                        <button onClick={() => setIsPortfolioModalOpen(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-white"><X className="w-5 h-5" /></button>
+                        <h4 className="font-playfair text-xl font-bold text-gray-900 dark:text-white mb-4">{editingPortfolio ? 'Edit Item Portofolio' : 'Tambah Portofolio Baru'}</h4>
+                        <form onSubmit={handlePortfolioSubmit} className="space-y-4">
+                            <div>
+                                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Judul Acara / Dokumentasi</label>
+                                <input type="text" required value={portfolioForm.title} onChange={(e) => setPortfolioForm({ ...portfolioForm, title: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#0F5132] focus:ring-1 focus:ring-[#0F5132] text-gray-900 dark:text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Kategori Acara</label>
+                                <select value={portfolioForm.category} onChange={(e) => setPortfolioForm({ ...portfolioForm, category: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#0F5132] focus:ring-1 focus:ring-[#0F5132] text-gray-900 dark:text-white">
+                                    <option value="wedding">Pernikahan (Wedding)</option>
+                                    <option value="corporate">Korporat / Kantor (Corporate)</option>
+                                    <option value="private-event">Private Event</option>
+                                    <option value="tumpengan">Tumpengan / Syukuran</option>
+                                    <option value="coffee-break">Coffee Break</option>
+                                    <option value="lunch-box">Lunch Box</option>
+                                    <option value="aqiqah">Aqiqah</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Deskripsi Singkat Acara</label>
+                                <textarea rows={3} value={portfolioForm.description} onChange={(e) => setPortfolioForm({ ...portfolioForm, description: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#0F5132] focus:ring-1 focus:ring-[#0F5132] text-gray-900 dark:text-white resize-none" />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Foto Dokumentasi (Format .webp/.jpg/.png, Maks: 4MB)</label>
+                                <div className="flex flex-col gap-2">
+                                    {editingPortfolio && editingPortfolio.image_path && (
+                                        <div className="mb-1">
+                                            <p className="text-[10px] text-gray-400 mb-1">Foto saat ini:</p>
+                                            <img src={editingPortfolio.image_path} alt="Current preview" className="w-24 h-14 object-cover rounded-lg border dark:border-gray-700" />
+                                        </div>
+                                    )}
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        required={!editingPortfolio}
+                                        onChange={(e) => setPortfolioImageFile(e.target.files ? e.target.files[0] : null)}
+                                        className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-[#0F5132] hover:file:bg-emerald-100 dark:file:bg-emerald-950/20 dark:file:text-[#C7A856]"
+                                    />
+                                    {portfolioImageFile && <p className="text-[10px] text-green-600">✔ Terpilih: {portfolioImageFile.name}</p>}
+                                </div>
+                            </div>
+                            <button type="submit" className="w-full py-2.5 bg-[#C7A856] hover:bg-[#b09245] text-white font-bold text-xs rounded transition-all shadow-md cursor-pointer">Simpan Portofolio</button>
                         </form>
                     </div>
                 </div>

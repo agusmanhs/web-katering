@@ -70,6 +70,7 @@ class CateringController extends Controller
             'faqs' => Faq::orderBy('order_num')->get(),
             'services' => Service::orderBy('order_num')->get(),
             'partners' => Partner::orderBy('order_num')->get(),
+            'portfolios' => Portfolio::latest()->get(),
             'settings' => Setting::all()->pluck('value', 'key'),
         ]);
     }
@@ -333,5 +334,83 @@ class CateringController extends Controller
         }
 
         return back()->with('success', 'Settings updated successfully!');
+    }
+
+    // ==========================================
+    // PORTFOLIOS CRUD
+    // ==========================================
+    public function storePortfolio(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'category' => 'required|string|max:100',
+            'description' => 'nullable|string',
+            'image' => 'required|image|max:4096',
+        ]);
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $file = $request->file('image');
+            $filename = 'portfolio_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images'), $filename);
+            $validated['image_path'] = "/images/$filename";
+        }
+
+        Portfolio::create([
+            'title' => $validated['title'],
+            'category' => $validated['category'],
+            'description' => $validated['description'] ?? null,
+            'image_path' => $validated['image_path'],
+        ]);
+
+        return back()->with('success', 'Portfolio item created successfully!');
+    }
+
+    public function updatePortfolio(Request $request, Portfolio $portfolio)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'category' => 'required|string|max:100',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|max:4096',
+        ]);
+
+        $updateData = [
+            'title' => $validated['title'],
+            'category' => $validated['category'],
+            'description' => $validated['description'] ?? null,
+        ];
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            // Delete old file if exists and is not a default one
+            if ($portfolio->image_path && !str_starts_with($portfolio->image_path, 'http') && !str_contains($portfolio->image_path, 'catering_hero')) {
+                $oldPath = public_path($portfolio->image_path);
+                if (file_exists($oldPath)) {
+                    @unlink($oldPath);
+                }
+            }
+
+            $file = $request->file('image');
+            $filename = 'portfolio_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images'), $filename);
+            $updateData['image_path'] = "/images/$filename";
+        }
+
+        $portfolio->update($updateData);
+
+        return back()->with('success', 'Portfolio item updated successfully!');
+    }
+
+    public function destroyPortfolio(Portfolio $portfolio)
+    {
+        if ($portfolio->image_path && !str_starts_with($portfolio->image_path, 'http') && !str_contains($portfolio->image_path, 'catering_hero')) {
+            $filePath = public_path($portfolio->image_path);
+            if (file_exists($filePath)) {
+                @unlink($filePath);
+            }
+        }
+
+        $portfolio->delete();
+
+        return back()->with('success', 'Portfolio item deleted successfully!');
     }
 }
