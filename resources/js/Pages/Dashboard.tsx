@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import {
     Phone, Mail, Calendar, Users, FileText, CheckCircle,
     Plus, Edit, Trash2, Settings as SettingsIcon, MessageSquare,
-    HelpCircle, ChefHat, Building, Star, Award, ShieldCheck, Sparkles, Check, X
+    HelpCircle, ChefHat, Building, Star, Award, ShieldCheck, Sparkles, Check, X, Sliders
 } from 'lucide-react';
 
 interface QuoteRequest {
@@ -90,7 +90,7 @@ export default function Dashboard({
     partners = [],
     settings = {}
 }: DashboardProps) {
-    const [activeTab, setActiveTab] = useState<'leads' | 'menus' | 'testimonials' | 'faqs' | 'services' | 'partners' | 'settings'>('leads');
+    const [activeTab, setActiveTab] = useState<string>('leads');
 
     // CRUD State
     const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
@@ -420,21 +420,26 @@ export default function Dashboard({
         { id: 'faqs', label: 'FAQs & QAs', icon: <HelpCircle className="w-4 h-4" />, onClick: () => setActiveTab('faqs'), active: activeTab === 'faqs' },
         { id: 'services', label: 'Layanan Kami', icon: <Award className="w-4 h-4" />, onClick: () => setActiveTab('services'), active: activeTab === 'services' },
         { id: 'partners', label: 'Mitra / Klien', icon: <Building className="w-4 h-4" />, onClick: () => setActiveTab('partners'), active: activeTab === 'partners' },
-        { id: 'settings', label: 'Web Settings', icon: <SettingsIcon className="w-4 h-4" />, onClick: () => setActiveTab('settings'), active: activeTab === 'settings' },
+        { id: 'settings', label: 'Web Settings', icon: <SettingsIcon className="w-4 h-4" />, onClick: () => setActiveTab('settings-hero'), active: activeTab.startsWith('settings') },
+        { id: 'settings-hero', label: 'Hero & Slider', icon: <Sliders className="w-4 h-4" />, onClick: () => setActiveTab('settings-hero'), active: activeTab === 'settings-hero', indent: true },
+        { id: 'settings-contact', label: 'Kontak & Sosmed', icon: <Phone className="w-4 h-4" />, onClick: () => setActiveTab('settings-contact'), active: activeTab === 'settings-contact', indent: true },
+        { id: 'settings-features', label: 'Keunggulan & Stats', icon: <Sparkles className="w-4 h-4" />, onClick: () => setActiveTab('settings-features'), active: activeTab === 'settings-features', indent: true },
     ];
 
     return (
         <AuthenticatedLayout
             sidebarItems={sidebarItems}
             header={
-                <h2 className="text-sm font-bold tracking-tight text-gray-800 dark:text-gray-200 capitalize">
+                <h2 className="text-sm font-bold tracking-tight text-gray-800 dark:text-gray-200">
                     {activeTab === 'leads' && 'Active Inquiries'}
                     {activeTab === 'menus' && 'Menu Catalog'}
                     {activeTab === 'testimonials' && 'Client Testimonials'}
                     {activeTab === 'faqs' && 'Frequently Asked Questions'}
                     {activeTab === 'services' && 'Layanan Catering'}
                     {activeTab === 'partners' && 'Mitra & Klien'}
-                    {activeTab === 'settings' && 'Web Settings & Configuration'}
+                    {activeTab === 'settings-hero' && 'Web Settings > Hero & Slider'}
+                    {activeTab === 'settings-contact' && 'Web Settings > Kontak & Sosmed'}
+                    {activeTab === 'settings-features' && 'Web Settings > Keunggulan & Stats'}
                 </h2>
             }
         >
@@ -729,10 +734,123 @@ export default function Dashboard({
                         </div>
                     )}
 
-                    {/* Web Settings Tab */}
-                    {activeTab === 'settings' && (
+                    {/* Web Settings - Hero & Slider Tab */}
+                    {activeTab === 'settings-hero' && (
                         <div className="bg-white shadow sm:rounded-lg dark:bg-gray-800 border border-gray-100 dark:border-gray-700 p-8">
-                            <h3 className="text-lg font-medium text-gray-900 dark:text-white border-b pb-4 mb-6">Pengaturan Umum Kontak Website</h3>
+                            <h3 className="text-lg font-medium text-gray-900 dark:text-white border-b pb-4 mb-6">Pengaturan Banner Utama & Slider Before-After</h3>
+                            <form onSubmit={handleSettingsSubmit} className="space-y-6 max-w-2xl">
+                                <h4 className="text-sm font-semibold text-gray-900 dark:text-white border-b pb-2">Pengaturan Hero Banner</h4>
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Judul Hero (Dukung tag HTML seperti &lt;br /&gt; atau &lt;span class="text-secondary italic"&gt;)</label>
+                                        <input
+                                            type="text"
+                                            value={settingsForm.hero_title}
+                                            onChange={(e) => setSettingsForm({ ...settingsForm, hero_title: e.target.value })}
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#0F5132] focus:ring-1 focus:ring-[#0F5132] text-gray-900 dark:text-white"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Sub-judul Hero (Deskripsi Singkat)</label>
+                                        <textarea
+                                            rows={2}
+                                            value={settingsForm.hero_subtitle}
+                                            onChange={(e) => setSettingsForm({ ...settingsForm, hero_subtitle: e.target.value })}
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#0F5132] focus:ring-1 focus:ring-[#0F5132] text-gray-900 dark:text-white resize-none"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Gambar Background Hero (Resolusi Rekomendasi: 1920x1080px, format .webp/.jpg)</label>
+                                        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                                            {settingsForm.hero_bg_image && (
+                                                <img src={settingsForm.hero_bg_image} alt="Hero background preview" className="w-24 h-16 object-cover rounded-lg shadow-xs border dark:border-gray-700" />
+                                            )}
+                                            <div className="flex-1 w-full">
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    onChange={(e) => setHeroBgFile(e.target.files ? e.target.files[0] : null)}
+                                                    className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-[#0F5132] hover:file:bg-emerald-100 dark:file:bg-emerald-950/20 dark:file:text-[#C7A856]"
+                                                />
+                                                {heroBgFile && <p className="text-[10px] text-green-600 mt-1">✔ File terpilih: {heroBgFile.name}</p>}
+                                                <p className="text-[10px] text-gray-400 mt-1">Current path: {settingsForm.hero_bg_image || '-'}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h4 className="text-sm font-semibold text-gray-900 dark:text-white border-b pb-2 pt-4">Pengaturan Before-After Slider</h4>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div className="space-y-4">
+                                        <div>
+                                            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Gambar Sebelum Setup (Resolusi Rekomendasi: 1920x1080px)</label>
+                                            <div className="flex flex-col gap-2">
+                                                {settingsForm.slider_before_image && (
+                                                    <img src={settingsForm.slider_before_image} alt="Slider before preview" className="w-24 h-16 object-cover rounded-lg shadow-xs border dark:border-gray-700" />
+                                                )}
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    onChange={(e) => setSliderBeforeFile(e.target.files ? e.target.files[0] : null)}
+                                                    className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-[#0F5132] hover:file:bg-emerald-100 dark:file:bg-emerald-950/20 dark:file:text-[#C7A856]"
+                                                />
+                                                {sliderBeforeFile && <p className="text-[10px] text-green-600 mt-1">✔ File terpilih: {sliderBeforeFile.name}</p>}
+                                                <p className="text-[10px] text-gray-400 mt-1">Current: {settingsForm.slider_before_image || '-'}</p>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Label Sebelum Setup</label>
+                                            <input
+                                                type="text"
+                                                value={settingsForm.slider_before_label}
+                                                onChange={(e) => setSettingsForm({ ...settingsForm, slider_before_label: e.target.value })}
+                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#0F5132] focus:ring-1 focus:ring-[#0F5132] text-gray-900 dark:text-white"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="space-y-4">
+                                        <div>
+                                            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Gambar Sesudah Setup (Resolusi Rekomendasi: 1920x1080px)</label>
+                                            <div className="flex flex-col gap-2">
+                                                {settingsForm.slider_after_image && (
+                                                    <img src={settingsForm.slider_after_image} alt="Slider after preview" className="w-24 h-16 object-cover rounded-lg shadow-xs border dark:border-gray-700" />
+                                                )}
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    onChange={(e) => setSliderAfterFile(e.target.files ? e.target.files[0] : null)}
+                                                    className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-[#0F5132] hover:file:bg-emerald-100 dark:file:bg-emerald-950/20 dark:file:text-[#C7A856]"
+                                                />
+                                                {sliderAfterFile && <p className="text-[10px] text-green-600 mt-1">✔ File terpilih: {sliderAfterFile.name}</p>}
+                                                <p className="text-[10px] text-gray-400 mt-1">Current: {settingsForm.slider_after_image || '-'}</p>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Label Sesudah Setup</label>
+                                            <input
+                                                type="text"
+                                                value={settingsForm.slider_after_label}
+                                                onChange={(e) => setSettingsForm({ ...settingsForm, slider_after_label: e.target.value })}
+                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#0F5132] focus:ring-1 focus:ring-[#0F5132] text-gray-900 dark:text-white"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    className="px-6 py-2.5 bg-[#C7A856] hover:bg-[#b09245] text-white font-bold text-xs rounded-lg shadow-md shadow-amber-500/5 transition-all cursor-pointer animate-fadeIn"
+                                >
+                                    Simpan Banner & Slider
+                                </button>
+                            </form>
+                        </div>
+                    )}
+
+                    {/* Web Settings - Kontak & Sosmed Tab */}
+                    {activeTab === 'settings-contact' && (
+                        <div className="bg-white shadow sm:rounded-lg dark:bg-gray-800 border border-gray-100 dark:border-gray-700 p-8">
+                            <h3 className="text-lg font-medium text-gray-900 dark:text-white border-b pb-4 mb-6">Pengaturan Kontak & Media Sosial</h3>
                             <form onSubmit={handleSettingsSubmit} className="space-y-6 max-w-2xl">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                     <div>
@@ -837,106 +955,23 @@ export default function Dashboard({
                                     />
                                 </div>
 
-                                <h4 className="text-sm font-semibold text-gray-900 dark:text-white border-b pb-2 pt-4">Pengaturan Hero Banner</h4>
-                                <div className="space-y-4">
-                                    <div>
-                                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Judul Hero (Dukung tag HTML seperti &lt;br /&gt; atau &lt;span class="text-secondary italic"&gt;)</label>
-                                        <input
-                                            type="text"
-                                            value={settingsForm.hero_title}
-                                            onChange={(e) => setSettingsForm({ ...settingsForm, hero_title: e.target.value })}
-                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#0F5132] focus:ring-1 focus:ring-[#0F5132] text-gray-900 dark:text-white"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Sub-judul Hero (Deskripsi Singkat)</label>
-                                        <textarea
-                                            rows={2}
-                                            value={settingsForm.hero_subtitle}
-                                            onChange={(e) => setSettingsForm({ ...settingsForm, hero_subtitle: e.target.value })}
-                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#0F5132] focus:ring-1 focus:ring-[#0F5132] text-gray-900 dark:text-white resize-none"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Gambar Background Hero (Resolusi Rekomendasi: 1920x1080px, format .webp/.jpg)</label>
-                                        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-                                            {settingsForm.hero_bg_image && (
-                                                <img src={settingsForm.hero_bg_image} alt="Hero background preview" className="w-24 h-16 object-cover rounded-lg shadow-xs border dark:border-gray-700" />
-                                            )}
-                                            <div className="flex-1 w-full">
-                                                <input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    onChange={(e) => setHeroBgFile(e.target.files ? e.target.files[0] : null)}
-                                                    className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-[#0F5132] hover:file:bg-emerald-100 dark:file:bg-emerald-950/20 dark:file:text-[#C7A856]"
-                                                />
-                                                {heroBgFile && <p className="text-[10px] text-green-600 mt-1">✔ File terpilih: {heroBgFile.name}</p>}
-                                                <p className="text-[10px] text-gray-400 mt-1">Current path: {settingsForm.hero_bg_image || '-'}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <button
+                                    type="submit"
+                                    className="px-6 py-2.5 bg-[#C7A856] hover:bg-[#b09245] text-white font-bold text-xs rounded-lg shadow-md shadow-amber-500/5 transition-all cursor-pointer"
+                                >
+                                    Simpan Kontak & Sosmed
+                                </button>
+                            </form>
+                        </div>
+                    )}
 
-                                <h4 className="text-sm font-semibold text-gray-900 dark:text-white border-b pb-2 pt-4">Pengaturan Before-After Slider</h4>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                    <div className="space-y-4">
-                                        <div>
-                                            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Gambar Sebelum Setup (Resolusi Rekomendasi: 1920x1080px)</label>
-                                            <div className="flex flex-col gap-2">
-                                                {settingsForm.slider_before_image && (
-                                                    <img src={settingsForm.slider_before_image} alt="Slider before preview" className="w-24 h-16 object-cover rounded-lg shadow-xs border dark:border-gray-700" />
-                                                )}
-                                                <input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    onChange={(e) => setSliderBeforeFile(e.target.files ? e.target.files[0] : null)}
-                                                    className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-[#0F5132] hover:file:bg-emerald-100 dark:file:bg-emerald-950/20 dark:file:text-[#C7A856]"
-                                                />
-                                                {sliderBeforeFile && <p className="text-[10px] text-green-600 mt-1">✔ File terpilih: {sliderBeforeFile.name}</p>}
-                                                <p className="text-[10px] text-gray-400 mt-1">Current: {settingsForm.slider_before_image || '-'}</p>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Label Sebelum Setup</label>
-                                            <input
-                                                type="text"
-                                                value={settingsForm.slider_before_label}
-                                                onChange={(e) => setSettingsForm({ ...settingsForm, slider_before_label: e.target.value })}
-                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#0F5132] focus:ring-1 focus:ring-[#0F5132] text-gray-900 dark:text-white"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="space-y-4">
-                                        <div>
-                                            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Gambar Sesudah Setup (Resolusi Rekomendasi: 1920x1080px)</label>
-                                            <div className="flex flex-col gap-2">
-                                                {settingsForm.slider_after_image && (
-                                                    <img src={settingsForm.slider_after_image} alt="Slider after preview" className="w-24 h-16 object-cover rounded-lg shadow-xs border dark:border-gray-700" />
-                                                )}
-                                                <input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    onChange={(e) => setSliderAfterFile(e.target.files ? e.target.files[0] : null)}
-                                                    className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-[#0F5132] hover:file:bg-emerald-100 dark:file:bg-emerald-950/20 dark:file:text-[#C7A856]"
-                                                />
-                                                {sliderAfterFile && <p className="text-[10px] text-green-600 mt-1">✔ File terpilih: {sliderAfterFile.name}</p>}
-                                                <p className="text-[10px] text-gray-400 mt-1">Current: {settingsForm.slider_after_image || '-'}</p>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Label Sesudah Setup</label>
-                                            <input
-                                                type="text"
-                                                value={settingsForm.slider_after_label}
-                                                onChange={(e) => setSettingsForm({ ...settingsForm, slider_after_label: e.target.value })}
-                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#0F5132] focus:ring-1 focus:ring-[#0F5132] text-gray-900 dark:text-white"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <h4 className="text-sm font-semibold text-gray-900 dark:text-white border-b pb-2 pt-4">Pengaturan Seksi Keunggulan</h4>
-                                <div className="space-y-4">
+                    {/* Web Settings - Keunggulan & Stats Tab */}
+                    {activeTab === 'settings-features' && (
+                        <div className="bg-white shadow sm:rounded-lg dark:bg-gray-800 border border-gray-100 dark:border-gray-700 p-8">
+                            <h3 className="text-lg font-medium text-gray-900 dark:text-white border-b pb-4 mb-6">Pengaturan Keunggulan & Angka Statistik</h3>
+                            <form onSubmit={handleSettingsSubmit} className="space-y-6">
+                                <h4 className="text-sm font-semibold text-gray-900 dark:text-white border-b pb-2">Pengaturan Seksi Keunggulan</h4>
+                                <div className="space-y-4 max-w-2xl">
                                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                                         <div>
                                             <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Badge Keunggulan</label>
@@ -1031,8 +1066,8 @@ export default function Dashboard({
                                     </div>
                                 </div>
 
-                                <h4 className="text-sm font-semibold text-gray-900 dark:text-white border-b pb-2 pt-4">Pengaturan Angka Statistik</h4>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <h4 className="text-sm font-semibold text-gray-900 dark:text-white border-b pb-2 pt-6">Pengaturan Angka Statistik</h4>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl">
                                     <div className="space-y-4">
                                         <div className="grid grid-cols-3 gap-4">
                                             <div className="col-span-1">
@@ -1086,7 +1121,7 @@ export default function Dashboard({
                                     type="submit"
                                     className="px-6 py-2.5 bg-[#C7A856] hover:bg-[#b09245] text-white font-bold text-xs rounded-lg shadow-md shadow-amber-500/5 transition-all cursor-pointer"
                                 >
-                                    Simpan Pengaturan
+                                    Simpan Keunggulan & Stats
                                 </button>
                             </form>
                         </div>

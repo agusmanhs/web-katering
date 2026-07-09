@@ -10,6 +10,7 @@ export interface SidebarItem {
     onClick?: () => void;
     active: boolean;
     href?: string;
+    indent?: boolean;
 }
 
 export default function Authenticated({
@@ -104,7 +105,9 @@ export default function Authenticated({
                 <nav className="flex-1 overflow-y-auto py-6 space-y-1">
                     {activeNavigation.map((item) => {
                         const isLink = !!item.href;
-                        const className = `w-full group flex items-center space-x-3 px-5 py-3 text-xs font-bold transition-all duration-200 border-l-4 ${
+                        const className = `w-full group flex items-center space-x-3 py-2.5 text-xs font-bold transition-all duration-200 border-l-4 ${
+                            item.indent ? 'pl-9 pr-5 font-medium text-[11px]' : 'px-5 font-bold'
+                        } ${
                             item.active
                                 ? 'bg-gradient-to-r from-emerald-900/40 to-transparent border-[#C7A856] text-[#C7A856]'
                                 : 'border-transparent text-emerald-200 hover:bg-emerald-900/30 hover:text-white hover:border-emerald-800/50'
@@ -174,7 +177,9 @@ export default function Authenticated({
                         <nav className="flex-1 overflow-y-auto py-6 space-y-1">
                             {activeNavigation.map((item) => {
                                 const isLink = !!item.href;
-                                const className = `w-full group flex items-center space-x-3 px-5 py-3 text-xs font-bold transition-all duration-200 border-l-4 ${
+                                const className = `w-full group flex items-center space-x-3 py-2.5 text-xs font-bold transition-all duration-200 border-l-4 ${
+                                    item.indent ? 'pl-9 pr-5 font-medium text-[11px]' : 'px-5 font-bold'
+                                } ${
                                     item.active
                                         ? 'bg-gradient-to-r from-emerald-900/40 to-transparent border-[#C7A856] text-[#C7A856]'
                                         : 'border-transparent text-emerald-200 hover:bg-emerald-900/30 hover:text-white hover:border-emerald-800/50'
