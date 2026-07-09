@@ -1,7 +1,7 @@
 import Dropdown from '@/Components/Dropdown';
 import { Link, usePage } from '@inertiajs/react';
 import { PropsWithChildren, ReactNode, useState, useEffect } from 'react';
-import { Menu, X, Sparkles, LogOut, User, LayoutDashboard, Settings, Sun, Moon, Monitor } from 'lucide-react';
+import { Menu, X, Sparkles, LogOut, User, LayoutDashboard, Settings, Sun, Moon, Monitor, ChevronDown, ChevronRight } from 'lucide-react';
 
 export interface SidebarItem {
     id: string;
@@ -11,6 +11,90 @@ export interface SidebarItem {
     active: boolean;
     href?: string;
     indent?: boolean;
+    subItems?: SidebarItem[];
+}
+
+function SidebarCollapseItem({ item, isMobileOpen, setIsMobileOpen }: { item: SidebarItem; isMobileOpen?: boolean; setIsMobileOpen?: (val: boolean) => void }) {
+    const hasActiveSub = item.subItems?.some(sub => sub.active);
+    const [isOpen, setIsOpen] = useState(item.active || !!hasActiveSub);
+
+    useEffect(() => {
+        if (item.active || hasActiveSub) {
+            setIsOpen(true);
+        }
+    }, [item.active, hasActiveSub]);
+
+    const handleToggle = (e: React.MouseEvent) => {
+        e.preventDefault();
+        setIsOpen(!isOpen);
+        if (item.onClick) {
+            item.onClick();
+        }
+    };
+
+    const parentClassName = `w-full group flex items-center justify-between px-5 py-3 text-xs font-bold transition-all duration-200 border-l-4 cursor-pointer ${
+        item.active
+            ? 'bg-gradient-to-r from-emerald-900/40 to-transparent border-[#C7A856] text-[#C7A856]'
+            : 'border-transparent text-emerald-200 hover:bg-emerald-900/30 hover:text-white hover:border-emerald-800/50'
+    }`;
+
+    return (
+        <div className="space-y-1">
+            <button onClick={handleToggle} className={parentClassName}>
+                <div className="flex items-center space-x-3">
+                    <span className={item.active ? 'text-[#C7A856]' : 'text-emerald-400 group-hover:text-emerald-100'}>
+                        {item.icon}
+                    </span>
+                    <span>{item.label}</span>
+                </div>
+                <span>
+                    {isOpen ? (
+                        <ChevronDown className="w-3.5 h-3.5 text-emerald-400 group-hover:text-emerald-100" />
+                    ) : (
+                        <ChevronRight className="w-3.5 h-3.5 text-emerald-400 group-hover:text-emerald-100" />
+                    )}
+                </span>
+            </button>
+            
+            {isOpen && item.subItems && (
+                <div className="space-y-1 pl-4 border-l border-emerald-900/40 ml-6">
+                    {item.subItems.map(sub => {
+                        const isLink = !!sub.href;
+                        const subClassName = `w-full group flex items-center space-x-3 pl-4 pr-5 py-2 text-[11px] font-medium transition-all duration-200 border-l-2 ${
+                            sub.active
+                                ? 'bg-gradient-to-r from-emerald-900/30 to-transparent border-[#C7A856] text-[#C7A856]'
+                                : 'border-transparent text-emerald-300 hover:bg-emerald-900/20 hover:text-white hover:border-emerald-800/30'
+                        }`;
+                        
+                        const handleSubClick = () => {
+                            if (sub.onClick) sub.onClick();
+                            if (setIsMobileOpen) setIsMobileOpen(false);
+                        };
+
+                        if (isLink) {
+                            return (
+                                <Link key={sub.id} href={sub.href!} className={subClassName} onClick={() => setIsMobileOpen && setIsMobileOpen(false)}>
+                                    <span className={sub.active ? 'text-[#C7A856]' : 'text-emerald-500 group-hover:text-emerald-100'}>
+                                        {sub.icon}
+                                    </span>
+                                    <span>{sub.label}</span>
+                                </Link>
+                            );
+                        } else {
+                            return (
+                                <button key={sub.id} onClick={handleSubClick} className={subClassName}>
+                                    <span className={sub.active ? 'text-[#C7A856]' : 'text-emerald-500 group-hover:text-emerald-100'}>
+                                        {sub.icon}
+                                    </span>
+                                    <span>{sub.label}</span>
+                                </button>
+                            );
+                        }
+                    })}
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default function Authenticated({
@@ -104,6 +188,10 @@ export default function Authenticated({
                 {/* Sidebar Navigation Links */}
                 <nav className="flex-1 overflow-y-auto py-6 space-y-1">
                     {activeNavigation.map((item) => {
+                        if (item.subItems && item.subItems.length > 0) {
+                            return <SidebarCollapseItem key={item.id} item={item} />;
+                        }
+
                         const isLink = !!item.href;
                         const className = `w-full group flex items-center space-x-3 py-2.5 text-xs font-bold transition-all duration-200 border-l-4 ${
                             item.indent ? 'pl-9 pr-5 font-medium text-[11px]' : 'px-5 font-bold'
@@ -176,6 +264,10 @@ export default function Authenticated({
                         {/* Drawer Navigation Links */}
                         <nav className="flex-1 overflow-y-auto py-6 space-y-1">
                             {activeNavigation.map((item) => {
+                                if (item.subItems && item.subItems.length > 0) {
+                                    return <SidebarCollapseItem key={item.id} item={item} setIsMobileOpen={setIsMobileOpen} />;
+                                }
+
                                 const isLink = !!item.href;
                                 const className = `w-full group flex items-center space-x-3 py-2.5 text-xs font-bold transition-all duration-200 border-l-4 ${
                                     item.indent ? 'pl-9 pr-5 font-medium text-[11px]' : 'px-5 font-bold'

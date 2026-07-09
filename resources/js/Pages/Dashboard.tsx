@@ -420,10 +420,17 @@ export default function Dashboard({
         { id: 'faqs', label: 'FAQs & QAs', icon: <HelpCircle className="w-4 h-4" />, onClick: () => setActiveTab('faqs'), active: activeTab === 'faqs' },
         { id: 'services', label: 'Layanan Kami', icon: <Award className="w-4 h-4" />, onClick: () => setActiveTab('services'), active: activeTab === 'services' },
         { id: 'partners', label: 'Mitra / Klien', icon: <Building className="w-4 h-4" />, onClick: () => setActiveTab('partners'), active: activeTab === 'partners' },
-        { id: 'settings', label: 'Web Settings', icon: <SettingsIcon className="w-4 h-4" />, onClick: () => setActiveTab('settings-hero'), active: activeTab.startsWith('settings') },
-        { id: 'settings-hero', label: 'Hero & Slider', icon: <Sliders className="w-4 h-4" />, onClick: () => setActiveTab('settings-hero'), active: activeTab === 'settings-hero', indent: true },
-        { id: 'settings-contact', label: 'Kontak & Sosmed', icon: <Phone className="w-4 h-4" />, onClick: () => setActiveTab('settings-contact'), active: activeTab === 'settings-contact', indent: true },
-        { id: 'settings-features', label: 'Keunggulan & Stats', icon: <Sparkles className="w-4 h-4" />, onClick: () => setActiveTab('settings-features'), active: activeTab === 'settings-features', indent: true },
+        {
+            id: 'settings',
+            label: 'Web Settings',
+            icon: <SettingsIcon className="w-4 h-4" />,
+            active: activeTab.startsWith('settings'),
+            subItems: [
+                { id: 'settings-hero', label: 'Hero & Slider', icon: <Sliders className="w-4 h-4" />, onClick: () => setActiveTab('settings-hero'), active: activeTab === 'settings-hero' },
+                { id: 'settings-contact', label: 'Kontak & Sosmed', icon: <Phone className="w-4 h-4" />, onClick: () => setActiveTab('settings-contact'), active: activeTab === 'settings-contact' },
+                { id: 'settings-features', label: 'Keunggulan & Stats', icon: <Sparkles className="w-4 h-4" />, onClick: () => setActiveTab('settings-features'), active: activeTab === 'settings-features' },
+            ]
+        }
     ];
 
     return (
