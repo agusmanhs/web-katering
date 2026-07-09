@@ -22,10 +22,10 @@ class DatabaseSeeder extends Seeder
     {
         // 1. Admin User
         User::updateOrCreate(
-            ['email' => 'admin@nirmala.com'],
+            ['email' => 'admin@dapoerratucatering.com'],
             [
-                'name' => 'Nirmala Admin',
-                'password' => Hash::make('nirmalapremium123'),
+                'name' => 'Dapoer Ratu Admin',
+                'password' => Hash::make('dapoerratupremium123'),
                 'email_verified_at' => now(),
             ]
         );
@@ -170,7 +170,7 @@ class DatabaseSeeder extends Seeder
                 'customer_photo' => '/images/user_clara.webp',
                 'company_logo' => null,
                 'rating' => 5,
-                'review' => 'Layanan Nirmala luar biasa! Beef Wellington mereka menjadi buah bibir semua tamu undangan pernikahan kami. Dekorasi prasmanannya sangat mewah dan elegan, persis seperti hotel bintang lima.',
+                'review' => 'Layanan Dapoer Ratu luar biasa! Beef Wellington mereka menjadi buah bibir semua tamu undangan pernikahan kami. Dekorasi prasmanannya sangat mewah dan elegan, persis seperti hotel bintang lima.',
             ],
             [
                 'customer_name' => 'Bambang Widjojo',
@@ -178,7 +178,7 @@ class DatabaseSeeder extends Seeder
                 'customer_photo' => '/images/user_bambang.webp',
                 'company_logo' => '/images/logo_mandiri.webp',
                 'rating' => 5,
-                'review' => 'Kami mempercayakan makan siang VIP Rapat Umum Pemegang Saham (RUPS) kami kepada Nirmala. Tepat waktu, higienis, dan citarasa makanannya sangat konsisten dari awal hingga akhir acara.',
+                'review' => 'Kami mempercayakan makan siang VIP Rapat Umum Pemegang Saham (RUPS) kami kepada Dapoer Ratu. Tepat waktu, higienis, dan citarasa makanannya sangat konsisten dari awal hingga akhir acara.',
             ],
             [
                 'customer_name' => 'Dr. Ratih Amalia',
@@ -186,7 +186,7 @@ class DatabaseSeeder extends Seeder
                 'customer_photo' => '/images/user_ratih.webp',
                 'company_logo' => null,
                 'rating' => 5,
-                'review' => 'Paket Coffee Break box dari Nirmala sangat praktis namun tetap terkesan premium. Pastry-nya masih renyah saat disajikan, dan respon customer service mereka dalam memodifikasi menu sangat cepat dan ramah.',
+                'review' => 'Paket Coffee Break box dari Dapoer Ratu sangat praktis namun tetap terkesan premium. Pastry-nya masih renyah saat disajikan, dan respon customer service mereka dalam memodifikasi menu sangat cepat dan ramah.',
             ],
         ];
 
@@ -198,11 +198,11 @@ class DatabaseSeeder extends Seeder
         $faqs = [
             [
                 'question' => 'Apakah menu makanan dijamin 100% Halal?',
-                'answer' => 'Ya, seluruh hidangan yang disajikan Nirmala Catering terbuat dari bahan-bahan yang memiliki sertifikasi Halal resmi. Kami sangat menjaga kebersihan dan kepatuhan syar\'i dalam seluruh pengolahan makanan.',
+                'answer' => 'Ya, seluruh hidangan yang disajikan Dapoer Ratu Catering terbuat dari bahan-bahan yang memiliki sertifikasi Halal resmi. Kami sangat menjaga kebersihan dan kepatuhan syar\'i dalam seluruh pengolahan makanan.',
                 'order_num' => 1,
             ],
             [
-                'question' => 'Berapa jumlah minimal pesanan (minimal order) di Nirmala?',
+                'question' => 'Berapa jumlah minimal pesanan (minimal order) di Dapoer Ratu?',
                 'answer' => 'Untuk paket prasmanan (buffet) pernikahan/corporate minimal order adalah 100 pax. Sedangkan untuk event eksklusif di rumah (private event) minimal pemesanan adalah 30 pax. Untuk paket Coffee Break dan Lunch Box minimal 50 box.',
                 'order_num' => 2,
             ],
@@ -300,12 +300,12 @@ class DatabaseSeeder extends Seeder
         // 8. General Settings
         $settings = [
             'company_phone' => '+62 812-3456-7890',
-            'company_email' => 'info@nirmalacatering.com',
+            'company_email' => 'info@dapoerratucatering.com',
             'company_address' => 'Jl. Senopati No.45, Kebayoran Baru, Jakarta Selatan',
             'company_wa' => '6281234567890',
-            'company_instagram' => '@nirmalacatering',
-            'company_facebook' => 'nirmala.catering',
-            'company_youtube' => 'NirmalaCatering',
+            'company_instagram' => '@dapoerratucatering',
+            'company_facebook' => 'dapoerratucatering',
+            'company_youtube' => 'DapoerRatuCatering',
             'google_maps_url' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1m4!2s-6.2235!3d106.8085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f1505c09191d%3A0x959779cb25662a5b!2sSenopati%2C%20Kebayoran%20Baru%2C%20Jakarta%20Selatan!5e0!3m2!1sid!2sid!4v1622350000000',
             'operational_hours_weekday' => 'Senin - Jumat: 08.00 - 18.00 WIB',
             'operational_hours_weekend' => 'Sabtu - Minggu: 09.00 - 17.00 WIB',

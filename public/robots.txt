@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nirmalacatering.com/sitemap.xml
+Sitemap: https://dapoerratucatering.com/sitemap.xml

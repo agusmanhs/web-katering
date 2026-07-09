@@ -1,6 +1,6 @@
-# Nirmala Premium Catering CMS & Landing Page
+# Dapoer Ratu Premium Catering CMS & Landing Page
 
-Website Company Profile Premium sekaligus CMS Admin Panel untuk mengelola data Landing Page Nirmala Catering. Dibangun menggunakan **Laravel 11**, **Inertia.js (React + TypeScript)**, dan **Tailwind CSS**.
+Website Company Profile Premium sekaligus CMS Admin Panel untuk mengelola data Landing Page Dapoer Ratu Catering. Dibangun menggunakan **Laravel 11**, **Inertia.js (React + TypeScript)**, dan **Tailwind CSS**.
 
 ---
 
@@ -82,8 +82,8 @@ Jalankan dua perintah berikut di jendela terminal terpisah (atau gunakan tools s
 
 Setelah database berhasil di-seed, Anda dapat login ke Dashboard Admin menggunakan akun berikut:
 - **URL Login**: [http://localhost:8000/login](http://localhost:8000/login)
-- **Email**: `admin@nirmala.com`
-- **Password**: `nirmalapremium123`
+- **Email**: `admin@dapoerratucatering.com`
+- **Password**: `dapoerratupremium123`
 
 ---
 

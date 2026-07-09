@@ -257,7 +257,7 @@ export default function Welcome({
             onSuccess: () => {
                 // Save lead, then direct to WhatsApp
                 const waNumber = getSetting('company_wa', '6281234567890');
-                const message = `Halo Nirmala Catering, saya ingin meminta penawaran & berkonsultasi mengenai catering premium.
+                const message = `Halo Dapoer Ratu Catering, saya ingin meminta penawaran & berkonsultasi mengenai catering premium.
 
 *Detail Acara:*
 • *Nama:* ${formData.name}
@@ -304,9 +304,9 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
     return (
         <div className="min-h-screen bg-cream text-darktext font-sans scroll-smooth select-none selection:bg-secondary/30">
             <Head>
-                <title>Nirmala Catering Premium - Wedding, Corporate & Private Event</title>
-                <meta name="description" content="Menyajikan pengalaman kuliner premium sejak 1984. Catering bintang lima terbaik di Indonesia untuk pernikahan, event korporat, BUMN, dan private party." />
-                <meta property="og:title" content="Nirmala Catering Premium" />
+                <title>Dapoer Ratu Catering Premium - Wedding, Corporate & Private Event</title>
+                <meta name="description" content="Menyajikan pengalaman kuliner premium. Catering bintang lima terbaik di Indonesia untuk pernikahan, event korporat, BUMN, dan private party." />
+                <meta property="og:title" content="Dapoer Ratu Catering Premium" />
                 <meta property="og:description" content="Kuliner premium untuk momen tak terlupakan. Layanan katering profesional di Indonesia." />
                 <meta property="og:image" content="/images/hero_background.webp" />
                 <meta name="robots" content="index, follow" />
@@ -314,10 +314,10 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                     {JSON.stringify({
                         "@context": "https://schema.org",
                         "@type": "FoodEstablishment",
-                        "name": "Nirmala Catering Premium",
+                        "name": "Dapoer Ratu Catering Premium",
                         "image": "/images/hero_background.webp",
-                        "@id": "https://nirmalacatering.com",
-                        "url": "https://nirmalacatering.com",
+                        "@id": "https://dapoerratucatering.com",
+                        "url": "https://dapoerratucatering.com",
                         "telephone": getSetting('company_phone', '+6281234567890'),
                         "address": {
                             "@type": "PostalAddress",
@@ -345,7 +345,7 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                                 "closes": "17:00"
                             }
                         ],
-                        "menu": "https://nirmalacatering.com#menu",
+                        "menu": "https://dapoerratucatering.com#menu",
                         "acceptsReservations": "True"
                     })}
                 </script>
@@ -355,7 +355,7 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
             <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-primary/95 shadow-md py-4 backdrop-blur-md border-b border-secondary/20' : 'bg-transparent py-6'}`}>
                 <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
                     <a href="#" className="flex flex-col">
-                        <span className="font-playfair text-2xl font-bold tracking-wider text-secondary leading-none">NIRMALA</span>
+                        <span className="font-playfair text-2xl font-bold tracking-wider text-secondary leading-none">DAPOER RATU</span>
                         <span className="text-[10px] tracking-[0.25em] text-white font-light mt-1">PREMIUM CATERING</span>
                     </a>
 
@@ -387,7 +387,7 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                         className="fixed inset-0 z-50 bg-primary flex flex-col p-8 text-white lg:hidden"
                     >
                         <div className="flex justify-between items-center mb-12">
-                            <span className="font-playfair text-xl font-bold text-secondary tracking-widest">NIRMALA</span>
+                            <span className="font-playfair text-xl font-bold text-secondary tracking-widest">DAPOER RATU</span>
                             <button onClick={() => setIsMenuOpen(false)} className="text-white hover:text-secondary">
                                 <X className="w-6 h-6" />
                             </button>
@@ -984,7 +984,7 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                             </div>
                             <div className="flex items-center space-x-3">
                                 <Mail className="w-5 h-5 text-secondary" />
-                                <span className="text-sm font-light">{getSetting('company_email', 'info@nirmalacatering.com')}</span>
+                                <span className="text-sm font-light">{getSetting('company_email', 'info@dapoerratucatering.com')}</span>
                             </div>
                             <div className="flex items-center space-x-3">
                                 <MapPin className="w-5 h-5 text-secondary" />
@@ -1097,14 +1097,14 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                 <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                     {/* Brand column */}
                     <div className="space-y-4">
-                        <span className="font-playfair text-2xl font-bold tracking-wider text-secondary block">NIRMALA</span>
+                        <span className="font-playfair text-2xl font-bold tracking-wider text-secondary block">DAPOER RATU</span>
                         <p className="text-xs text-white/70 font-light leading-relaxed">
-                            Catering premium bercitarasa bintang lima yang menyajikan sajian berkelas dan pelayanan profesional untuk perayaan terbaik Anda di Indonesia sejak 1984.
+                            Catering premium bercitarasa bintang lima yang menyajikan sajian berkelas dan pelayanan profesional untuk perayaan terbaik Anda di Indonesia.
                         </p>
                         <div className="flex space-x-4 pt-2">
-                            <a href={`https://instagram.com/${getSetting('company_instagram', '@nirmalacatering').replace('@', '')}`} target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary text-white transition-colors text-xs font-bold">IG</a>
-                            <a href={`https://facebook.com/${getSetting('company_facebook', 'nirmala.catering')}`} target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary text-white transition-colors text-xs font-bold">FB</a>
-                            <a href={`https://youtube.com/c/${getSetting('company_youtube', 'NirmalaCatering')}`} target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary text-white transition-colors text-xs font-bold">YT</a>
+                            <a href={`https://instagram.com/${getSetting('company_instagram', '@dapoerratucatering').replace('@', '')}`} target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary text-white transition-colors text-xs font-bold">IG</a>
+                            <a href={`https://facebook.com/${getSetting('company_facebook', 'dapoerratucatering')}`} target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary text-white transition-colors text-xs font-bold">FB</a>
+                            <a href={`https://youtube.com/c/${getSetting('company_youtube', 'DapoerRatuCatering')}`} target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary text-white transition-colors text-xs font-bold">YT</a>
                         </div>
                     </div>
 
@@ -1134,7 +1134,7 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                             </li>
                             <li className="flex items-center space-x-2">
                                 <Mail className="w-3.5 h-3.5 text-secondary" />
-                                <span>{getSetting('company_email', 'info@nirmalacatering.com')}</span>
+                                <span>{getSetting('company_email', 'info@dapoerratucatering.com')}</span>
                             </li>
                         </ul>
                     </div>
@@ -1154,14 +1154,14 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                 </div>
 
                 <div className="border-t border-white/10 py-6 text-center text-[10px] text-white/50 font-light">
-                    © 2026 Nirmala Premium Catering Indonesia. All Rights Reserved. Crafted for Ultimate Hospitality.
+                    © 2026 Dapoer Ratu Catering Premium Indonesia. All Rights Reserved. Crafted for Ultimate Hospitality.
                 </div>
             </footer>
 
             {/* Sticky WhatsApp Button */}
             <div className="fixed bottom-6 right-6 z-40 flex flex-col space-y-3">
                 <a
-                    href={`https://wa.me/${getSetting('company_wa', '6281234567890')}?text=Halo%20Nirmala%20Catering%2C%20saya%20tertarik%20dengan%20layanan%20katering%20premium%20Anda.`}
+                    href={`https://wa.me/${getSetting('company_wa', '6281234567890')}?text=Halo%20Dapoer%20Ratu%20Catering%2C%20saya%20tertarik%20dengan%20layanan%20katering%20premium%20Anda.`}
                     target="_blank"
                     rel="noreferrer"
                     className="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white flex items-center justify-center shadow-lg hover:scale-108 transition-all relative group cursor-pointer"
