@@ -1253,8 +1253,9 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                     </div>
                 </div>
 
-                <div className="border-t border-white/10 py-6 text-center text-[10px] text-white/50 font-light">
-                    © 2026 Dapoer Ratu Catering Premium Indonesia. All Rights Reserved. Crafted for Ultimate Hospitality.
+                <div className="border-t border-white/10 py-6 text-center text-[10px] text-white/50 font-light flex flex-col sm:flex-row justify-between items-center max-w-7xl mx-auto px-6 gap-2">
+                    <span>© 2026 Dapoer Ratu Catering Premium Indonesia. All Rights Reserved.</span>
+                    <span>Developed by <a href="https://dataciptacelebes.com" target="_blank" rel="noreferrer" className="text-secondary hover:underline">CV. Data Cipta Celebes</a></span>
                 </div>
             </footer>
 
