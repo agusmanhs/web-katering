@@ -473,24 +473,26 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                         </div>
 
                         {/* Trust Badges */}
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto pt-12 border-t border-white/10">
-                            <div className="flex items-center justify-center space-x-2">
-                                <Check className="w-4 h-4 text-secondary" />
-                                <span className="text-xs font-medium text-white/90">✔ 100% Halal MUI</span>
+                        {getSetting('show_hero_badges', '1') === '1' && (
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto pt-12 border-t border-white/10">
+                                <div className="flex items-center justify-center space-x-2">
+                                    <Check className="w-4 h-4 text-secondary" />
+                                    <span className="text-xs font-medium text-white/90">✔ {getSetting('hero_badge_1', '100% Halal MUI')}</span>
+                                </div>
+                                <div className="flex items-center justify-center space-x-2">
+                                    <Check className="w-4 h-4 text-secondary" />
+                                    <span className="text-xs font-medium text-white/90">✔ {getSetting('hero_badge_2', 'Higienis Bersertifikat')}</span>
+                                </div>
+                                <div className="flex items-center justify-center space-x-2">
+                                    <Check className="w-4 h-4 text-secondary" />
+                                    <span className="text-xs font-medium text-white/90">✔ {getSetting('hero_badge_3', 'Tepat Waktu')}</span>
+                                </div>
+                                <div className="flex items-center justify-center space-x-2">
+                                    <Check className="w-4 h-4 text-secondary" />
+                                    <span className="text-xs font-medium text-white/90">✔ {getSetting('hero_badge_4', '40+ Tahun Pengalaman')}</span>
+                                </div>
                             </div>
-                            <div className="flex items-center justify-center space-x-2">
-                                <Check className="w-4 h-4 text-secondary" />
-                                <span className="text-xs font-medium text-white/90">✔ Higienis Bersertifikat</span>
-                            </div>
-                            <div className="flex items-center justify-center space-x-2">
-                                <Check className="w-4 h-4 text-secondary" />
-                                <span className="text-xs font-medium text-white/90">✔ Tepat Waktu</span>
-                            </div>
-                            <div className="flex items-center justify-center space-x-2">
-                                <Check className="w-4 h-4 text-secondary" />
-                                <span className="text-xs font-medium text-white/90">✔ 40+ Tahun Pengalaman</span>
-                            </div>
-                        </div>
+                        )}
                     </motion.div>
                 </div>
             </header>

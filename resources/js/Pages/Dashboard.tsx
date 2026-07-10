@@ -173,6 +173,11 @@ export default function Dashboard({
         hero_title: settings.hero_title || '',
         hero_subtitle: settings.hero_subtitle || '',
         hero_bg_image: settings.hero_bg_image || '',
+        show_hero_badges: settings.show_hero_badges !== undefined ? settings.show_hero_badges : '1',
+        hero_badge_1: settings.hero_badge_1 || '',
+        hero_badge_2: settings.hero_badge_2 || '',
+        hero_badge_3: settings.hero_badge_3 || '',
+        hero_badge_4: settings.hero_badge_4 || '',
         slider_before_image: settings.slider_before_image || '',
         slider_after_image: settings.slider_after_image || '',
         slider_before_label: settings.slider_before_label || '',
@@ -1061,6 +1066,62 @@ export default function Dashboard({
                                             </div>
                                         </div>
                                     </div>
+                                    <div>
+                                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Tampilkan Trust Badges Hero</label>
+                                        <select
+                                            value={settingsForm.show_hero_badges}
+                                            onChange={(e) => setSettingsForm({ ...settingsForm, show_hero_badges: e.target.value })}
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                        >
+                                            <option value="1">Ya, Tampilkan</option>
+                                            <option value="0">Tidak, Sembunyikan</option>
+                                        </select>
+                                    </div>
+
+                                    {settingsForm.show_hero_badges === '1' && (
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                                            <div>
+                                                <label className="block text-[10px] font-semibold text-gray-700 dark:text-gray-300 mb-1">Trust Badge 1</label>
+                                                <input
+                                                    type="text"
+                                                    value={settingsForm.hero_badge_1}
+                                                    onChange={(e) => setSettingsForm({ ...settingsForm, hero_badge_1: e.target.value })}
+                                                    className="w-full px-4 py-1.5 text-xs rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                                    placeholder="Contoh: 100% Halal MUI"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-[10px] font-semibold text-gray-700 dark:text-gray-300 mb-1">Trust Badge 2</label>
+                                                <input
+                                                    type="text"
+                                                    value={settingsForm.hero_badge_2}
+                                                    onChange={(e) => setSettingsForm({ ...settingsForm, hero_badge_2: e.target.value })}
+                                                    className="w-full px-4 py-1.5 text-xs rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                                    placeholder="Contoh: Higienis Bersertifikat"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-[10px] font-semibold text-gray-700 dark:text-gray-300 mb-1">Trust Badge 3</label>
+                                                <input
+                                                    type="text"
+                                                    value={settingsForm.hero_badge_3}
+                                                    onChange={(e) => setSettingsForm({ ...settingsForm, hero_badge_3: e.target.value })}
+                                                    className="w-full px-4 py-1.5 text-xs rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                                    placeholder="Contoh: Tepat Waktu"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-[10px] font-semibold text-gray-700 dark:text-gray-300 mb-1">Trust Badge 4</label>
+                                                <input
+                                                    type="text"
+                                                    value={settingsForm.hero_badge_4}
+                                                    onChange={(e) => setSettingsForm({ ...settingsForm, hero_badge_4: e.target.value })}
+                                                    className="w-full px-4 py-1.5 text-xs rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                                    placeholder="Contoh: 40+ Tahun Pengalaman"
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <h4 className="text-sm font-semibold text-gray-900 dark:text-white border-b pb-2 pt-4">Pengaturan Before-After Slider</h4>
