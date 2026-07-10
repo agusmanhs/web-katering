@@ -35,35 +35,35 @@ function SidebarCollapseItem({ item, isMobileOpen, setIsMobileOpen }: { item: Si
     const parentClassName = `w-full group flex items-center justify-between px-5 py-3 text-xs font-bold transition-all duration-200 border-l-4 cursor-pointer ${
         item.active
             ? 'bg-gradient-to-r from-emerald-900/40 to-transparent border-[#C7A856] text-[#C7A856]'
-            : 'border-transparent text-emerald-200 hover:bg-emerald-900/30 hover:text-white hover:border-emerald-800/50'
+            : 'border-transparent text-red-200 hover:bg-red-900/20 hover:text-white hover:border-red-800/30'
     }`;
 
     return (
         <div className="space-y-1">
             <button onClick={handleToggle} className={parentClassName}>
                 <div className="flex items-center space-x-3">
-                    <span className={item.active ? 'text-[#C7A856]' : 'text-emerald-400 group-hover:text-emerald-100'}>
+                    <span className={item.active ? 'text-[#C7A856]' : 'text-red-400 group-hover:text-red-100'}>
                         {item.icon}
                     </span>
                     <span>{item.label}</span>
                 </div>
                 <span>
                     {isOpen ? (
-                        <ChevronDown className="w-3.5 h-3.5 text-emerald-400 group-hover:text-emerald-100" />
+                        <ChevronDown className="w-3.5 h-3.5 text-red-400 group-hover:text-red-100" />
                     ) : (
-                        <ChevronRight className="w-3.5 h-3.5 text-emerald-400 group-hover:text-emerald-100" />
+                        <ChevronRight className="w-3.5 h-3.5 text-red-400 group-hover:text-red-100" />
                     )}
                 </span>
             </button>
             
             {isOpen && item.subItems && (
-                <div className="space-y-1 pl-4 border-l border-emerald-900/40 ml-6">
+                <div className="space-y-1 pl-4 border-l border-red-900/30 ml-6">
                     {item.subItems.map(sub => {
                         const isLink = !!sub.href;
                         const subClassName = `w-full group flex items-center space-x-3 pl-4 pr-5 py-2 text-[11px] font-medium transition-all duration-200 border-l-2 ${
                             sub.active
                                 ? 'bg-gradient-to-r from-emerald-900/30 to-transparent border-[#C7A856] text-[#C7A856]'
-                                : 'border-transparent text-emerald-300 hover:bg-emerald-900/20 hover:text-white hover:border-emerald-800/30'
+                                : 'border-transparent text-red-300 hover:bg-red-900/10 hover:text-white hover:border-emerald-800/30'
                         }`;
                         
                         const handleSubClick = () => {
@@ -74,7 +74,7 @@ function SidebarCollapseItem({ item, isMobileOpen, setIsMobileOpen }: { item: Si
                         if (isLink) {
                             return (
                                 <Link key={sub.id} href={sub.href!} className={subClassName} onClick={() => setIsMobileOpen && setIsMobileOpen(false)}>
-                                    <span className={sub.active ? 'text-[#C7A856]' : 'text-emerald-500 group-hover:text-emerald-100'}>
+                                    <span className={sub.active ? 'text-[#C7A856]' : 'text-red-500 group-hover:text-red-100'}>
                                         {sub.icon}
                                     </span>
                                     <span>{sub.label}</span>
@@ -83,7 +83,7 @@ function SidebarCollapseItem({ item, isMobileOpen, setIsMobileOpen }: { item: Si
                         } else {
                             return (
                                 <button key={sub.id} onClick={handleSubClick} className={subClassName}>
-                                    <span className={sub.active ? 'text-[#C7A856]' : 'text-emerald-500 group-hover:text-emerald-100'}>
+                                    <span className={sub.active ? 'text-[#C7A856]' : 'text-red-500 group-hover:text-red-100'}>
                                         {sub.icon}
                                     </span>
                                     <span>{sub.label}</span>
@@ -176,13 +176,13 @@ export default function Authenticated({
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex text-gray-800 dark:text-gray-100">
             
             {/* Desktop Sidebar (Persistent) */}
-            <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 bg-gradient-to-b from-[#052216] via-[#093524] to-[#031a10] border-r border-emerald-900/40 z-30">
+            <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 bg-gradient-to-b from-[#1a0406] via-[#33070b] to-[#120102] border-r border-red-900/30 z-30">
                 {/* Brand Logo Header */}
-                <div className="flex h-16 shrink-0 items-center px-6 border-b border-emerald-900/40 bg-black/10">
+                <div className="flex h-16 shrink-0 items-center px-6 border-b border-red-900/30 bg-black/10">
                     <Link href="/" className="flex items-center space-x-2.5">
                         <img src="/images/logo_original.png" alt="Dapoer Ratu Logo" className="w-8 h-8 object-contain" />
-                        <span className="text-lg font-bold tracking-wider text-emerald-400 font-serif leading-none">DAPOER RATU</span>
-                        <span className="text-[9px] uppercase px-1 py-0.5 rounded bg-[#C7A856]/20 text-[#C7A856] border border-[#C7A856]/40 font-bold tracking-wider">CMS</span>
+                        <span className="text-lg font-bold tracking-wider text-red-400 font-serif leading-none">DAPOER RATU</span>
+                        <span className="text-[9px] uppercase px-1 py-0.5 rounded bg-[#E5B82C]/20 text-[#E5B82C] border border-[#E5B82C]/40 font-bold tracking-wider">CMS</span>
                     </Link>
                 </div>
 
@@ -199,13 +199,13 @@ export default function Authenticated({
                         } ${
                             item.active
                                 ? 'bg-gradient-to-r from-emerald-900/40 to-transparent border-[#C7A856] text-[#C7A856]'
-                                : 'border-transparent text-emerald-200 hover:bg-emerald-900/30 hover:text-white hover:border-emerald-800/50'
+                                : 'border-transparent text-red-200 hover:bg-red-900/20 hover:text-white hover:border-red-800/30'
                         }`;
 
                         if (isLink) {
                             return (
                                 <Link key={item.id} href={item.href!} className={className}>
-                                    <span className={item.active ? 'text-[#C7A856]' : 'text-emerald-400 group-hover:text-emerald-100'}>
+                                    <span className={item.active ? 'text-[#C7A856]' : 'text-red-400 group-hover:text-red-100'}>
                                         {item.icon}
                                     </span>
                                     <span>{item.label}</span>
@@ -214,7 +214,7 @@ export default function Authenticated({
                         } else {
                             return (
                                 <button key={item.id} onClick={item.onClick} className={className}>
-                                    <span className={item.active ? 'text-[#C7A856]' : 'text-emerald-400 group-hover:text-emerald-100'}>
+                                    <span className={item.active ? 'text-[#C7A856]' : 'text-red-400 group-hover:text-red-100'}>
                                         {item.icon}
                                     </span>
                                     <span>{item.label}</span>
@@ -225,21 +225,21 @@ export default function Authenticated({
                 </nav>
 
                 {/* Profile Card & Logout (Bottom) */}
-                <div className="p-4 border-t border-emerald-900/40 bg-black/20 backdrop-blur-xs">
+                <div className="p-4 border-t border-red-900/30 bg-black/20 backdrop-blur-xs">
                     <div className="flex items-center space-x-3 mb-3">
-                        <div className="w-9 h-9 rounded-full bg-emerald-900/80 flex items-center justify-center font-bold text-[#C7A856] border border-emerald-700/60 uppercase">
+                        <div className="w-9 h-9 rounded-full bg-red-900/70 flex items-center justify-center font-bold text-[#C7A856] border border-red-700/40 uppercase">
                             {user.name.charAt(0)}
                         </div>
                         <div className="flex-1 min-w-0">
                             <p className="text-sm font-semibold truncate text-white">{user.name}</p>
-                            <p className="text-[10px] truncate text-emerald-300">{user.email}</p>
+                            <p className="text-[10px] truncate text-red-300">{user.email}</p>
                         </div>
                     </div>
                     <Link
                         href={route('logout')}
                         method="post"
                         as="button"
-                        className="w-full flex items-center justify-center space-x-2 py-2 text-xs font-bold rounded-lg bg-emerald-950/60 text-emerald-200 border border-emerald-900/60 hover:bg-red-950/60 hover:text-red-200 hover:border-red-900/80 transition-all duration-200"
+                        className="w-full flex items-center justify-center space-x-2 py-2 text-xs font-bold rounded-lg bg-red-950/50 text-red-200 border border-red-900/40 hover:bg-red-950/60 hover:text-red-200 hover:border-red-900/80 transition-all duration-200"
                     >
                         <LogOut className="w-3.5 h-3.5" />
                         <span>Keluar (Log Out)</span>
@@ -251,16 +251,16 @@ export default function Authenticated({
             {isMobileOpen && (
                 <div className="fixed inset-0 bg-gray-900/60 backdrop-blur-xs z-40 lg:hidden transition-opacity duration-300" onClick={() => setIsMobileOpen(false)}>
                     <div 
-                        className="fixed inset-y-0 left-0 w-64 bg-gradient-to-b from-[#052216] via-[#093524] to-[#031a10] text-white flex flex-col justify-between z-50 shadow-2xl transition-transform duration-300"
+                        className="fixed inset-y-0 left-0 w-64 bg-gradient-to-b from-[#1a0406] via-[#33070b] to-[#120102] text-white flex flex-col justify-between z-50 shadow-2xl transition-transform duration-300"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Drawer Header */}
-                        <div className="flex h-16 shrink-0 items-center justify-between px-6 border-b border-emerald-900/40 bg-black/10">
+                        <div className="flex h-16 shrink-0 items-center justify-between px-6 border-b border-red-900/30 bg-black/10">
                             <div className="flex items-center space-x-2.5">
                                 <img src="/images/logo_original.png" alt="Dapoer Ratu Logo" className="w-8 h-8 object-contain" />
-                                <span className="text-lg font-bold tracking-wider text-emerald-400 font-serif leading-none">DAPOER RATU</span>
+                                <span className="text-lg font-bold tracking-wider text-red-400 font-serif leading-none">DAPOER RATU</span>
                             </div>
-                            <button onClick={() => setIsMobileOpen(false)} className="text-emerald-300 hover:text-white p-1 rounded-lg hover:bg-emerald-900/40">
+                            <button onClick={() => setIsMobileOpen(false)} className="text-red-300 hover:text-white p-1 rounded-lg hover:bg-red-900/30">
                                 <X className="w-5 h-5" />
                             </button>
                         </div>
@@ -278,7 +278,7 @@ export default function Authenticated({
                                 } ${
                                     item.active
                                         ? 'bg-gradient-to-r from-emerald-900/40 to-transparent border-[#C7A856] text-[#C7A856]'
-                                        : 'border-transparent text-emerald-200 hover:bg-emerald-900/30 hover:text-white hover:border-emerald-800/50'
+                                        : 'border-transparent text-red-200 hover:bg-red-900/20 hover:text-white hover:border-red-800/30'
                                 }`;
 
                                 const handleClick = () => {
@@ -289,7 +289,7 @@ export default function Authenticated({
                                 if (isLink) {
                                     return (
                                         <Link key={item.id} href={item.href!} className={className} onClick={() => setIsMobileOpen(false)}>
-                                            <span className={item.active ? 'text-[#C7A856]' : 'text-emerald-400 group-hover:text-emerald-100'}>
+                                            <span className={item.active ? 'text-[#C7A856]' : 'text-red-400 group-hover:text-red-100'}>
                                                 {item.icon}
                                             </span>
                                             <span>{item.label}</span>
@@ -298,7 +298,7 @@ export default function Authenticated({
                                 } else {
                                     return (
                                         <button key={item.id} onClick={handleClick} className={className}>
-                                            <span className={item.active ? 'text-[#C7A856]' : 'text-emerald-400 group-hover:text-emerald-100'}>
+                                            <span className={item.active ? 'text-[#C7A856]' : 'text-red-400 group-hover:text-red-100'}>
                                                 {item.icon}
                                             </span>
                                             <span>{item.label}</span>
@@ -309,21 +309,21 @@ export default function Authenticated({
                         </nav>
 
                         {/* Drawer Profile Card & Logout (Bottom) */}
-                        <div className="p-4 border-t border-emerald-900/40 bg-black/20 backdrop-blur-xs">
+                        <div className="p-4 border-t border-red-900/30 bg-black/20 backdrop-blur-xs">
                             <div className="flex items-center space-x-3 mb-3">
-                                <div className="w-9 h-9 rounded-full bg-emerald-900/80 flex items-center justify-center font-bold text-[#C7A856] border border-emerald-700/60 uppercase">
+                                <div className="w-9 h-9 rounded-full bg-red-900/70 flex items-center justify-center font-bold text-[#C7A856] border border-red-700/40 uppercase">
                                     {user.name.charAt(0)}
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <p className="text-sm font-semibold truncate text-white">{user.name}</p>
-                                    <p className="text-[10px] truncate text-emerald-300">{user.email}</p>
+                                    <p className="text-[10px] truncate text-red-300">{user.email}</p>
                                 </div>
                             </div>
                             <Link
                                 href={route('logout')}
                                 method="post"
                                 as="button"
-                                className="w-full flex items-center justify-center space-x-2 py-2 text-xs font-bold rounded-lg bg-emerald-950/60 text-emerald-200 border border-emerald-900/60 hover:bg-red-950/60 hover:text-red-200 hover:border-red-900/80 transition-all duration-200"
+                                className="w-full flex items-center justify-center space-x-2 py-2 text-xs font-bold rounded-lg bg-red-950/50 text-red-200 border border-red-900/40 hover:bg-red-950/60 hover:text-red-200 hover:border-red-900/80 transition-all duration-200"
                             >
                                 <LogOut className="w-3.5 h-3.5" />
                                 <span>Keluar (Log Out)</span>
@@ -359,7 +359,7 @@ export default function Authenticated({
                             href="/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center space-x-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/50 hover:dark:bg-emerald-950/40 transition-all duration-200"
+                            className="inline-flex items-center space-x-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-red-50 text-red-700 border border-red-200 hover:bg-red-100 dark:bg-red-950/20 dark:text-red-400 dark:border-emerald-900/50 hover:dark:bg-red-950/40 transition-all duration-200"
                         >
                             <Sparkles className="w-3.5 h-3.5" />
                             <span>Lihat Website</span>
@@ -414,7 +414,7 @@ export default function Authenticated({
                                         type="button"
                                         className="inline-flex items-center px-3 py-2 text-xs font-semibold leading-4 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition-all duration-150"
                                     >
-                                        <span className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center mr-2 dark:bg-emerald-900/40 dark:text-emerald-300 uppercase">
+                                        <span className="w-6 h-6 rounded-full bg-red-100 text-red-800 font-bold flex items-center justify-center mr-2 dark:bg-red-900/30 dark:text-red-300 uppercase">
                                             {user.name.charAt(0)}
                                         </span>
                                         <span className="hidden md:inline">{user.name}</span>
