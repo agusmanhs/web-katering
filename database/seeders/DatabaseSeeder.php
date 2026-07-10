@@ -10,6 +10,7 @@ use App\Models\Faq;
 use App\Models\Service;
 use App\Models\Partner;
 use App\Models\Setting;
+use App\Models\Certificate;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -345,6 +346,35 @@ class DatabaseSeeder extends Seeder
 
         foreach ($settings as $key => $value) {
             Setting::updateOrCreate(['key' => $key], ['value' => $value]);
+        }
+
+        // Seeding certificates
+        $certificates = [
+            [
+                'title' => 'Sertifikat Halal Resmi',
+                'issuer' => 'Majelis Ulama Indonesia (MUI)',
+                'image_path' => '/images/gallery_wedding_setup.webp',
+                'icon_name' => 'ShieldCheck',
+                'order_num' => 1
+            ],
+            [
+                'title' => 'Sertifikat Laik Higiene Sanitasi Jasa Boga',
+                'issuer' => 'Dinas Kesehatan Kota',
+                'image_path' => '/images/gallery_kitchen.webp',
+                'icon_name' => 'Award',
+                'order_num' => 2
+            ],
+            [
+                'title' => 'Izin Usaha Resmi (NIB)',
+                'issuer' => 'Kementerian Investasi / BKPM',
+                'image_path' => '/images/gallery_corporate_event.webp',
+                'icon_name' => 'FileCheck',
+                'order_num' => 3
+            ],
+        ];
+
+        foreach ($certificates as $c) {
+            Certificate::create($c);
         }
     }
 }

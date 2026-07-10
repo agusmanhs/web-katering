@@ -45,6 +45,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/admin/portfolios', [CateringController::class, 'storePortfolio'])->name('admin.portfolio.store');
     Route::put('/admin/portfolios/{portfolio}', [CateringController::class, 'updatePortfolio'])->name('admin.portfolio.update');
     Route::delete('/admin/portfolios/{portfolio}', [CateringController::class, 'destroyPortfolio'])->name('admin.portfolio.destroy');
+
+    // Certificates CRUD
+    Route::post('/admin/certificates', [CateringController::class, 'storeCertificate'])->name('admin.certificate.store');
+    Route::put('/admin/certificates/{certificate}', [CateringController::class, 'updateCertificate'])->name('admin.certificate.update');
+    Route::delete('/admin/certificates/{certificate}', [CateringController::class, 'destroyCertificate'])->name('admin.certificate.destroy');
 });
 
 // Profile Routes

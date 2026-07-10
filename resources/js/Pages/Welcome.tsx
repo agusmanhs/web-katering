@@ -25,7 +25,8 @@ import {
     Sparkles,
     ChefHat,
     ShieldCheck,
-    ExternalLink
+    ExternalLink,
+    FileCheck
 } from 'lucide-react';
 
 // Swiper CSS imports
@@ -86,6 +87,15 @@ interface PartnerItem {
     order_num: number;
 }
 
+interface CertificateItem {
+    id: number;
+    title: string;
+    issuer: string;
+    image_path: string;
+    icon_name: string;
+    order_num: number;
+}
+
 interface WelcomeProps {
     menus: MenuItem[];
     portfolios: PortfolioItem[];
@@ -93,6 +103,7 @@ interface WelcomeProps {
     faqs: FaqItem[];
     services: ServiceItem[];
     partners: PartnerItem[];
+    certificates: CertificateItem[];
     settings: Record<string, string>;
 }
 
@@ -116,6 +127,7 @@ export default function Welcome({
     faqs = [],
     services = [],
     partners = [],
+    certificates = [],
     settings = {}
 }: WelcomeProps) {
     // State management
@@ -124,6 +136,7 @@ export default function Welcome({
     const [searchMenuQuery, setSearchMenuQuery] = useState('');
     const [selectedGalleryCategory, setSelectedGalleryCategory] = useState('all');
     const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+    const [selectedCertificate, setSelectedCertificate] = useState<CertificateItem | null>(null);
     const [activeDetailMenu, setActiveDetailMenu] = useState<MenuItem | null>(null);
     const [scrolled, setScrolled] = useState(false);
 
@@ -749,6 +762,54 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                 </div>
             </section>
 
+            {/* Jaminan Mutu & Legalitas Section */}
+            {certificates.length > 0 && (
+                <section className="py-24 max-w-7xl mx-auto px-6 border-t border-white/5 relative">
+                    <div className="text-center space-y-4 mb-16">
+                        <span className="text-xs tracking-[0.2em] font-semibold text-secondary uppercase">Jaminan Kualitas & Komitmen</span>
+                        <h2 className="font-playfair text-3xl sm:text-5xl font-bold text-primary">Jaminan Mutu & Legalitas Resmi</h2>
+                        <p className="max-w-xl mx-auto text-sm text-darktext/75 font-light leading-relaxed">
+                            Kami berkomitmen penuh untuk menyajikan kualitas hidangan terbaik dengan standar higienitas tertinggi serta kepatuhan hukum resmi.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {certificates.map((cert) => {
+                            let IconComponent = ShieldCheck;
+                            if (cert.icon_name === 'Award') IconComponent = Award;
+                            if (cert.icon_name === 'FileCheck') IconComponent = FileCheck;
+
+                            return (
+                                <div
+                                    key={cert.id}
+                                    onClick={() => setSelectedCertificate(cert)}
+                                    className="group cursor-pointer bg-white/5 border border-white/10 p-8 rounded-2xl hover:border-secondary/40 hover:bg-white/[0.07] transition-all duration-300 relative overflow-hidden flex flex-col items-center text-center shadow-lg"
+                                >
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/5 rounded-full blur-2xl group-hover:bg-secondary/10 transition-colors" />
+                                    
+                                    <div className="w-16 h-16 rounded-full bg-secondary/10 border border-secondary/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                        <IconComponent className="w-8 h-8 text-secondary" />
+                                    </div>
+
+                                    <h3 className="font-playfair text-xl font-bold text-primary mb-2 group-hover:text-secondary transition-colors">
+                                        {cert.title}
+                                    </h3>
+                                    
+                                    <p className="text-xs text-darktext/50 font-light mb-6">
+                                        Penerbit: {cert.issuer}
+                                    </p>
+
+                                    <span className="mt-auto text-xs font-semibold text-secondary hover:text-white flex items-center space-x-1 border-b border-secondary/30 pb-0.5 group-hover:border-white transition-all">
+                                        <span>Lihat Dokumen Resmi</span>
+                                        <ExternalLink className="w-3.5 h-3.5" />
+                                    </span>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </section>
+            )}
+
             {/* Before After Image Comparison Slider */}
             <section className="py-24 bg-white/60 border-t border-primary/5">
                 <div className="max-w-4xl mx-auto px-6 text-center space-y-12">
@@ -880,6 +941,36 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                             alt="Gallery zoom"
                             className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
                         />
+                    </div>
+                )}
+
+                {selectedCertificate && (
+                    <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 cursor-pointer" onClick={() => setSelectedCertificate(null)}>
+                        <button className="absolute top-6 right-6 text-white hover:text-secondary z-10 cursor-pointer">
+                            <X className="w-8 h-8" />
+                        </button>
+                        <motion.div
+                            initial={{ scale: 0.95, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.95, opacity: 0 }}
+                            className="bg-[#0b1313]/95 border border-secondary/30 p-6 rounded-2xl max-w-2xl w-full flex flex-col items-center gap-4 shadow-2xl relative cursor-default"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className="text-center space-y-1 mb-2">
+                                <h3 className="font-playfair text-xl font-bold text-white tracking-wide">
+                                    {selectedCertificate.title}
+                                </h3>
+                                <p className="text-xs text-secondary">
+                                    Penerbit Resmi: {selectedCertificate.issuer}
+                                </p>
+                            </div>
+                            
+                            <img
+                                src={selectedCertificate.image_path}
+                                alt={selectedCertificate.title}
+                                className="max-w-full max-h-[70vh] object-contain rounded-lg border border-white/10 shadow-lg"
+                            />
+                        </motion.div>
                     </div>
                 )}
             </AnimatePresence>

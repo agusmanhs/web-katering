@@ -10,6 +10,7 @@ use App\Models\Faq;
 use App\Models\Service;
 use App\Models\Partner;
 use App\Models\Setting;
+use App\Models\Certificate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -28,6 +29,7 @@ class CateringController extends Controller
             'faqs' => Faq::orderBy('order_num')->get(),
             'services' => Service::orderBy('order_num')->get(),
             'partners' => Partner::orderBy('order_num')->get(),
+            'certificates' => Certificate::orderBy('order_num')->get(),
             'settings' => Setting::all()->pluck('value', 'key'),
         ]);
     }
@@ -71,6 +73,7 @@ class CateringController extends Controller
             'services' => Service::orderBy('order_num')->get(),
             'partners' => Partner::orderBy('order_num')->get(),
             'portfolios' => Portfolio::latest()->get(),
+            'certificates' => Certificate::orderBy('order_num')->get(),
             'settings' => Setting::all()->pluck('value', 'key'),
         ]);
     }
@@ -412,5 +415,87 @@ class CateringController extends Controller
         $portfolio->delete();
 
         return back()->with('success', 'Portfolio item deleted successfully!');
+    }
+
+    // ==========================================
+    // CERTIFICATES CRUD
+    // ==========================================
+    public function storeCertificate(Request $request)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'issuer' => 'required|string|max:255',
+            'icon_name' => 'required|string|max:100',
+            'order_num' => 'required|integer|min:1',
+            'image' => 'required|image|max:4096',
+        ]);
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $file = $request->file('image');
+            $filename = 'cert_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images'), $filename);
+            $validated['image_path'] = "/images/$filename";
+        }
+
+        Certificate::create([
+            'title' => $validated['title'],
+            'issuer' => $validated['issuer'],
+            'icon_name' => $validated['icon_name'],
+            'order_num' => $validated['order_num'],
+            'image_path' => $validated['image_path'],
+        ]);
+
+        return back()->with('success', 'Certificate created successfully!');
+    }
+
+    public function updateCertificate(Request $request, Certificate $certificate)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'issuer' => 'required|string|max:255',
+            'icon_name' => 'required|string|max:100',
+            'order_num' => 'required|integer|min:1',
+            'image' => 'nullable|image|max:4096',
+        ]);
+
+        $updateData = [
+            'title' => $validated['title'],
+            'issuer' => $validated['issuer'],
+            'icon_name' => $validated['icon_name'],
+            'order_num' => $validated['order_num'],
+        ];
+
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            // Delete old file if exists and is not a default one
+            if ($certificate->image_path && !str_starts_with($certificate->image_path, 'http') && !str_contains($certificate->image_path, 'catering_hero')) {
+                $oldPath = public_path($certificate->image_path);
+                if (file_exists($oldPath)) {
+                    @unlink($oldPath);
+                }
+            }
+
+            $file = $request->file('image');
+            $filename = 'cert_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images'), $filename);
+            $updateData['image_path'] = "/images/$filename";
+        }
+
+        $certificate->update($updateData);
+
+        return back()->with('success', 'Certificate updated successfully!');
+    }
+
+    public function destroyCertificate(Certificate $certificate)
+    {
+        if ($certificate->image_path && !str_starts_with($certificate->image_path, 'http') && !str_contains($certificate->image_path, 'catering_hero')) {
+            $filePath = public_path($certificate->image_path);
+            if (file_exists($filePath)) {
+                @unlink($filePath);
+            }
+        }
+
+        $certificate->delete();
+
+        return back()->with('success', 'Certificate deleted successfully!');
     }
 }

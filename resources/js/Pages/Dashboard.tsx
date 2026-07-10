@@ -72,6 +72,15 @@ interface PortfolioItem {
     description: string | null;
 }
 
+interface CertificateItem {
+    id: number;
+    title: string;
+    issuer: string;
+    image_path: string;
+    icon_name: string;
+    order_num: number;
+}
+
 interface DashboardProps {
     quoteRequests: QuoteRequest[];
     stats: {
@@ -86,6 +95,7 @@ interface DashboardProps {
     services: ServiceItem[];
     partners: PartnerItem[];
     portfolios: PortfolioItem[];
+    certificates: CertificateItem[];
     settings: Record<string, string>;
 }
 
@@ -98,6 +108,7 @@ export default function Dashboard({
     services = [],
     partners = [],
     portfolios = [],
+    certificates = [],
     settings = {}
 }: DashboardProps) {
     const [activeTab, setActiveTab] = useState<string>('leads');
@@ -139,6 +150,13 @@ export default function Dashboard({
         title: '', category: 'wedding', description: ''
     });
     const [portfolioImageFile, setPortfolioImageFile] = useState<File | null>(null);
+
+    const [isCertificateModalOpen, setIsCertificateModalOpen] = useState(false);
+    const [editingCertificate, setEditingCertificate] = useState<CertificateItem | null>(null);
+    const [certificateForm, setCertificateForm] = useState({
+        title: '', issuer: '', icon_name: 'ShieldCheck', order_num: 1
+    });
+    const [certificateImageFile, setCertificateImageFile] = useState<File | null>(null);
 
     // settingsForm state
     const [settingsForm, setSettingsForm] = useState({
@@ -445,6 +463,69 @@ export default function Dashboard({
         }
     };
 
+    // Certificate CRUD Handlers
+    const openCertificateModal = (cert: CertificateItem | null = null) => {
+        if (cert) {
+            setEditingCertificate(cert);
+            setCertificateForm({
+                title: cert.title,
+                issuer: cert.issuer,
+                icon_name: cert.icon_name,
+                order_num: cert.order_num
+            });
+            setCertificateImageFile(null);
+        } else {
+            setEditingCertificate(null);
+            setCertificateForm({
+                title: '',
+                issuer: '',
+                icon_name: 'ShieldCheck',
+                order_num: certificates.length + 1
+            });
+            setCertificateImageFile(null);
+        }
+        setIsCertificateModalOpen(true);
+    };
+
+    const handleCertificateSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        
+        const formData = new FormData();
+        formData.append('title', certificateForm.title);
+        formData.append('issuer', certificateForm.issuer);
+        formData.append('icon_name', certificateForm.icon_name);
+        formData.append('order_num', String(certificateForm.order_num));
+        
+        if (certificateImageFile) {
+            formData.append('image', certificateImageFile);
+        }
+        
+        if (editingCertificate) {
+            formData.append('_method', 'PUT');
+            router.post(`/admin/certificates/${editingCertificate.id}`, formData, {
+                forceFormData: true,
+                onSuccess: () => {
+                    setIsCertificateModalOpen(false);
+                    setCertificateImageFile(null);
+                }
+            });
+        } else {
+            router.post('/admin/certificates', formData, {
+                forceFormData: true,
+                onSuccess: () => {
+                    setIsCertificateModalOpen(false);
+                    setCertificateImageFile(null);
+                }
+            });
+        }
+    };
+
+    const deleteCertificate = (id: number) => {
+        if (confirm('Hapus sertifikat/legalitas ini?')) {
+            router.delete(`/admin/certificates/${id}`);
+        }
+    };
+
     // Settings Form submit
     const handleSettingsSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -498,6 +579,7 @@ export default function Dashboard({
         { id: 'services', label: 'Layanan Kami', icon: <Award className="w-4 h-4" />, onClick: () => setActiveTab('services'), active: activeTab === 'services' },
         { id: 'partners', label: 'Mitra / Klien', icon: <Building className="w-4 h-4" />, onClick: () => setActiveTab('partners'), active: activeTab === 'partners' },
         { id: 'portfolios', label: 'Portofolio Gallery', icon: <Image className="w-4 h-4" />, onClick: () => setActiveTab('portfolios'), active: activeTab === 'portfolios' },
+        { id: 'certificates', label: 'Sertifikat & Legalitas', icon: <ShieldCheck className="w-4 h-4" />, onClick: () => setActiveTab('certificates'), active: activeTab === 'certificates' },
         {
             id: 'settings',
             label: 'Web Settings',
@@ -523,6 +605,7 @@ export default function Dashboard({
                     {activeTab === 'services' && 'Layanan Catering'}
                     {activeTab === 'partners' && 'Mitra & Klien'}
                     {activeTab === 'portfolios' && 'Dokumentasi Portofolio Gallery'}
+                    {activeTab === 'certificates' && 'Sertifikat & Legalitas Resmi'}
                     {activeTab === 'settings-hero' && 'Web Settings > Hero & Slider'}
                     {activeTab === 'settings-contact' && 'Web Settings > Kontak & Sosmed'}
                     {activeTab === 'settings-features' && 'Web Settings > Keunggulan & Stats'}
@@ -866,6 +949,64 @@ export default function Dashboard({
                                                     <td className="px-4 py-3 text-right space-x-1.5 whitespace-nowrap">
                                                         <button onClick={() => openPortfolioModal(p)} className="p-1.5 text-gray-400 hover:text-[#C7A856] dark:hover:text-[#C7A856] transition-colors cursor-pointer"><Edit className="w-4 h-4" /></button>
                                                         <button onClick={() => deletePortfolio(p.id)} className="p-1.5 text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors cursor-pointer"><Trash2 className="w-4 h-4" /></button>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Certificates CRUD Tab */}
+                    {activeTab === 'certificates' && (
+                        <div className="bg-white shadow sm:rounded-lg dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
+                            <div className="flex justify-between items-center border-b border-gray-200 px-6 py-5 dark:border-gray-700">
+                                <h3 className="text-lg font-medium text-gray-900 dark:text-white">Daftar Sertifikat & Legalitas</h3>
+                                <button onClick={() => openCertificateModal()} className="flex items-center space-x-1.5 px-4 py-2 bg-[#C7A856] text-white text-xs font-bold rounded-lg hover:bg-[#b09245] shadow-sm transition-all cursor-pointer">
+                                    <Plus className="w-4 h-4" />
+                                    <span>Tambah Sertifikat</span>
+                                </button>
+                            </div>
+                            <div className="px-6 py-6 overflow-x-auto">
+                                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+                                    <thead className="bg-emerald-50/30 dark:bg-emerald-950/10">
+                                        <tr className="text-left text-gray-500 dark:text-gray-400 font-bold uppercase tracking-wider text-[10px]">
+                                            <th className="px-4 py-3 w-16">Urutan</th>
+                                            <th className="px-4 py-3 w-28">Preview Dokumen</th>
+                                            <th className="px-4 py-3">Nama Sertifikat</th>
+                                            <th className="px-4 py-3">Penerbit Resmi</th>
+                                            <th className="px-4 py-3">Ikon Tampil</th>
+                                            <th className="px-4 py-3 text-right">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-gray-100 dark:divide-gray-700 text-gray-700 dark:text-gray-300">
+                                        {certificates.length === 0 ? (
+                                            <tr>
+                                                <td colSpan={6} className="px-4 py-8 text-center text-gray-400">Belum ada data sertifikat. Silakan klik Tambah Sertifikat.</td>
+                                            </tr>
+                                        ) : (
+                                            certificates.map((cert) => (
+                                                <tr key={cert.id} className="align-middle hover:bg-gray-50 dark:hover:bg-gray-900/30">
+                                                    <td className="px-4 py-3 font-bold text-gray-500">{cert.order_num}</td>
+                                                    <td className="px-4 py-3">
+                                                        {cert.image_path ? (
+                                                            <img src={cert.image_path} alt={cert.title} className="w-20 h-12 object-cover rounded-lg shadow-xs border dark:border-gray-700" />
+                                                        ) : (
+                                                            <div className="w-20 h-12 bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-[10px] text-gray-400 rounded-lg">No Image</div>
+                                                        )}
+                                                    </td>
+                                                    <td className="px-4 py-3 font-bold text-gray-900 dark:text-white">{cert.title}</td>
+                                                    <td className="px-4 py-3 text-gray-500 dark:text-gray-400">{cert.issuer}</td>
+                                                    <td className="px-4 py-3">
+                                                        <span className="inline-block px-2 py-0.5 text-[10px] font-bold rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-900/60 font-mono">
+                                                            {cert.icon_name}
+                                                        </span>
+                                                    </td>
+                                                    <td className="px-4 py-3 text-right space-x-1.5 whitespace-nowrap">
+                                                        <button onClick={() => openCertificateModal(cert)} className="p-1.5 text-gray-400 hover:text-[#C7A856] dark:hover:text-[#C7A856] transition-colors cursor-pointer"><Edit className="w-4 h-4" /></button>
+                                                        <button onClick={() => deleteCertificate(cert.id)} className="p-1.5 text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors cursor-pointer"><Trash2 className="w-4 h-4" /></button>
                                                     </td>
                                                 </tr>
                                             ))
@@ -1497,6 +1638,60 @@ export default function Dashboard({
                                 </div>
                             </div>
                             <button type="submit" className="w-full py-2.5 bg-[#C7A856] hover:bg-[#b09245] text-white font-bold text-xs rounded transition-all shadow-md cursor-pointer">Simpan Portofolio</button>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Certificate CRUD Modal */}
+            {isCertificateModalOpen && (
+                <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+                    <div className="bg-white dark:bg-gray-800 max-w-md w-full rounded-xl overflow-hidden shadow-2xl p-6 relative">
+                        <button onClick={() => setIsCertificateModalOpen(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-white"><X className="w-5 h-5" /></button>
+                        <h4 className="font-playfair text-xl font-bold text-gray-900 dark:text-white mb-4">{editingCertificate ? 'Edit Sertifikat / Legalitas' : 'Tambah Sertifikat Baru'}</h4>
+                        <form onSubmit={handleCertificateSubmit} className="space-y-4">
+                            <div>
+                                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Nama Sertifikat / Dokumen</label>
+                                <input type="text" required value={certificateForm.title} onChange={(e) => setCertificateForm({ ...certificateForm, title: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#0F5132] focus:ring-1 focus:ring-[#0F5132] text-gray-900 dark:text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Penerbit Resmi (Lembaga / Instansi)</label>
+                                <input type="text" required value={certificateForm.issuer} onChange={(e) => setCertificateForm({ ...certificateForm, issuer: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#0F5132] focus:ring-1 focus:ring-[#0F5132] text-gray-900 dark:text-white" />
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Ikon Tampil</label>
+                                    <select value={certificateForm.icon_name} onChange={(e) => setCertificateForm({ ...certificateForm, icon_name: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#0F5132] focus:ring-1 focus:ring-[#0F5132] text-gray-900 dark:text-white">
+                                        <option value="ShieldCheck">Perisai (ShieldCheck)</option>
+                                        <option value="Award">Medali / Pita (Award)</option>
+                                        <option value="FileCheck">Dokumen Ceklist (FileCheck)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Urutan Tampil</label>
+                                    <input type="number" min={1} required value={certificateForm.order_num} onChange={(e) => setCertificateForm({ ...certificateForm, order_num: Number(e.target.value) })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#0F5132] focus:ring-1 focus:ring-[#0F5132] text-gray-900 dark:text-white" />
+                                </div>
+                            </div>
+                            <div>
+                                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Berkas Scan Sertifikat (Format Image, Maks: 4MB)</label>
+                                <div className="flex flex-col gap-2">
+                                    {editingCertificate && editingCertificate.image_path && (
+                                        <div className="mb-1">
+                                            <p className="text-[10px] text-gray-400 mb-1">Dokumen saat ini:</p>
+                                            <img src={editingCertificate.image_path} alt="Current certificate preview" className="w-24 h-14 object-cover rounded-lg border dark:border-gray-700" />
+                                        </div>
+                                    )}
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        required={!editingCertificate}
+                                        onChange={(e) => setCertificateImageFile(e.target.files ? e.target.files[0] : null)}
+                                        className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-[#0F5132] hover:file:bg-emerald-100 dark:file:bg-emerald-950/20 dark:file:text-[#C7A856]"
+                                    />
+                                    {certificateImageFile && <p className="text-[10px] text-green-600">✔ Terpilih: {certificateImageFile.name}</p>}
+                                </div>
+                            </div>
+                            <button type="submit" className="w-full py-2.5 bg-[#C7A856] hover:bg-[#b09245] text-white font-bold text-xs rounded transition-all shadow-md cursor-pointer">Simpan Sertifikat</button>
                         </form>
                     </div>
                 </div>
