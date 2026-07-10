@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 // Public Routes
 Route::get('/', [CateringController::class, 'welcome'])->name('welcome');
-Route::post('/quote-request', [CateringController::class, 'storeQuote'])->name('quote.store');
+Route::post('/quote-request', [CateringController::class, 'storeQuote'])->middleware('throttle:3,1')->name('quote.store');
 
 // Admin Protected Routes
 Route::middleware(['auth', 'verified'])->group(function () {
