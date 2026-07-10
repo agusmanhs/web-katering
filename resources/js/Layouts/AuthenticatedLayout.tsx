@@ -182,7 +182,6 @@ export default function Authenticated({
                     <Link href="/" className="flex items-center space-x-2.5">
                         <img src="/images/logo_gold.png" alt="Dapoer Ratu Logo" className="w-8 h-8 object-contain" />
                         <span className="text-lg font-bold tracking-wider text-emerald-400 font-serif leading-none">DAPOER RATU</span>
-                        <span className="text-[9px] uppercase px-1 py-0.5 rounded bg-[#C7A856]/20 text-[#C7A856] border border-[#C7A856]/40 font-bold tracking-wider">CMS</span>
                     </Link>
                 </div>
 
