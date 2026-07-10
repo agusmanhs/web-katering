@@ -14,10 +14,10 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: '#0F5132',
-                secondary: '#C7A856',
+                primary: '#7C1A22',
+                secondary: '#E5B82C',
                 cream: '#FAF8F2',
-                accent: '#B22222',
+                accent: '#0F5132',
                 darktext: '#2D2D2D',
             },
             fontFamily: {

@@ -368,7 +368,7 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
             <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-primary/95 shadow-md py-4 backdrop-blur-md border-b border-secondary/20' : 'bg-transparent py-6'}`}>
                 <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
                     <a href="#" className="flex items-center space-x-3 group">
-                        <img src="/images/logo_gold.png" alt="Dapoer Ratu Logo" className="w-10 h-10 object-contain group-hover:scale-105 transition-transform" />
+                        <img src="/images/logo_original.png" alt="Dapoer Ratu Logo" className="w-10 h-10 object-contain group-hover:scale-105 transition-transform" />
                         <div className="flex flex-col">
                             <span className="font-playfair text-xl font-bold tracking-wider text-secondary leading-none">DAPOER RATU</span>
                             <span className="text-[9px] tracking-[0.25em] text-white font-light mt-1">PREMIUM CATERING</span>
@@ -404,7 +404,7 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                     >
                         <div className="flex justify-between items-center mb-12">
                             <div className="flex items-center space-x-2">
-                                <img src="/images/logo_gold.png" alt="Dapoer Ratu Logo" className="w-8 h-8 object-contain" />
+                                <img src="/images/logo_original.png" alt="Dapoer Ratu Logo" className="w-8 h-8 object-contain" />
                                 <span className="font-playfair text-xl font-bold text-secondary tracking-widest">DAPOER RATU</span>
                             </div>
                             <button onClick={() => setIsMenuOpen(false)} className="text-white hover:text-secondary">
@@ -1195,7 +1195,7 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                     {/* Brand column */}
                     <div className="space-y-4">
                         <div className="flex items-center space-x-3">
-                            <img src="/images/logo_gold.png" alt="Dapoer Ratu Logo" className="w-10 h-10 object-contain" />
+                            <img src="/images/logo_original.png" alt="Dapoer Ratu Logo" className="w-10 h-10 object-contain" />
                             <span className="font-playfair text-2xl font-bold tracking-wider text-secondary block leading-none">DAPOER RATU</span>
                         </div>
                         <p className="text-xs text-white/70 font-light leading-relaxed">
