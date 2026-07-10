@@ -173,7 +173,7 @@ export default function Authenticated({
     const activeNavigation = sidebarItems || defaultItems;
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex text-gray-800 dark:text-gray-100">
+        <div className="min-h-screen bg-[#FCF9F9] dark:bg-[#150A0B] flex text-gray-800 dark:text-gray-100">
             
             {/* Desktop Sidebar (Persistent) */}
             <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 bg-gradient-to-b from-[#1a0406] via-[#33070b] to-[#120102] border-r border-red-900/30 z-30">
@@ -335,12 +335,12 @@ export default function Authenticated({
             {/* Right Side Content Panel */}
             <div className="flex-1 flex flex-col min-h-screen lg:pl-64 overflow-hidden">
                 {/* Content Panel Header (Top Bar) */}
-                <header className="h-16 flex items-center justify-between px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-xs z-20">
+                <header className="h-16 flex items-center justify-between px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1E1112] border-b border-red-100/50 dark:border-red-950/40 shadow-xs z-20">
                     <div className="flex items-center">
                         {/* Hamburger Icon for Mobile */}
                         <button 
                             onClick={() => setIsMobileOpen(true)}
-                            className="lg:hidden p-2 -ml-2 mr-2 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:outline-none"
+                            className="lg:hidden p-2 -ml-2 mr-2 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-red-50/50 dark:text-gray-400 dark:hover:text-white dark:hover:bg-red-950/30 focus:outline-none"
                         >
                             <Menu className="w-6 h-6" />
                         </button>
@@ -370,7 +370,7 @@ export default function Authenticated({
                                 <Dropdown.Trigger>
                                     <button
                                         type="button"
-                                        className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all focus:outline-none"
+                                        className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-red-50/50 dark:hover:bg-red-950/30 rounded-lg transition-all focus:outline-none"
                                         title="Pilih Tema"
                                     >
                                         {theme === 'light' && <Sun className="w-5 h-5 text-amber-500" />}
@@ -382,21 +382,21 @@ export default function Authenticated({
                                 <Dropdown.Content width="48">
                                     <button
                                         onClick={() => handleThemeChange('light')}
-                                        className={`w-full flex items-center space-x-2 px-4 py-2 text-start text-xs font-semibold leading-5 transition duration-150 ${theme === 'light' ? 'bg-amber-50 text-amber-950 dark:bg-amber-950/20 dark:text-amber-300' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'}`}
+                                        className={`w-full flex items-center space-x-2 px-4 py-2 text-start text-xs font-semibold leading-5 transition duration-150 ${theme === 'light' ? 'bg-amber-50 text-amber-950 dark:bg-amber-950/20 dark:text-amber-300' : 'text-gray-700 dark:text-gray-300 hover:bg-red-50/50 dark:hover:bg-gray-800'}`}
                                     >
                                         <Sun className="w-4 h-4 text-amber-500" />
                                         <span>Terang (Light)</span>
                                     </button>
                                     <button
                                         onClick={() => handleThemeChange('dark')}
-                                        className={`w-full flex items-center space-x-2 px-4 py-2 text-start text-xs font-semibold leading-5 transition duration-150 ${theme === 'dark' ? 'bg-[#C7A856]/10 text-[#C7A856] dark:bg-[#C7A856]/20 dark:text-[#C7A856]' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'}`}
+                                        className={`w-full flex items-center space-x-2 px-4 py-2 text-start text-xs font-semibold leading-5 transition duration-150 ${theme === 'dark' ? 'bg-[#C7A856]/10 text-[#C7A856] dark:bg-[#C7A856]/20 dark:text-[#C7A856]' : 'text-gray-700 dark:text-gray-300 hover:bg-red-50/50 dark:hover:bg-gray-800'}`}
                                     >
                                         <Moon className="w-4 h-4 text-[#C7A856]" />
                                         <span>Gelap (Dark)</span>
                                     </button>
                                     <button
                                         onClick={() => handleThemeChange('system')}
-                                        className={`w-full flex items-center space-x-2 px-4 py-2 text-start text-xs font-semibold leading-5 transition duration-150 ${theme === 'system' ? 'bg-gray-100 text-gray-900 dark:bg-gray-900/40 dark:text-gray-200' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'}`}
+                                        className={`w-full flex items-center space-x-2 px-4 py-2 text-start text-xs font-semibold leading-5 transition duration-150 ${theme === 'system' ? 'bg-gray-100 text-gray-900 dark:bg-red-950/20 dark:text-gray-200' : 'text-gray-700 dark:text-gray-300 hover:bg-red-50/50 dark:hover:bg-gray-800'}`}
                                     >
                                         <Monitor className="w-4 h-4 text-gray-500" />
                                         <span>Sistem (System)</span>

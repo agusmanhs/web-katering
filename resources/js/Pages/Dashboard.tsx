@@ -623,33 +623,33 @@ export default function Dashboard({
                         <div className="space-y-6">
                             {/* Stats */}
                             <div className="grid grid-cols-1 gap-5 sm:grid-cols-4">
-                                <div className="rounded-xl bg-white px-5 py-6 shadow-xs dark:bg-gray-800 border-t-4 border-[#C7A856] border-x border-b border-gray-100 dark:border-gray-700 relative overflow-hidden transition-all hover:shadow-md">
+                                <div className="rounded-xl bg-white px-5 py-6 shadow-xs dark:bg-[#1E1112] border-t-4 border-[#C7A856] border-x border-b border-red-100/30 dark:border-red-950/40 relative overflow-hidden transition-all hover:shadow-md">
                                     <dt className="truncate text-xs font-semibold text-gray-400 dark:text-gray-400 uppercase tracking-wider">Total Inquiries</dt>
                                     <dd className="mt-2 text-3xl font-extrabold text-gray-900 dark:text-white font-serif">{stats.total_leads}</dd>
                                 </div>
-                                <div className="rounded-xl bg-white px-5 py-6 shadow-xs dark:bg-gray-800 border-t-4 border-amber-500 border-x border-b border-gray-100 dark:border-gray-700 relative overflow-hidden transition-all hover:shadow-md">
+                                <div className="rounded-xl bg-white px-5 py-6 shadow-xs dark:bg-[#1E1112] border-t-4 border-amber-500 border-x border-b border-red-100/30 dark:border-red-950/40 relative overflow-hidden transition-all hover:shadow-md">
                                     <dt className="truncate text-xs font-semibold text-gray-400 dark:text-gray-400 uppercase tracking-wider">Pending</dt>
                                     <dd className="mt-2 text-3xl font-extrabold text-amber-600 dark:text-amber-400 font-serif">{stats.pending_leads}</dd>
                                 </div>
-                                <div className="rounded-xl bg-white px-5 py-6 shadow-xs dark:bg-gray-800 border-t-4 border-cyan-500 border-x border-b border-gray-100 dark:border-gray-700 relative overflow-hidden transition-all hover:shadow-md">
+                                <div className="rounded-xl bg-white px-5 py-6 shadow-xs dark:bg-[#1E1112] border-t-4 border-cyan-500 border-x border-b border-red-100/30 dark:border-red-950/40 relative overflow-hidden transition-all hover:shadow-md">
                                     <dt className="truncate text-xs font-semibold text-gray-400 dark:text-gray-400 uppercase tracking-wider">Contacted</dt>
                                     <dd className="mt-2 text-3xl font-extrabold text-cyan-600 dark:text-cyan-400 font-serif">{stats.contacted_leads}</dd>
                                 </div>
-                                <div className="rounded-xl bg-white px-5 py-6 shadow-xs dark:bg-gray-800 border-t-4 border-[#7C1A22] border-x border-b border-gray-100 dark:border-gray-700 relative overflow-hidden transition-all hover:shadow-md">
+                                <div className="rounded-xl bg-white px-5 py-6 shadow-xs dark:bg-[#1E1112] border-t-4 border-[#7C1A22] border-x border-b border-red-100/30 dark:border-red-950/40 relative overflow-hidden transition-all hover:shadow-md">
                                     <dt className="truncate text-xs font-semibold text-gray-400 dark:text-gray-400 uppercase tracking-wider">Closed</dt>
                                     <dd className="mt-2 text-3xl font-extrabold text-[#7C1A22] dark:text-red-400 font-serif">{stats.closed_leads}</dd>
                                 </div>
                             </div>
 
-                            <div className="bg-white shadow sm:rounded-lg dark:bg-gray-800 overflow-hidden border border-gray-100 dark:border-gray-700">
-                                <div className="border-b border-gray-200 px-6 py-5 dark:border-gray-700">
+                            <div className="bg-white shadow sm:rounded-lg dark:bg-[#1E1112] overflow-hidden border border-red-100/30 dark:border-red-950/40">
+                                <div className="border-b border-red-100/45 px-6 py-5 dark:border-red-950/40">
                                     <h3 className="text-lg font-medium text-gray-900 dark:text-white">Customer Consultation Quotes</h3>
                                 </div>
                                 <div className="px-6 py-6 overflow-x-auto">
                                     {quoteRequests.length === 0 ? (
                                         <div className="text-center py-12 text-gray-500">Belum ada inquiry masuk.</div>
                                     ) : (
-                                        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+                                        <table className="min-w-full divide-y divide-red-100/35 dark:divide-red-950/30 text-sm">
                                             <thead className="bg-red-50/20 dark:bg-red-950/10">
                                                 <tr className="text-left text-gray-550 dark:text-gray-400 font-bold uppercase tracking-wider text-[10px]">
                                                     <th className="px-4 py-3">Tanggal</th>
@@ -660,9 +660,9 @@ export default function Dashboard({
                                                     <th className="px-4 py-3 text-right">Aksi</th>
                                                 </tr>
                                             </thead>
-                                            <tbody className="divide-y divide-gray-100 dark:divide-gray-700 text-gray-700 dark:text-gray-300">
+                                            <tbody className="divide-y divide-gray-100 dark:divide-red-950/30 text-gray-700 dark:text-gray-300">
                                                 {quoteRequests.map((lead) => (
-                                                    <tr key={lead.id} className="align-top hover:bg-gray-50 dark:hover:bg-gray-900/30">
+                                                    <tr key={lead.id} className="align-top hover:bg-[#FAF5F5] dark:hover:bg-gray-900/30">
                                                         <td className="px-4 py-4 text-xs text-gray-400">
                                                             {new Date(lead.created_at).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })}
                                                         </td>
@@ -685,7 +685,7 @@ export default function Dashboard({
                                                         <td className="px-4 py-4 text-right whitespace-nowrap space-x-1.5">
                                                             {lead.status !== 'contacted' && <button onClick={() => updateQuoteStatus(lead.id, 'contacted')} className="px-2.5 py-1 text-xs bg-cyan-50 text-cyan-700 dark:bg-cyan-950/20 dark:text-cyan-400 rounded hover:bg-cyan-100/85">Hubungi</button>}
                                                             {lead.status !== 'closed' && <button onClick={() => updateQuoteStatus(lead.id, 'closed')} className="px-2.5 py-1 text-xs bg-red-50 text-red-750 dark:bg-red-950/20 dark:text-red-400 rounded hover:bg-red-100/85">Selesai</button>}
-                                                            {lead.status !== 'pending' && <button onClick={() => updateQuoteStatus(lead.id, 'pending')} className="px-2.5 py-1 text-xs bg-gray-50 text-gray-600 dark:bg-gray-800 dark:text-gray-400 rounded hover:bg-gray-150">Reset</button>}
+                                                            {lead.status !== 'pending' && <button onClick={() => updateQuoteStatus(lead.id, 'pending')} className="px-2.5 py-1 text-xs bg-[#FAF5F5] text-gray-600 dark:bg-[#1E1112] dark:text-gray-400 rounded hover:bg-gray-150">Reset</button>}
                                                         </td>
                                                     </tr>
                                                 ))}
@@ -699,8 +699,8 @@ export default function Dashboard({
 
                     {/* Menus CRUD Tab */}
                     {activeTab === 'menus' && (
-                        <div className="bg-white shadow sm:rounded-lg dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
-                            <div className="flex justify-between items-center border-b border-gray-200 px-6 py-5 dark:border-gray-700">
+                        <div className="bg-white shadow sm:rounded-lg dark:bg-[#1E1112] border border-red-100/30 dark:border-red-950/40">
+                            <div className="flex justify-between items-center border-b border-red-100/45 px-6 py-5 dark:border-red-950/40">
                                 <h3 className="text-lg font-medium text-gray-900 dark:text-white">Daftar Menu Hidangan</h3>
                                 <button onClick={() => openMenuModal()} className="flex items-center space-x-1.5 px-4 py-2 bg-[#C7A856] text-white text-xs font-bold rounded-lg hover:bg-[#b09245] shadow-sm transition-all">
                                     <Plus className="w-4 h-4" />
@@ -708,7 +708,7 @@ export default function Dashboard({
                                 </button>
                             </div>
                             <div className="px-6 py-6 overflow-x-auto">
-                                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+                                <table className="min-w-full divide-y divide-red-100/35 dark:divide-red-950/30 text-sm">
                                     <thead className="bg-red-50/20 dark:bg-red-950/10">
                                         <tr className="text-left text-gray-500 dark:text-gray-455 font-bold uppercase tracking-wider text-[10px]">
                                             <th className="px-4 py-3">Gambar</th>
@@ -719,12 +719,12 @@ export default function Dashboard({
                                             <th className="px-4 py-3 text-right">Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-gray-100 dark:divide-gray-700 text-gray-700 dark:text-gray-300">
+                                    <tbody className="divide-y divide-gray-100 dark:divide-red-950/30 text-gray-700 dark:text-gray-300">
                                         {menus.map((menu) => (
-                                            <tr key={menu.id} className="align-middle hover:bg-gray-50 dark:hover:bg-gray-900/30">
+                                            <tr key={menu.id} className="align-middle hover:bg-[#FAF5F5] dark:hover:bg-gray-900/30">
                                                 <td className="px-4 py-3 whitespace-nowrap">
                                                     {menu.image_path ? (
-                                                        <img src={menu.image_path} alt={menu.name} className="w-12 h-10 object-cover rounded-lg shadow-xs border dark:border-gray-700" />
+                                                        <img src={menu.image_path} alt={menu.name} className="w-12 h-10 object-cover rounded-lg shadow-xs border dark:border-red-950/40" />
                                                     ) : (
                                                         <div className="w-12 h-10 bg-red-50 dark:bg-red-950/20 text-red-800 dark:text-red-300 rounded-lg flex items-center justify-center font-bold text-[10px]">NO IMG</div>
                                                     )}
@@ -752,8 +752,8 @@ export default function Dashboard({
 
                     {/* Testimonials CRUD Tab */}
                     {activeTab === 'testimonials' && (
-                        <div className="bg-white shadow sm:rounded-lg dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
-                            <div className="flex justify-between items-center border-b border-gray-200 px-6 py-5 dark:border-gray-700">
+                        <div className="bg-white shadow sm:rounded-lg dark:bg-[#1E1112] border border-red-100/30 dark:border-red-950/40">
+                            <div className="flex justify-between items-center border-b border-red-100/45 px-6 py-5 dark:border-red-950/40">
                                 <h3 className="text-lg font-medium text-gray-900 dark:text-white">Kelola Testimonial</h3>
                                 <button onClick={() => openTestimonialModal()} className="flex items-center space-x-1.5 px-4 py-2 bg-[#C7A856] text-white text-xs font-bold rounded-lg hover:bg-[#b09245] shadow-sm transition-all">
                                     <Plus className="w-4 h-4" />
@@ -761,7 +761,7 @@ export default function Dashboard({
                                 </button>
                             </div>
                             <div className="px-6 py-6 overflow-x-auto">
-                                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+                                <table className="min-w-full divide-y divide-red-100/35 dark:divide-red-950/30 text-sm">
                                     <thead className="bg-red-50/20 dark:bg-red-950/10">
                                         <tr className="text-left text-gray-500 dark:text-gray-455 font-bold uppercase tracking-wider text-[10px]">
                                             <th className="px-4 py-3">Customer</th>
@@ -771,9 +771,9 @@ export default function Dashboard({
                                             <th className="px-4 py-3 text-right">Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-gray-100 dark:divide-gray-700 text-gray-700 dark:text-gray-300">
+                                    <tbody className="divide-y divide-gray-100 dark:divide-red-950/30 text-gray-700 dark:text-gray-300">
                                         {testimonials.map((test) => (
-                                            <tr key={test.id} className="align-top hover:bg-gray-50 dark:hover:bg-gray-900/30">
+                                            <tr key={test.id} className="align-top hover:bg-[#FAF5F5] dark:hover:bg-gray-900/30">
                                                 <td className="px-4 py-4 font-bold text-gray-900 dark:text-white">{test.customer_name}</td>
                                                 <td className="px-4 py-4 text-gray-500">{test.customer_title}</td>
                                                 <td className="px-4 py-4 text-yellow-500">{'★'.repeat(test.rating)}</td>
@@ -792,8 +792,8 @@ export default function Dashboard({
 
                     {/* FAQs CRUD Tab */}
                     {activeTab === 'faqs' && (
-                        <div className="bg-white shadow sm:rounded-lg dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
-                            <div className="flex justify-between items-center border-b border-gray-200 px-6 py-5 dark:border-gray-700">
+                        <div className="bg-white shadow sm:rounded-lg dark:bg-[#1E1112] border border-red-100/30 dark:border-red-950/40">
+                            <div className="flex justify-between items-center border-b border-red-100/45 px-6 py-5 dark:border-red-950/40">
                                 <h3 className="text-lg font-medium text-gray-900 dark:text-white">Kelola Pertanyaan FAQ</h3>
                                 <button onClick={() => openFaqModal()} className="flex items-center space-x-1.5 px-4 py-2 bg-[#C7A856] text-white text-xs font-bold rounded-lg hover:bg-[#b09245] shadow-sm transition-all">
                                     <Plus className="w-4 h-4" />
@@ -801,7 +801,7 @@ export default function Dashboard({
                                 </button>
                             </div>
                             <div className="px-6 py-6 overflow-x-auto">
-                                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+                                <table className="min-w-full divide-y divide-red-100/35 dark:divide-red-950/30 text-sm">
                                     <thead className="bg-red-50/20 dark:bg-red-950/10">
                                         <tr className="text-left text-gray-500 dark:text-gray-455 font-bold uppercase tracking-wider text-[10px]">
                                             <th className="px-4 py-3 w-16">Urutan</th>
@@ -810,9 +810,9 @@ export default function Dashboard({
                                             <th className="px-4 py-3 text-right">Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-gray-100 dark:divide-gray-700 text-gray-700 dark:text-gray-300">
+                                    <tbody className="divide-y divide-gray-100 dark:divide-red-950/30 text-gray-700 dark:text-gray-300">
                                         {faqs.map((faq) => (
-                                            <tr key={faq.id} className="align-top hover:bg-gray-50 dark:hover:bg-gray-900/30">
+                                            <tr key={faq.id} className="align-top hover:bg-[#FAF5F5] dark:hover:bg-gray-900/30">
                                                 <td className="px-4 py-4 font-bold text-gray-500">{faq.order_num}</td>
                                                 <td className="px-4 py-4 font-semibold text-gray-900 dark:text-white">{faq.question}</td>
                                                 <td className="px-4 py-4 text-xs text-gray-600 dark:text-gray-400 max-w-sm">{faq.answer}</td>
@@ -830,8 +830,8 @@ export default function Dashboard({
 
                     {/* Services CRUD Tab */}
                     {activeTab === 'services' && (
-                        <div className="bg-white shadow sm:rounded-lg dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
-                            <div className="flex justify-between items-center border-b border-gray-200 px-6 py-5 dark:border-gray-700">
+                        <div className="bg-white shadow sm:rounded-lg dark:bg-[#1E1112] border border-red-100/30 dark:border-red-950/40">
+                            <div className="flex justify-between items-center border-b border-red-100/45 px-6 py-5 dark:border-red-950/40">
                                 <h3 className="text-lg font-medium text-gray-900 dark:text-white">Kelola Kategori Layanan</h3>
                                 <button onClick={() => openServiceModal()} className="flex items-center space-x-1.5 px-4 py-2 bg-[#C7A856] text-white text-xs font-bold rounded-lg hover:bg-[#b09245] shadow-sm transition-all">
                                     <Plus className="w-4 h-4" />
@@ -839,7 +839,7 @@ export default function Dashboard({
                                 </button>
                             </div>
                             <div className="px-6 py-6 overflow-x-auto">
-                                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+                                <table className="min-w-full divide-y divide-red-100/35 dark:divide-red-950/30 text-sm">
                                     <thead className="bg-red-50/20 dark:bg-red-950/10">
                                         <tr className="text-left text-gray-500 dark:text-gray-455 font-bold uppercase tracking-wider text-[10px]">
                                             <th className="px-4 py-3 w-16">Urutan</th>
@@ -849,9 +849,9 @@ export default function Dashboard({
                                             <th className="px-4 py-3 text-right">Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-gray-100 dark:divide-gray-700 text-gray-700 dark:text-gray-300">
+                                    <tbody className="divide-y divide-gray-100 dark:divide-red-950/30 text-gray-700 dark:text-gray-300">
                                         {services.map((svc) => (
-                                            <tr key={svc.id} className="align-top hover:bg-gray-50 dark:hover:bg-gray-900/30">
+                                            <tr key={svc.id} className="align-top hover:bg-[#FAF5F5] dark:hover:bg-gray-900/30">
                                                 <td className="px-4 py-4 font-bold text-gray-500">{svc.order_num}</td>
                                                 <td className="px-4 py-4 font-bold text-gray-900 dark:text-white">{svc.title}</td>
                                                 <td className="px-4 py-4 text-xs text-gray-600 dark:text-gray-400 max-w-sm">{svc.description}</td>
@@ -870,8 +870,8 @@ export default function Dashboard({
 
                     {/* Partners CRUD Tab */}
                     {activeTab === 'partners' && (
-                        <div className="bg-white shadow sm:rounded-lg dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
-                            <div className="flex justify-between items-center border-b border-gray-200 px-6 py-5 dark:border-gray-700">
+                        <div className="bg-white shadow sm:rounded-lg dark:bg-[#1E1112] border border-red-100/30 dark:border-red-950/40">
+                            <div className="flex justify-between items-center border-b border-red-100/45 px-6 py-5 dark:border-red-950/40">
                                 <h3 className="text-lg font-medium text-gray-900 dark:text-white">Mitra / Klien Logo</h3>
                                 <button onClick={() => openPartnerModal()} className="flex items-center space-x-1.5 px-4 py-2 bg-[#C7A856] text-white text-xs font-bold rounded-lg hover:bg-[#b09245] shadow-sm transition-all">
                                     <Plus className="w-4 h-4" />
@@ -879,7 +879,7 @@ export default function Dashboard({
                                 </button>
                             </div>
                             <div className="px-6 py-6 overflow-x-auto">
-                                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+                                <table className="min-w-full divide-y divide-red-100/35 dark:divide-red-950/30 text-sm">
                                     <thead className="bg-red-50/20 dark:bg-red-950/10">
                                         <tr className="text-left text-gray-500 dark:text-gray-455 font-bold uppercase tracking-wider text-[10px]">
                                             <th className="px-4 py-3 w-16">Urutan</th>
@@ -887,9 +887,9 @@ export default function Dashboard({
                                             <th className="px-4 py-3 text-right">Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-gray-100 dark:divide-gray-700 text-gray-700 dark:text-gray-300">
+                                    <tbody className="divide-y divide-gray-100 dark:divide-red-950/30 text-gray-700 dark:text-gray-300">
                                         {partners.map((p) => (
-                                            <tr key={p.id} className="align-middle hover:bg-gray-50 dark:hover:bg-gray-900/30">
+                                            <tr key={p.id} className="align-middle hover:bg-[#FAF5F5] dark:hover:bg-gray-900/30">
                                                 <td className="px-4 py-3 font-bold text-gray-500">{p.order_num}</td>
                                                 <td className="px-4 py-3 font-bold text-gray-900 dark:text-white">{p.name}</td>
                                                 <td className="px-4 py-3 text-right space-x-1.5 whitespace-nowrap">
@@ -906,8 +906,8 @@ export default function Dashboard({
 
                     {/* Portfolios CRUD Tab */}
                     {activeTab === 'portfolios' && (
-                        <div className="bg-white shadow sm:rounded-lg dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
-                            <div className="flex justify-between items-center border-b border-gray-200 px-6 py-5 dark:border-gray-700">
+                        <div className="bg-white shadow sm:rounded-lg dark:bg-[#1E1112] border border-red-100/30 dark:border-red-950/40">
+                            <div className="flex justify-between items-center border-b border-red-100/45 px-6 py-5 dark:border-red-950/40">
                                 <h3 className="text-lg font-medium text-gray-900 dark:text-white">Dokumentasi Acara Portofolio</h3>
                                 <button onClick={() => openPortfolioModal()} className="flex items-center space-x-1.5 px-4 py-2 bg-[#C7A856] text-white text-xs font-bold rounded-lg hover:bg-[#b09245] shadow-sm transition-all cursor-pointer">
                                     <Plus className="w-4 h-4" />
@@ -915,7 +915,7 @@ export default function Dashboard({
                                 </button>
                             </div>
                             <div className="px-6 py-6 overflow-x-auto">
-                                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+                                <table className="min-w-full divide-y divide-red-100/35 dark:divide-red-950/30 text-sm">
                                     <thead className="bg-red-50/20 dark:bg-red-950/10">
                                         <tr className="text-left text-gray-500 dark:text-gray-400 font-bold uppercase tracking-wider text-[10px]">
                                             <th className="px-4 py-3 w-28">Preview</th>
@@ -925,19 +925,19 @@ export default function Dashboard({
                                             <th className="px-4 py-3 text-right">Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-gray-100 dark:divide-gray-700 text-gray-700 dark:text-gray-300">
+                                    <tbody className="divide-y divide-gray-100 dark:divide-red-950/30 text-gray-700 dark:text-gray-300">
                                         {portfolios.length === 0 ? (
                                             <tr>
                                                 <td colSpan={5} className="px-4 py-8 text-center text-gray-400">Belum ada data portofolio. Silakan klik Tambah Portofolio.</td>
                                             </tr>
                                         ) : (
                                             portfolios.map((p) => (
-                                                <tr key={p.id} className="align-middle hover:bg-gray-50 dark:hover:bg-gray-900/30">
+                                                <tr key={p.id} className="align-middle hover:bg-[#FAF5F5] dark:hover:bg-gray-900/30">
                                                     <td className="px-4 py-3">
                                                         {p.image_path ? (
-                                                            <img src={p.image_path} alt={p.title} className="w-20 h-12 object-cover rounded-lg shadow-xs border dark:border-gray-700" />
+                                                            <img src={p.image_path} alt={p.title} className="w-20 h-12 object-cover rounded-lg shadow-xs border dark:border-red-950/40" />
                                                         ) : (
-                                                            <div className="w-20 h-12 bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-[10px] text-gray-400 rounded-lg">No Image</div>
+                                                            <div className="w-20 h-12 bg-red-50/20 dark:bg-gray-700 flex items-center justify-center text-[10px] text-gray-400 rounded-lg">No Image</div>
                                                         )}
                                                     </td>
                                                     <td className="px-4 py-3 font-bold text-gray-900 dark:text-white">{p.title}</td>
@@ -962,8 +962,8 @@ export default function Dashboard({
 
                     {/* Certificates CRUD Tab */}
                     {activeTab === 'certificates' && (
-                        <div className="bg-white shadow sm:rounded-lg dark:bg-gray-800 border border-gray-100 dark:border-gray-700">
-                            <div className="flex justify-between items-center border-b border-gray-200 px-6 py-5 dark:border-gray-700">
+                        <div className="bg-white shadow sm:rounded-lg dark:bg-[#1E1112] border border-red-100/30 dark:border-red-950/40">
+                            <div className="flex justify-between items-center border-b border-red-100/45 px-6 py-5 dark:border-red-950/40">
                                 <h3 className="text-lg font-medium text-gray-900 dark:text-white">Daftar Sertifikat & Legalitas</h3>
                                 <button onClick={() => openCertificateModal()} className="flex items-center space-x-1.5 px-4 py-2 bg-[#C7A856] text-white text-xs font-bold rounded-lg hover:bg-[#b09245] shadow-sm transition-all cursor-pointer">
                                     <Plus className="w-4 h-4" />
@@ -971,7 +971,7 @@ export default function Dashboard({
                                 </button>
                             </div>
                             <div className="px-6 py-6 overflow-x-auto">
-                                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+                                <table className="min-w-full divide-y divide-red-100/35 dark:divide-red-950/30 text-sm">
                                     <thead className="bg-red-50/20 dark:bg-red-950/10">
                                         <tr className="text-left text-gray-500 dark:text-gray-400 font-bold uppercase tracking-wider text-[10px]">
                                             <th className="px-4 py-3 w-16">Urutan</th>
@@ -982,20 +982,20 @@ export default function Dashboard({
                                             <th className="px-4 py-3 text-right">Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-gray-100 dark:divide-gray-700 text-gray-700 dark:text-gray-300">
+                                    <tbody className="divide-y divide-gray-100 dark:divide-red-950/30 text-gray-700 dark:text-gray-300">
                                         {certificates.length === 0 ? (
                                             <tr>
                                                 <td colSpan={6} className="px-4 py-8 text-center text-gray-400">Belum ada data sertifikat. Silakan klik Tambah Sertifikat.</td>
                                             </tr>
                                         ) : (
                                             certificates.map((cert) => (
-                                                <tr key={cert.id} className="align-middle hover:bg-gray-50 dark:hover:bg-gray-900/30">
+                                                <tr key={cert.id} className="align-middle hover:bg-[#FAF5F5] dark:hover:bg-gray-900/30">
                                                     <td className="px-4 py-3 font-bold text-gray-500">{cert.order_num}</td>
                                                     <td className="px-4 py-3">
                                                         {cert.image_path ? (
-                                                            <img src={cert.image_path} alt={cert.title} className="w-20 h-12 object-cover rounded-lg shadow-xs border dark:border-gray-700" />
+                                                            <img src={cert.image_path} alt={cert.title} className="w-20 h-12 object-cover rounded-lg shadow-xs border dark:border-red-950/40" />
                                                         ) : (
-                                                            <div className="w-20 h-12 bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-[10px] text-gray-400 rounded-lg">No Image</div>
+                                                            <div className="w-20 h-12 bg-red-50/20 dark:bg-gray-700 flex items-center justify-center text-[10px] text-gray-400 rounded-lg">No Image</div>
                                                         )}
                                                     </td>
                                                     <td className="px-4 py-3 font-bold text-gray-900 dark:text-white">{cert.title}</td>
@@ -1020,7 +1020,7 @@ export default function Dashboard({
 
                     {/* Web Settings - Hero & Slider Tab */}
                     {activeTab === 'settings-hero' && (
-                        <div className="bg-white shadow sm:rounded-lg dark:bg-gray-800 border border-gray-100 dark:border-gray-700 p-8">
+                        <div className="bg-white shadow sm:rounded-lg dark:bg-[#1E1112] border border-red-100/30 dark:border-red-950/40 p-8">
                             <h3 className="text-lg font-medium text-gray-900 dark:text-white border-b pb-4 mb-6">Pengaturan Banner Utama & Slider Before-After</h3>
                             <form onSubmit={handleSettingsSubmit} className="space-y-6 max-w-2xl">
                                 <h4 className="text-sm font-semibold text-gray-900 dark:text-white border-b pb-2">Pengaturan Hero Banner</h4>
@@ -1031,7 +1031,7 @@ export default function Dashboard({
                                             type="text"
                                             value={settingsForm.hero_title}
                                             onChange={(e) => setSettingsForm({ ...settingsForm, hero_title: e.target.value })}
-                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
                                         />
                                     </div>
                                     <div>
@@ -1040,14 +1040,14 @@ export default function Dashboard({
                                             rows={2}
                                             value={settingsForm.hero_subtitle}
                                             onChange={(e) => setSettingsForm({ ...settingsForm, hero_subtitle: e.target.value })}
-                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none"
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none"
                                         />
                                     </div>
                                     <div>
                                         <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Gambar Background Hero (Resolusi Rekomendasi: 1920x1080px, format .webp/.jpg)</label>
                                         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
                                             {settingsForm.hero_bg_image && (
-                                                <img src={settingsForm.hero_bg_image} alt="Hero background preview" className="w-24 h-16 object-cover rounded-lg shadow-xs border dark:border-gray-700" />
+                                                <img src={settingsForm.hero_bg_image} alt="Hero background preview" className="w-24 h-16 object-cover rounded-lg shadow-xs border dark:border-red-950/40" />
                                             )}
                                             <div className="flex-1 w-full">
                                                 <input
@@ -1070,7 +1070,7 @@ export default function Dashboard({
                                             <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Gambar Sebelum Setup (Resolusi Rekomendasi: 1920x1080px)</label>
                                             <div className="flex flex-col gap-2">
                                                 {settingsForm.slider_before_image && (
-                                                    <img src={settingsForm.slider_before_image} alt="Slider before preview" className="w-24 h-16 object-cover rounded-lg shadow-xs border dark:border-gray-700" />
+                                                    <img src={settingsForm.slider_before_image} alt="Slider before preview" className="w-24 h-16 object-cover rounded-lg shadow-xs border dark:border-red-950/40" />
                                                 )}
                                                 <input
                                                     type="file"
@@ -1088,7 +1088,7 @@ export default function Dashboard({
                                                 type="text"
                                                 value={settingsForm.slider_before_label}
                                                 onChange={(e) => setSettingsForm({ ...settingsForm, slider_before_label: e.target.value })}
-                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
                                             />
                                         </div>
                                     </div>
@@ -1097,7 +1097,7 @@ export default function Dashboard({
                                             <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Gambar Sesudah Setup (Resolusi Rekomendasi: 1920x1080px)</label>
                                             <div className="flex flex-col gap-2">
                                                 {settingsForm.slider_after_image && (
-                                                    <img src={settingsForm.slider_after_image} alt="Slider after preview" className="w-24 h-16 object-cover rounded-lg shadow-xs border dark:border-gray-700" />
+                                                    <img src={settingsForm.slider_after_image} alt="Slider after preview" className="w-24 h-16 object-cover rounded-lg shadow-xs border dark:border-red-950/40" />
                                                 )}
                                                 <input
                                                     type="file"
@@ -1115,7 +1115,7 @@ export default function Dashboard({
                                                 type="text"
                                                 value={settingsForm.slider_after_label}
                                                 onChange={(e) => setSettingsForm({ ...settingsForm, slider_after_label: e.target.value })}
-                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
                                             />
                                         </div>
                                     </div>
@@ -1133,7 +1133,7 @@ export default function Dashboard({
 
                     {/* Web Settings - Kontak & Sosmed Tab */}
                     {activeTab === 'settings-contact' && (
-                        <div className="bg-white shadow sm:rounded-lg dark:bg-gray-800 border border-gray-100 dark:border-gray-700 p-8">
+                        <div className="bg-white shadow sm:rounded-lg dark:bg-[#1E1112] border border-red-100/30 dark:border-red-950/40 p-8">
                             <h3 className="text-lg font-medium text-gray-900 dark:text-white border-b pb-4 mb-6">Pengaturan Kontak & Media Sosial</h3>
                             <form onSubmit={handleSettingsSubmit} className="space-y-6 max-w-2xl">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -1143,7 +1143,7 @@ export default function Dashboard({
                                             type="text"
                                             value={settingsForm.company_wa}
                                             onChange={(e) => setSettingsForm({ ...settingsForm, company_wa: e.target.value })}
-                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
                                         />
                                     </div>
                                     <div>
@@ -1152,7 +1152,7 @@ export default function Dashboard({
                                             type="text"
                                             value={settingsForm.company_phone}
                                             onChange={(e) => setSettingsForm({ ...settingsForm, company_phone: e.target.value })}
-                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
                                         />
                                     </div>
                                 </div>
@@ -1164,7 +1164,7 @@ export default function Dashboard({
                                             type="email"
                                             value={settingsForm.company_email}
                                             onChange={(e) => setSettingsForm({ ...settingsForm, company_email: e.target.value })}
-                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
                                         />
                                     </div>
                                     <div>
@@ -1173,7 +1173,7 @@ export default function Dashboard({
                                             type="text"
                                             value={settingsForm.company_address}
                                             onChange={(e) => setSettingsForm({ ...settingsForm, company_address: e.target.value })}
-                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
                                         />
                                     </div>
                                 </div>
@@ -1185,7 +1185,7 @@ export default function Dashboard({
                                             type="text"
                                             value={settingsForm.operational_hours_weekday}
                                             onChange={(e) => setSettingsForm({ ...settingsForm, operational_hours_weekday: e.target.value })}
-                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
                                         />
                                     </div>
                                     <div>
@@ -1194,7 +1194,7 @@ export default function Dashboard({
                                             type="text"
                                             value={settingsForm.operational_hours_weekend}
                                             onChange={(e) => setSettingsForm({ ...settingsForm, operational_hours_weekend: e.target.value })}
-                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
                                         />
                                     </div>
                                 </div>
@@ -1206,7 +1206,7 @@ export default function Dashboard({
                                             type="text"
                                             value={settingsForm.company_instagram}
                                             onChange={(e) => setSettingsForm({ ...settingsForm, company_instagram: e.target.value })}
-                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
                                         />
                                     </div>
                                     <div>
@@ -1215,7 +1215,7 @@ export default function Dashboard({
                                             type="text"
                                             value={settingsForm.company_facebook}
                                             onChange={(e) => setSettingsForm({ ...settingsForm, company_facebook: e.target.value })}
-                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
                                         />
                                     </div>
                                     <div>
@@ -1224,7 +1224,7 @@ export default function Dashboard({
                                             type="text"
                                             value={settingsForm.company_youtube}
                                             onChange={(e) => setSettingsForm({ ...settingsForm, company_youtube: e.target.value })}
-                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
                                         />
                                     </div>
                                 </div>
@@ -1235,7 +1235,7 @@ export default function Dashboard({
                                         rows={3}
                                         value={settingsForm.google_maps_url}
                                         onChange={(e) => setSettingsForm({ ...settingsForm, google_maps_url: e.target.value })}
-                                        className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none"
+                                        className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none"
                                     />
                                 </div>
 
@@ -1246,7 +1246,7 @@ export default function Dashboard({
                                         placeholder="https://e-katalog.lkpp.go.id/..."
                                         value={settingsForm.lkpp_ekatalog_url}
                                         onChange={(e) => setSettingsForm({ ...settingsForm, lkpp_ekatalog_url: e.target.value })}
-                                        className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                        className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
                                     />
                                 </div>
 
@@ -1262,7 +1262,7 @@ export default function Dashboard({
 
                     {/* Web Settings - Keunggulan & Stats Tab */}
                     {activeTab === 'settings-features' && (
-                        <div className="bg-white shadow sm:rounded-lg dark:bg-gray-800 border border-gray-100 dark:border-gray-700 p-8">
+                        <div className="bg-white shadow sm:rounded-lg dark:bg-[#1E1112] border border-red-100/30 dark:border-red-950/40 p-8">
                             <h3 className="text-lg font-medium text-gray-900 dark:text-white border-b pb-4 mb-6">Pengaturan Keunggulan & Angka Statistik</h3>
                             <form onSubmit={handleSettingsSubmit} className="space-y-6">
                                 <h4 className="text-sm font-semibold text-gray-900 dark:text-white border-b pb-2">Pengaturan Seksi Keunggulan</h4>
@@ -1275,7 +1275,7 @@ export default function Dashboard({
                                                 value={settingsForm.advantages_badge}
                                                 onChange={(e) => setSettingsForm({ ...settingsForm, advantages_badge: e.target.value })}
                                                 placeholder="e.g. Why Choose Us"
-                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
                                             />
                                         </div>
                                         <div className="sm:col-span-2">
@@ -1285,7 +1285,7 @@ export default function Dashboard({
                                                 value={settingsForm.advantages_title}
                                                 onChange={(e) => setSettingsForm({ ...settingsForm, advantages_title: e.target.value })}
                                                 placeholder="e.g. Standar Pelayanan Katering Bintang Lima"
-                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
                                             />
                                         </div>
                                     </div>
@@ -1296,66 +1296,66 @@ export default function Dashboard({
                                             value={settingsForm.advantages_description}
                                             onChange={(e) => setSettingsForm({ ...settingsForm, advantages_description: e.target.value })}
                                             placeholder="Deskripsi singkat seksi keunggulan..."
-                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none"
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none"
                                         />
                                     </div>
 
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 border-t pt-4 dark:border-gray-700">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 border-t pt-4 dark:border-red-950/40">
                                         <div className="space-y-4">
                                             <div>
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Keunggulan 1: Judul</label>
-                                                <input type="text" value={settingsForm.advantage_1_title} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_1_title: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="text" value={settingsForm.advantage_1_title} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_1_title: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
                                             <div>
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Keunggulan 1: Deskripsi</label>
-                                                <input type="text" value={settingsForm.advantage_1_desc} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_1_desc: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="text" value={settingsForm.advantage_1_desc} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_1_desc: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
 
                                             <div>
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Keunggulan 2: Judul</label>
-                                                <input type="text" value={settingsForm.advantage_2_title} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_2_title: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="text" value={settingsForm.advantage_2_title} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_2_title: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
                                             <div>
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Keunggulan 2: Deskripsi</label>
-                                                <input type="text" value={settingsForm.advantage_2_desc} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_2_desc: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="text" value={settingsForm.advantage_2_desc} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_2_desc: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
 
                                             <div>
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Keunggulan 3: Judul</label>
-                                                <input type="text" value={settingsForm.advantage_3_title} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_3_title: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="text" value={settingsForm.advantage_3_title} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_3_title: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
                                             <div>
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Keunggulan 3: Deskripsi</label>
-                                                <input type="text" value={settingsForm.advantage_3_desc} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_3_desc: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="text" value={settingsForm.advantage_3_desc} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_3_desc: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
                                         </div>
 
                                         <div className="space-y-4">
                                             <div>
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Keunggulan 4: Judul</label>
-                                                <input type="text" value={settingsForm.advantage_4_title} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_4_title: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="text" value={settingsForm.advantage_4_title} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_4_title: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
                                             <div>
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Keunggulan 4: Deskripsi</label>
-                                                <input type="text" value={settingsForm.advantage_4_desc} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_4_desc: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="text" value={settingsForm.advantage_4_desc} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_4_desc: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
 
                                             <div>
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Keunggulan 5: Judul</label>
-                                                <input type="text" value={settingsForm.advantage_5_title} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_5_title: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="text" value={settingsForm.advantage_5_title} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_5_title: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
                                             <div>
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Keunggulan 5: Deskripsi</label>
-                                                <input type="text" value={settingsForm.advantage_5_desc} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_5_desc: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="text" value={settingsForm.advantage_5_desc} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_5_desc: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
 
                                             <div>
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Keunggulan 6: Judul</label>
-                                                <input type="text" value={settingsForm.advantage_6_title} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_6_title: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="text" value={settingsForm.advantage_6_title} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_6_title: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
                                             <div>
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Keunggulan 6: Deskripsi</label>
-                                                <input type="text" value={settingsForm.advantage_6_desc} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_6_desc: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="text" value={settingsForm.advantage_6_desc} onChange={(e) => setSettingsForm({ ...settingsForm, advantage_6_desc: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
                                         </div>
                                     </div>
@@ -1367,22 +1367,22 @@ export default function Dashboard({
                                         <div className="grid grid-cols-3 gap-4">
                                             <div className="col-span-1">
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Tahun (Angka)</label>
-                                                <input type="number" value={settingsForm.stats_years} onChange={(e) => setSettingsForm({ ...settingsForm, stats_years: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="number" value={settingsForm.stats_years} onChange={(e) => setSettingsForm({ ...settingsForm, stats_years: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
                                             <div className="col-span-2">
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Label Tahun</label>
-                                                <input type="text" value={settingsForm.stats_years_label} onChange={(e) => setSettingsForm({ ...settingsForm, stats_years_label: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="text" value={settingsForm.stats_years_label} onChange={(e) => setSettingsForm({ ...settingsForm, stats_years_label: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
                                         </div>
 
                                         <div className="grid grid-cols-3 gap-4">
                                             <div className="col-span-1">
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Event (Angka)</label>
-                                                <input type="number" value={settingsForm.stats_events} onChange={(e) => setSettingsForm({ ...settingsForm, stats_events: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="number" value={settingsForm.stats_events} onChange={(e) => setSettingsForm({ ...settingsForm, stats_events: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
                                             <div className="col-span-2">
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Label Event</label>
-                                                <input type="text" value={settingsForm.stats_events_label} onChange={(e) => setSettingsForm({ ...settingsForm, stats_events_label: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="text" value={settingsForm.stats_events_label} onChange={(e) => setSettingsForm({ ...settingsForm, stats_events_label: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
                                         </div>
                                     </div>
@@ -1391,22 +1391,22 @@ export default function Dashboard({
                                         <div className="grid grid-cols-3 gap-4">
                                             <div className="col-span-1">
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Mitra (Angka)</label>
-                                                <input type="number" value={settingsForm.stats_partners} onChange={(e) => setSettingsForm({ ...settingsForm, stats_partners: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="number" value={settingsForm.stats_partners} onChange={(e) => setSettingsForm({ ...settingsForm, stats_partners: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
                                             <div className="col-span-2">
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Label Mitra</label>
-                                                <input type="text" value={settingsForm.stats_partners_label} onChange={(e) => setSettingsForm({ ...settingsForm, stats_partners_label: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="text" value={settingsForm.stats_partners_label} onChange={(e) => setSettingsForm({ ...settingsForm, stats_partners_label: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
                                         </div>
 
                                         <div className="grid grid-cols-3 gap-4">
                                             <div className="col-span-1">
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Puas % (Angka)</label>
-                                                <input type="number" value={settingsForm.stats_satisfaction} onChange={(e) => setSettingsForm({ ...settingsForm, stats_satisfaction: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="number" value={settingsForm.stats_satisfaction} onChange={(e) => setSettingsForm({ ...settingsForm, stats_satisfaction: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
                                             <div className="col-span-2">
                                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Label Kepuasan</label>
-                                                <input type="text" value={settingsForm.stats_satisfaction_label} onChange={(e) => setSettingsForm({ ...settingsForm, stats_satisfaction_label: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                                <input type="text" value={settingsForm.stats_satisfaction_label} onChange={(e) => setSettingsForm({ ...settingsForm, stats_satisfaction_label: e.target.value })} className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                             </div>
                                         </div>
                                     </div>
@@ -1427,18 +1427,18 @@ export default function Dashboard({
             {/* Menu CRUD Modal */}
             {isMenuModalOpen && (
                 <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-                    <div className="bg-white dark:bg-gray-800 max-w-md w-full rounded-xl overflow-hidden shadow-2xl p-6 relative">
+                    <div className="bg-white dark:bg-[#1E1112] max-w-md w-full rounded-xl overflow-hidden shadow-2xl p-6 relative">
                         <button onClick={() => setIsMenuModalOpen(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-white"><X className="w-5 h-5" /></button>
                         <h4 className="font-playfair text-xl font-bold text-gray-900 dark:text-white mb-4">{editingMenu ? 'Edit Menu' : 'Tambah Menu Baru'}</h4>
                         <form onSubmit={handleMenuSubmit} className="space-y-4">
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Nama Hidangan</label>
-                                <input type="text" required value={menuForm.name} onChange={(e) => setMenuForm({ ...menuForm, name: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                <input type="text" required value={menuForm.name} onChange={(e) => setMenuForm({ ...menuForm, name: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Kategori</label>
-                                    <select value={menuForm.category} onChange={(e) => setMenuForm({ ...menuForm, category: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white">
+                                    <select value={menuForm.category} onChange={(e) => setMenuForm({ ...menuForm, category: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white">
                                         <option value="buffet">Prasmanan / Buffet</option>
                                         <option value="corporate">Korporat / Bisnis</option>
                                         <option value="private-event">Private Event</option>
@@ -1450,22 +1450,22 @@ export default function Dashboard({
                                 </div>
                                 <div>
                                     <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Harga Mulai (IDR)</label>
-                                    <input type="number" required value={menuForm.price_from} onChange={(e) => setMenuForm({ ...menuForm, price_from: Number(e.target.value) })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                    <input type="number" required value={menuForm.price_from} onChange={(e) => setMenuForm({ ...menuForm, price_from: Number(e.target.value) })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                 </div>
                             </div>
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Deskripsi Menu</label>
-                                <textarea rows={3} required value={menuForm.description} onChange={(e) => setMenuForm({ ...menuForm, description: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none" />
+                                <textarea rows={3} required value={menuForm.description} onChange={(e) => setMenuForm({ ...menuForm, description: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none" />
                             </div>
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Tags / Keistimewaan (Pisahkan dengan koma)</label>
-                                <input type="text" value={menuForm.tagsString} onChange={(e) => setMenuForm({ ...menuForm, tagsString: e.target.value })} placeholder="e.g. Halal, Tradisional, Pedas" className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                <input type="text" value={menuForm.tagsString} onChange={(e) => setMenuForm({ ...menuForm, tagsString: e.target.value })} placeholder="e.g. Halal, Tradisional, Pedas" className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                             </div>
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Foto Hidangan (Rekomendasi: 800x600px)</label>
                                 <div className="flex items-center gap-3">
                                     {editingMenu && editingMenu.image_path && (
-                                        <img src={editingMenu.image_path} alt="Preview" className="w-16 h-12 object-cover rounded-lg border dark:border-gray-700 shadow-xs" />
+                                        <img src={editingMenu.image_path} alt="Preview" className="w-16 h-12 object-cover rounded-lg border dark:border-red-950/40 shadow-xs" />
                                     )}
                                     <input
                                         type="file"
@@ -1489,27 +1489,27 @@ export default function Dashboard({
             {/* Testimonial CRUD Modal */}
             {isTestimonialModalOpen && (
                 <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-                    <div className="bg-white dark:bg-gray-800 max-w-md w-full rounded-xl overflow-hidden shadow-2xl p-6 relative">
+                    <div className="bg-white dark:bg-[#1E1112] max-w-md w-full rounded-xl overflow-hidden shadow-2xl p-6 relative">
                         <button onClick={() => setIsTestimonialModalOpen(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-white"><X className="w-5 h-5" /></button>
                         <h4 className="font-playfair text-xl font-bold text-gray-900 dark:text-white mb-4">{editingTestimonial ? 'Edit Testimonial' : 'Tambah Testimoni'}</h4>
                         <form onSubmit={handleTestimonialSubmit} className="space-y-4">
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Nama Customer</label>
-                                <input type="text" required value={testimonialForm.customer_name} onChange={(e) => setTestimonialForm({ ...testimonialForm, customer_name: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                <input type="text" required value={testimonialForm.customer_name} onChange={(e) => setTestimonialForm({ ...testimonialForm, customer_name: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                             </div>
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Acara / Keterangan (e.g. Wedding di Hotel A)</label>
-                                <input type="text" required value={testimonialForm.customer_title} onChange={(e) => setTestimonialForm({ ...testimonialForm, customer_title: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                <input type="text" required value={testimonialForm.customer_title} onChange={(e) => setTestimonialForm({ ...testimonialForm, customer_title: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Rating Bintang (1-5)</label>
-                                    <input type="number" min={1} max={5} required value={testimonialForm.rating} onChange={(e) => setTestimonialForm({ ...testimonialForm, rating: Number(e.target.value) })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                    <input type="number" min={1} max={5} required value={testimonialForm.rating} onChange={(e) => setTestimonialForm({ ...testimonialForm, rating: Number(e.target.value) })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                 </div>
                             </div>
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Isi Review Ulasan</label>
-                                <textarea rows={3} required value={testimonialForm.review} onChange={(e) => setTestimonialForm({ ...testimonialForm, review: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none" />
+                                <textarea rows={3} required value={testimonialForm.review} onChange={(e) => setTestimonialForm({ ...testimonialForm, review: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none" />
                             </div>
                             <button type="submit" className="w-full py-2.5 bg-[#E5B82C] hover:bg-[#c99e1e] text-white font-bold text-xs rounded transition-all shadow-md">Simpan Testimoni</button>
                         </form>
@@ -1520,21 +1520,21 @@ export default function Dashboard({
             {/* FAQ CRUD Modal */}
             {isFaqModalOpen && (
                 <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-                    <div className="bg-white dark:bg-gray-800 max-w-md w-full rounded-xl overflow-hidden shadow-2xl p-6 relative">
+                    <div className="bg-white dark:bg-[#1E1112] max-w-md w-full rounded-xl overflow-hidden shadow-2xl p-6 relative">
                         <button onClick={() => setIsFaqModalOpen(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-white"><X className="w-5 h-5" /></button>
                         <h4 className="font-playfair text-xl font-bold text-gray-900 dark:text-white mb-4">{editingFaq ? 'Edit FAQ' : 'Tambah FAQ'}</h4>
                         <form onSubmit={handleFaqSubmit} className="space-y-4">
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Pertanyaan</label>
-                                <input type="text" required value={faqForm.question} onChange={(e) => setFaqForm({ ...faqForm, question: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                <input type="text" required value={faqForm.question} onChange={(e) => setFaqForm({ ...faqForm, question: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                             </div>
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Jawaban</label>
-                                <textarea rows={4} required value={faqForm.answer} onChange={(e) => setFaqForm({ ...faqForm, answer: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none" />
+                                <textarea rows={4} required value={faqForm.answer} onChange={(e) => setFaqForm({ ...faqForm, answer: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none" />
                             </div>
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Urutan Tampil (Angka)</label>
-                                <input type="number" required value={faqForm.order_num} onChange={(e) => setFaqForm({ ...faqForm, order_num: Number(e.target.value) })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                <input type="number" required value={faqForm.order_num} onChange={(e) => setFaqForm({ ...faqForm, order_num: Number(e.target.value) })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                             </div>
                             <button type="submit" className="w-full py-2.5 bg-[#E5B82C] hover:bg-[#c99e1e] text-white font-bold text-xs rounded transition-all shadow-md">Simpan FAQ</button>
                         </form>
@@ -1545,22 +1545,22 @@ export default function Dashboard({
             {/* Service CRUD Modal */}
             {isServiceModalOpen && (
                 <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-                    <div className="bg-white dark:bg-gray-800 max-w-md w-full rounded-xl overflow-hidden shadow-2xl p-6 relative">
+                    <div className="bg-white dark:bg-[#1E1112] max-w-md w-full rounded-xl overflow-hidden shadow-2xl p-6 relative">
                         <button onClick={() => setIsServiceModalOpen(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-white"><X className="w-5 h-5" /></button>
                         <h4 className="font-playfair text-xl font-bold text-gray-900 dark:text-white mb-4">{editingService ? 'Edit Layanan' : 'Tambah Layanan Baru'}</h4>
                         <form onSubmit={handleServiceSubmit} className="space-y-4">
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Nama Layanan</label>
-                                <input type="text" required value={serviceForm.title} onChange={(e) => setServiceForm({ ...serviceForm, title: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                <input type="text" required value={serviceForm.title} onChange={(e) => setServiceForm({ ...serviceForm, title: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                             </div>
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Deskripsi Singkat</label>
-                                <textarea rows={3} required value={serviceForm.description} onChange={(e) => setServiceForm({ ...serviceForm, description: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none" />
+                                <textarea rows={3} required value={serviceForm.description} onChange={(e) => setServiceForm({ ...serviceForm, description: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none" />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Ikon Lucide (e.g. Award, Users, Clock)</label>
-                                    <select value={serviceForm.icon_name} onChange={(e) => setServiceForm({ ...serviceForm, icon_name: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white">
+                                    <select value={serviceForm.icon_name} onChange={(e) => setServiceForm({ ...serviceForm, icon_name: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white">
                                         <option value="Award">Award (Bintang / Trophy)</option>
                                         <option value="Users">Users (Grup / Pelanggan)</option>
                                         <option value="Clock">Clock (Waktu / On-Time)</option>
@@ -1573,7 +1573,7 @@ export default function Dashboard({
                                 </div>
                                 <div>
                                     <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Urutan Tampil</label>
-                                    <input type="number" required value={serviceForm.order_num} onChange={(e) => setServiceForm({ ...serviceForm, order_num: Number(e.target.value) })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                    <input type="number" required value={serviceForm.order_num} onChange={(e) => setServiceForm({ ...serviceForm, order_num: Number(e.target.value) })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                 </div>
                             </div>
                             <button type="submit" className="w-full py-2.5 bg-[#E5B82C] hover:bg-[#c99e1e] text-white font-bold text-xs rounded transition-all shadow-md">Simpan Layanan</button>
@@ -1585,17 +1585,17 @@ export default function Dashboard({
             {/* Partner CRUD Modal */}
             {isPartnerModalOpen && (
                 <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-                    <div className="bg-white dark:bg-gray-800 max-w-md w-full rounded-xl overflow-hidden shadow-2xl p-6 relative">
+                    <div className="bg-white dark:bg-[#1E1112] max-w-md w-full rounded-xl overflow-hidden shadow-2xl p-6 relative">
                         <button onClick={() => setIsPartnerModalOpen(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-white"><X className="w-5 h-5" /></button>
                         <h4 className="font-playfair text-xl font-bold text-gray-900 dark:text-white mb-4">{editingPartner ? 'Edit Mitra' : 'Tambah Mitra Baru'}</h4>
                         <form onSubmit={handlePartnerSubmit} className="space-y-4">
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Nama Mitra / Klien (Text Logo)</label>
-                                <input type="text" required value={partnerForm.name} onChange={(e) => setPartnerForm({ ...partnerForm, name: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                <input type="text" required value={partnerForm.name} onChange={(e) => setPartnerForm({ ...partnerForm, name: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                             </div>
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Urutan Tampil</label>
-                                <input type="number" required value={partnerForm.order_num} onChange={(e) => setPartnerForm({ ...partnerForm, order_num: Number(e.target.value) })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                <input type="number" required value={partnerForm.order_num} onChange={(e) => setPartnerForm({ ...partnerForm, order_num: Number(e.target.value) })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                             </div>
                             <button type="submit" className="w-full py-2.5 bg-[#E5B82C] hover:bg-[#c99e1e] text-white font-bold text-xs rounded transition-all shadow-md">Simpan Mitra</button>
                         </form>
@@ -1606,17 +1606,17 @@ export default function Dashboard({
             {/* Portfolio CRUD Modal */}
             {isPortfolioModalOpen && (
                 <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-                    <div className="bg-white dark:bg-gray-800 max-w-md w-full rounded-xl overflow-hidden shadow-2xl p-6 relative">
+                    <div className="bg-white dark:bg-[#1E1112] max-w-md w-full rounded-xl overflow-hidden shadow-2xl p-6 relative">
                         <button onClick={() => setIsPortfolioModalOpen(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-white"><X className="w-5 h-5" /></button>
                         <h4 className="font-playfair text-xl font-bold text-gray-900 dark:text-white mb-4">{editingPortfolio ? 'Edit Item Portofolio' : 'Tambah Portofolio Baru'}</h4>
                         <form onSubmit={handlePortfolioSubmit} className="space-y-4">
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Judul Acara / Dokumentasi</label>
-                                <input type="text" required value={portfolioForm.title} onChange={(e) => setPortfolioForm({ ...portfolioForm, title: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                <input type="text" required value={portfolioForm.title} onChange={(e) => setPortfolioForm({ ...portfolioForm, title: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                             </div>
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Kategori Acara</label>
-                                <select value={portfolioForm.category} onChange={(e) => setPortfolioForm({ ...portfolioForm, category: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white">
+                                <select value={portfolioForm.category} onChange={(e) => setPortfolioForm({ ...portfolioForm, category: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white">
                                     <option value="wedding">Pernikahan (Wedding)</option>
                                     <option value="corporate">Korporat / Kantor (Corporate)</option>
                                     <option value="private-event">Private Event</option>
@@ -1628,7 +1628,7 @@ export default function Dashboard({
                             </div>
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Deskripsi Singkat Acara</label>
-                                <textarea rows={3} value={portfolioForm.description} onChange={(e) => setPortfolioForm({ ...portfolioForm, description: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none" />
+                                <textarea rows={3} value={portfolioForm.description} onChange={(e) => setPortfolioForm({ ...portfolioForm, description: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none" />
                             </div>
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Foto Dokumentasi (Format .webp/.jpg/.png, Maks: 4MB)</label>
@@ -1636,7 +1636,7 @@ export default function Dashboard({
                                     {editingPortfolio && editingPortfolio.image_path && (
                                         <div className="mb-1">
                                             <p className="text-[10px] text-gray-400 mb-1">Foto saat ini:</p>
-                                            <img src={editingPortfolio.image_path} alt="Current preview" className="w-24 h-14 object-cover rounded-lg border dark:border-gray-700" />
+                                            <img src={editingPortfolio.image_path} alt="Current preview" className="w-24 h-14 object-cover rounded-lg border dark:border-red-950/40" />
                                         </div>
                                     )}
                                     <input
@@ -1658,22 +1658,22 @@ export default function Dashboard({
             {/* Certificate CRUD Modal */}
             {isCertificateModalOpen && (
                 <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-                    <div className="bg-white dark:bg-gray-800 max-w-md w-full rounded-xl overflow-hidden shadow-2xl p-6 relative">
+                    <div className="bg-white dark:bg-[#1E1112] max-w-md w-full rounded-xl overflow-hidden shadow-2xl p-6 relative">
                         <button onClick={() => setIsCertificateModalOpen(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-white"><X className="w-5 h-5" /></button>
                         <h4 className="font-playfair text-xl font-bold text-gray-900 dark:text-white mb-4">{editingCertificate ? 'Edit Sertifikat / Legalitas' : 'Tambah Sertifikat Baru'}</h4>
                         <form onSubmit={handleCertificateSubmit} className="space-y-4">
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Nama Sertifikat / Dokumen</label>
-                                <input type="text" required value={certificateForm.title} onChange={(e) => setCertificateForm({ ...certificateForm, title: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                <input type="text" required value={certificateForm.title} onChange={(e) => setCertificateForm({ ...certificateForm, title: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                             </div>
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Penerbit Resmi (Lembaga / Instansi)</label>
-                                <input type="text" required value={certificateForm.issuer} onChange={(e) => setCertificateForm({ ...certificateForm, issuer: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                <input type="text" required value={certificateForm.issuer} onChange={(e) => setCertificateForm({ ...certificateForm, issuer: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Ikon Tampil</label>
-                                    <select value={certificateForm.icon_name} onChange={(e) => setCertificateForm({ ...certificateForm, icon_name: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white">
+                                    <select value={certificateForm.icon_name} onChange={(e) => setCertificateForm({ ...certificateForm, icon_name: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white">
                                         <option value="ShieldCheck">Perisai (ShieldCheck)</option>
                                         <option value="Award">Medali / Pita (Award)</option>
                                         <option value="FileCheck">Dokumen Ceklist (FileCheck)</option>
@@ -1681,7 +1681,7 @@ export default function Dashboard({
                                 </div>
                                 <div>
                                     <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Urutan Tampil</label>
-                                    <input type="number" min={1} required value={certificateForm.order_num} onChange={(e) => setCertificateForm({ ...certificateForm, order_num: Number(e.target.value) })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                                    <input type="number" min={1} required value={certificateForm.order_num} onChange={(e) => setCertificateForm({ ...certificateForm, order_num: Number(e.target.value) })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
                                 </div>
                             </div>
                             <div>
@@ -1690,7 +1690,7 @@ export default function Dashboard({
                                     {editingCertificate && editingCertificate.image_path && (
                                         <div className="mb-1">
                                             <p className="text-[10px] text-gray-400 mb-1">Dokumen saat ini:</p>
-                                            <img src={editingCertificate.image_path} alt="Current certificate preview" className="w-24 h-14 object-cover rounded-lg border dark:border-gray-700" />
+                                            <img src={editingCertificate.image_path} alt="Current certificate preview" className="w-24 h-14 object-cover rounded-lg border dark:border-red-950/40" />
                                         </div>
                                     )}
                                     <input
