@@ -116,6 +116,7 @@ const quoteSchema = z.object({
     event_date: z.string().min(1, { message: 'Silakan tentukan tanggal acara' }),
     guests_count: z.number().min(10, { message: 'Minimal 10 tamu undangan' }),
     notes: z.string().optional(),
+    website_url: z.string().optional(),
 });
 
 type QuoteFormValues = z.infer<typeof quoteSchema>;
@@ -266,6 +267,12 @@ export default function Welcome({
     });
 
     const onSubmit = (formData: QuoteFormValues) => {
+        // Honeypot check - spambot block
+        if ((formData as any).website_url) {
+            reset();
+            return;
+        }
+
         router.post('/quote-request', formData as any, {
             onSuccess: () => {
                 // Save lead, then direct to WhatsApp
@@ -1121,6 +1128,16 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                     <div className="bg-white text-darktext p-8 sm:p-10 rounded-3xl border border-secondary/20 shadow-xl space-y-6">
                         <h3 className="font-playfair text-2xl font-bold text-primary text-center">Permintaan Penawaran Harga</h3>
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                            {/* Honeypot field for bot spam protection */}
+                            <div className="hidden" aria-hidden="true">
+                                <input
+                                    type="text"
+                                    tabIndex={-1}
+                                    autoComplete="off"
+                                    placeholder="If you are human, leave this blank"
+                                    {...register('website_url')}
+                                />
+                            </div>
                             <div>
                                 <label className="block text-xs font-semibold text-primary mb-1">Nama Lengkap Anda</label>
                                 <input

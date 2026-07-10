@@ -39,6 +39,11 @@ class CateringController extends Controller
      */
     public function storeQuote(Request $request)
     {
+        // Honeypot check - if filled, it's a spambot. Silently ignore.
+        if ($request->filled('website_url')) {
+            return back()->with('success', 'Quote request submitted successfully!');
+        }
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
