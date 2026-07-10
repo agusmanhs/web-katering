@@ -202,6 +202,7 @@ export default function Dashboard({
         stats_partners_label: settings.stats_partners_label || '',
         stats_satisfaction: settings.stats_satisfaction || '',
         stats_satisfaction_label: settings.stats_satisfaction_label || '',
+        lkpp_ekatalog_url: settings.lkpp_ekatalog_url || '',
     });
 
     const [heroBgFile, setHeroBgFile] = useState<File | null>(null);
@@ -1235,6 +1236,17 @@ export default function Dashboard({
                                         value={settingsForm.google_maps_url}
                                         onChange={(e) => setSettingsForm({ ...settingsForm, google_maps_url: e.target.value })}
                                         className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Tautan E-Katalog LKPP Pemerintah</label>
+                                    <input
+                                        type="url"
+                                        placeholder="https://e-katalog.lkpp.go.id/..."
+                                        value={settingsForm.lkpp_ekatalog_url}
+                                        onChange={(e) => setSettingsForm({ ...settingsForm, lkpp_ekatalog_url: e.target.value })}
+                                        className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900 outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
                                     />
                                 </div>
 

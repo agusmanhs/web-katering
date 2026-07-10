@@ -779,7 +779,7 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         {certificates.map((cert) => {
                             let IconComponent = ShieldCheck;
                             if (cert.icon_name === 'Award') IconComponent = Award;
@@ -812,6 +812,33 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                                 </div>
                             );
                         })}
+
+                        {/* Card E-Katalog LKPP (Mitra Pengadaan Pemerintah) */}
+                        <a
+                            href={getSetting('lkpp_ekatalog_url', 'https://e-katalog.lkpp.go.id')}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="group bg-white/5 border border-white/10 p-8 rounded-2xl hover:border-secondary/40 hover:bg-white/[0.07] transition-all duration-300 relative overflow-hidden flex flex-col items-center text-center shadow-lg"
+                        >
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/5 rounded-full blur-2xl group-hover:bg-secondary/10 transition-colors" />
+                            
+                            <div className="w-16 h-16 rounded-full bg-secondary/10 border border-secondary/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <Award className="w-8 h-8 text-secondary" />
+                            </div>
+
+                            <h3 className="font-playfair text-xl font-bold text-primary mb-2 group-hover:text-secondary transition-colors">
+                                E-Katalog LKPP
+                            </h3>
+                            
+                            <p className="text-xs text-darktext/50 font-light mb-6">
+                                Terdaftar Resmi Penyedia Jasa Konsumsi Instansi Pemerintah & BUMN
+                            </p>
+
+                            <span className="mt-auto text-xs font-semibold text-secondary hover:text-white flex items-center space-x-1 border-b border-secondary/30 pb-0.5 group-hover:border-white transition-all">
+                                <span>Kunjungi E-Katalog LKPP</span>
+                                <ExternalLink className="w-3.5 h-3.5" />
+                            </span>
+                        </a>
                     </div>
                 </section>
             )}
