@@ -179,9 +179,10 @@ export default function Authenticated({
             <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 bg-gradient-to-b from-[#052216] via-[#093524] to-[#031a10] border-r border-emerald-900/40 z-30">
                 {/* Brand Logo Header */}
                 <div className="flex h-16 shrink-0 items-center px-6 border-b border-emerald-900/40 bg-black/10">
-                    <Link href="/" className="flex items-center space-x-2">
-                        <span className="text-xl font-bold tracking-wider text-emerald-400 font-serif">DAPOER RATU</span>
-                        <span className="text-[10px] uppercase px-1.5 py-0.5 rounded-md bg-[#C7A856]/20 text-[#C7A856] border border-[#C7A856]/40 font-bold tracking-wider">CMS</span>
+                    <Link href="/" className="flex items-center space-x-2.5">
+                        <img src="/images/logo_gold.png" alt="Dapoer Ratu Logo" className="w-8 h-8 object-contain" />
+                        <span className="text-lg font-bold tracking-wider text-emerald-400 font-serif leading-none">DAPOER RATU</span>
+                        <span className="text-[9px] uppercase px-1 py-0.5 rounded bg-[#C7A856]/20 text-[#C7A856] border border-[#C7A856]/40 font-bold tracking-wider">CMS</span>
                     </Link>
                 </div>
 
@@ -255,7 +256,10 @@ export default function Authenticated({
                     >
                         {/* Drawer Header */}
                         <div className="flex h-16 shrink-0 items-center justify-between px-6 border-b border-emerald-900/40 bg-black/10">
-                            <span className="text-xl font-bold tracking-wider text-emerald-400 font-serif">DAPOER RATU</span>
+                            <div className="flex items-center space-x-2.5">
+                                <img src="/images/logo_gold.png" alt="Dapoer Ratu Logo" className="w-8 h-8 object-contain" />
+                                <span className="text-lg font-bold tracking-wider text-emerald-400 font-serif leading-none">DAPOER RATU</span>
+                            </div>
                             <button onClick={() => setIsMobileOpen(false)} className="text-emerald-300 hover:text-white p-1 rounded-lg hover:bg-emerald-900/40">
                                 <X className="w-5 h-5" />
                             </button>
