@@ -214,6 +214,7 @@ export default function Dashboard({
     const [sliderBeforeFile, setSliderBeforeFile] = useState<File | null>(null);
     const [sliderAfterFile, setSliderAfterFile] = useState<File | null>(null);
     const [menuImageFile, setMenuImageFile] = useState<File | null>(null);
+    const [partnerLogoFile, setPartnerLogoFile] = useState<File | null>(null);
 
     // Quote actions
     const updateQuoteStatus = (id: number, status: 'pending' | 'contacted' | 'closed') => {
@@ -378,8 +379,8 @@ export default function Dashboard({
         }
     };
 
-    // Partner CRUD Handlers
     const openPartnerModal = (part: PartnerItem | null = null) => {
+        setPartnerLogoFile(null);
         if (part) {
             setEditingPartner(part);
             setPartnerForm({ name: part.name, order_num: part.order_num });
@@ -392,15 +393,26 @@ export default function Dashboard({
 
     const handlePartnerSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        
+        const formData = new FormData();
         if (editingPartner) {
-            router.put(`/admin/partners/${editingPartner.id}`, partnerForm, {
-                onSuccess: () => setIsPartnerModalOpen(false)
-            });
-        } else {
-            router.post('/admin/partners', partnerForm, {
-                onSuccess: () => setIsPartnerModalOpen(false)
-            });
+            formData.append('_method', 'PUT');
         }
+        formData.append('name', partnerForm.name);
+        formData.append('order_num', String(partnerForm.order_num));
+        if (partnerLogoFile) {
+            formData.append('logo', partnerLogoFile);
+        }
+
+        const url = editingPartner ? `/admin/partners/${editingPartner.id}` : '/admin/partners';
+
+        router.post(url, formData, {
+            forceFormData: true,
+            onSuccess: () => {
+                setIsPartnerModalOpen(false);
+                setPartnerLogoFile(null);
+            }
+        });
     };
 
     const deletePartner = (id: number) => {
@@ -888,6 +900,7 @@ export default function Dashboard({
                                     <thead className="bg-red-50/20 dark:bg-red-950/10">
                                         <tr className="text-left text-gray-500 dark:text-gray-455 font-bold uppercase tracking-wider text-[10px]">
                                             <th className="px-4 py-3 w-16">Urutan</th>
+                                            <th className="px-4 py-3 w-32">Logo</th>
                                             <th className="px-4 py-3">Nama Mitra</th>
                                             <th className="px-4 py-3 text-right">Aksi</th>
                                         </tr>
@@ -896,6 +909,13 @@ export default function Dashboard({
                                         {partners.map((p) => (
                                             <tr key={p.id} className="align-middle hover:bg-[#FAF5F5] dark:hover:bg-gray-900/30">
                                                 <td className="px-4 py-3 font-bold text-gray-500">{p.order_num}</td>
+                                                <td className="px-4 py-3">
+                                                    {p.logo_path ? (
+                                                        <img src={p.logo_path} alt={p.name} className="h-8 object-contain dark:bg-white/10 dark:p-1 rounded" />
+                                                    ) : (
+                                                        <span className="text-xs text-gray-400 italic">No Logo</span>
+                                                    )}
+                                                </td>
                                                 <td className="px-4 py-3 font-bold text-gray-900 dark:text-white">{p.name}</td>
                                                 <td className="px-4 py-3 text-right space-x-1.5 whitespace-nowrap">
                                                     <button onClick={() => openPartnerModal(p)} className="p-1.5 text-gray-400 hover:text-[#E5B82C] dark:hover:text-[#E5B82C] transition-colors"><Edit className="w-4 h-4" /></button>
@@ -1651,8 +1671,23 @@ export default function Dashboard({
                         <h4 className="font-playfair text-xl font-bold text-gray-900 dark:text-white mb-4">{editingPartner ? 'Edit Mitra' : 'Tambah Mitra Baru'}</h4>
                         <form onSubmit={handlePartnerSubmit} className="space-y-4">
                             <div>
-                                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Nama Mitra / Klien (Text Logo)</label>
+                                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Nama Mitra / Klien</label>
                                 <input type="text" required value={partnerForm.name} onChange={(e) => setPartnerForm({ ...partnerForm, name: e.target.value })} className="w-full px-3 py-2 text-sm rounded border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white" />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Logo Mitra / Klien (Gambar)</label>
+                                <div className="space-y-2">
+                                    {editingPartner?.logo_path && !partnerLogoFile && (
+                                        <img src={editingPartner.logo_path} alt="Logo preview" className="h-10 object-contain p-1 bg-gray-100 rounded" />
+                                    )}
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={(e) => setPartnerLogoFile(e.target.files ? e.target.files[0] : null)}
+                                        className="w-full text-xs text-gray-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-red-50 file:text-[#7C1A22] hover:file:bg-red-100 dark:file:bg-red-950/20 dark:file:text-[#E5B82C]"
+                                    />
+                                    {partnerLogoFile && <p className="text-[10px] text-green-600 mt-1">✔ File terpilih: {partnerLogoFile.name}</p>}
+                                </div>
                             </div>
                             <div>
                                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Urutan Tampil</label>
