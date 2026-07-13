@@ -1423,17 +1423,24 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
             </footer>
 
             {/* Sticky WhatsApp Button */}
-            <div className="fixed bottom-6 right-6 z-40 flex flex-col space-y-3">
+            <div className="fixed bottom-6 right-6 z-40">
                 <a
                     href={`https://wa.me/${getSetting('company_wa', '6281234567890')}?text=Halo%20Dapoer%20Ratu%20Catering%2C%20saya%20tertarik%20dengan%20layanan%20katering%20premium%20Anda.`}
                     target="_blank"
                     rel="noreferrer"
-                    className="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white flex items-center justify-center shadow-lg hover:scale-108 transition-all relative group cursor-pointer"
+                    className="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20ba56] text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-all relative group cursor-pointer"
                 >
-                    <span className="absolute right-16 bg-primary text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow-md border border-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                    {/* Pulsing ring effect */}
+                    <span className="absolute inset-0 rounded-full bg-[#25D366]/30 animate-ping pointer-events-none" />
+
+                    <span className="absolute right-16 bg-primary text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow-md border border-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
                         Konsultasi WhatsApp
                     </span>
-                    <span className="font-bold text-base">WA</span>
+                    
+                    {/* WhatsApp Icon */}
+                    <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.725 1.451 5.402 0 9.798-4.382 9.802-9.77.002-2.611-1.01-5.067-2.855-6.913-1.845-1.845-4.297-2.86-6.906-2.863-5.407 0-9.809 4.385-9.813 9.775-.001 1.77.472 3.498 1.371 5.018l-.972 3.548 3.648-.962zm12.502-5.412c-.347-.174-2.054-1.014-2.368-1.129-.314-.115-.544-.174-.773.174-.23.348-.888 1.129-1.088 1.361-.2.232-.4.261-.747.087-.348-.174-1.47-.542-2.8-1.728-1.034-.922-1.732-2.06-1.934-2.41-.202-.349-.022-.538.152-.712.157-.156.347-.406.52-.609.174-.203.23-.349.348-.58.116-.232.058-.435-.029-.609-.087-.174-.773-1.86-1.06-2.55-.28-.674-.56-.582-.773-.593-.198-.01-.426-.01-.653-.01-.227 0-.597.085-.91.424-.313.339-1.196 1.168-1.196 2.85 0 1.682 1.226 3.31 1.396 3.542.17.232 2.413 3.684 5.844 5.168.816.353 1.453.564 1.95.723.82.261 1.567.224 2.157.137.657-.098 2.054-.84 2.34-1.652.287-.812.287-1.508.202-1.652-.087-.144-.317-.23-.664-.404z" />
+                    </svg>
                 </a>
             </div>
         </div>
