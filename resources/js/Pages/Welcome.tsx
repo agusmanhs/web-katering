@@ -1297,7 +1297,19 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                         <div className="flex space-x-4 pt-2">
                             <a href={`https://instagram.com/${getSetting('company_instagram', '@dapoerratucatering').replace('@', '')}`} target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary text-white transition-colors text-xs font-bold">IG</a>
                             <a href={`https://facebook.com/${getSetting('company_facebook', 'dapoerratucatering')}`} target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary text-white transition-colors text-xs font-bold">FB</a>
-                            <a href={`https://youtube.com/c/${getSetting('company_youtube', 'DapoerRatuCatering')}`} target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary text-white transition-colors text-xs font-bold">YT</a>
+                            <a 
+                                href={(() => {
+                                    const yt = getSetting('company_youtube', '@dapoer_ratucatering_bone');
+                                    if (yt.startsWith('http://') || yt.startsWith('https://')) return yt;
+                                    if (yt.startsWith('@')) return `https://www.youtube.com/${yt}`;
+                                    return `https://www.youtube.com/@${yt}`;
+                                })()} 
+                                target="_blank" 
+                                rel="noreferrer" 
+                                className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary text-white transition-colors text-xs font-bold"
+                            >
+                                YT
+                            </a>
                         </div>
                     </div>
 
