@@ -285,7 +285,17 @@ class CateringController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'order_num' => 'required|integer',
+            'logo' => 'nullable|image|max:4096',
         ]);
+
+        if ($request->hasFile('logo') && $request->file('logo')->isValid()) {
+            $file = $request->file('logo');
+            $filename = 'partner_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images'), $filename);
+            $validated['logo_path'] = "/images/$filename";
+        } else {
+            $validated['logo_path'] = null;
+        }
 
         Partner::create($validated);
         return back()->with('success', 'Partner added successfully!');
@@ -296,7 +306,22 @@ class CateringController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'order_num' => 'required|integer',
+            'logo' => 'nullable|image|max:4096',
         ]);
+
+        if ($request->hasFile('logo') && $request->file('logo')->isValid()) {
+            // Delete old file if exists
+            if ($partner->logo_path && file_exists(public_path(ltrim($partner->logo_path, '/')))) {
+                @unlink(public_path(ltrim($partner->logo_path, '/')));
+            }
+
+            $file = $request->file('logo');
+            $filename = 'partner_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('images'), $filename);
+            $validated['logo_path'] = "/images/$filename";
+        } else {
+            $validated['logo_path'] = $partner->logo_path;
+        }
 
         $partner->update($validated);
         return back()->with('success', 'Partner updated successfully!');

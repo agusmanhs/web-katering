@@ -501,11 +501,21 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
             <section className="bg-white py-12 border-b border-primary/10">
                 <div className="max-w-7xl mx-auto px-6">
                     <p className="text-center text-[10px] uppercase tracking-[0.25em] text-darktext/50 mb-8 font-semibold">Telah Dipercaya Oleh Mitra Korporat & BUMN Terkemuka</p>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center opacity-60">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center opacity-65">
                         {partners.length > 0 ? (
                             partners.map((partner) => (
-                                <div key={partner.id} className="font-bold text-lg text-primary tracking-wide text-center uppercase">
-                                    {partner.name}
+                                <div key={partner.id} className="flex items-center justify-center h-16 w-full">
+                                    {partner.logo_path ? (
+                                        <img
+                                            src={partner.logo_path}
+                                            alt={partner.name}
+                                            className="h-10 w-auto object-contain max-w-[140px] filter grayscale dark:invert hover:grayscale-0 transition-all duration-300"
+                                        />
+                                    ) : (
+                                        <div className="font-bold text-base text-primary dark:text-secondary/80 tracking-wide text-center uppercase">
+                                            {partner.name}
+                                        </div>
+                                    )}
                                 </div>
                             ))
                         ) : (
