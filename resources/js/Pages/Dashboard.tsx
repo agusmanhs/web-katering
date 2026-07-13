@@ -167,6 +167,7 @@ export default function Dashboard({
         company_instagram: settings.company_instagram || '',
         company_facebook: settings.company_facebook || '',
         company_youtube: settings.company_youtube || '',
+        company_tiktok: settings.company_tiktok || '',
         google_maps_url: settings.google_maps_url || '',
         operational_hours_weekday: settings.operational_hours_weekday || '',
         operational_hours_weekend: settings.operational_hours_weekend || '',
@@ -1280,7 +1281,7 @@ export default function Dashboard({
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                                     <div>
                                         <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Instagram (@Username)</label>
                                         <input
@@ -1305,6 +1306,15 @@ export default function Dashboard({
                                             type="text"
                                             value={settingsForm.company_youtube}
                                             onChange={(e) => setSettingsForm({ ...settingsForm, company_youtube: e.target.value })}
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">TikTok (@Username)</label>
+                                        <input
+                                            type="text"
+                                            value={settingsForm.company_tiktok}
+                                            onChange={(e) => setSettingsForm({ ...settingsForm, company_tiktok: e.target.value })}
                                             className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
                                         />
                                     </div>

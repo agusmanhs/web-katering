@@ -1311,6 +1311,19 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                             >
                                 YT
                             </a>
+                            <a 
+                                href={(() => {
+                                    const tt = getSetting('company_tiktok', '@dapoerratucatering');
+                                    if (tt.startsWith('http://') || tt.startsWith('https://')) return tt;
+                                    if (tt.startsWith('@')) return `https://www.tiktok.com/${tt}`;
+                                    return `https://www.tiktok.com/@${tt}`;
+                                })()} 
+                                target="_blank" 
+                                rel="noreferrer" 
+                                className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary text-white transition-colors text-xs font-bold"
+                            >
+                                TT
+                            </a>
                         </div>
                     </div>
 
