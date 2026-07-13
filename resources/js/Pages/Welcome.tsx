@@ -497,14 +497,60 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                 </div>
             </header>
 
-            {/* Trusted By Grid (Client Logos from Partners DB) */}
-            <section className="bg-white py-12 border-b border-primary/10">
-                <div className="max-w-7xl mx-auto px-6">
-                    <p className="text-center text-[10px] uppercase tracking-[0.25em] text-darktext/50 mb-8 font-semibold">Telah Dipercaya Oleh Mitra Korporat & BUMN Terkemuka</p>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center opacity-65">
-                        {partners.length > 0 ? (
-                            partners.map((partner) => (
-                                <div key={partner.id} className="flex items-center justify-center h-16 w-full">
+            {/* Trusted By (Infinite Scrolling Carousel) */}
+            <section className="bg-white dark:bg-[#150A0B] py-12 border-b border-primary/10 dark:border-red-950/20 overflow-hidden relative">
+                <style dangerouslySetInnerHTML={{__html: `
+                    @keyframes marquee {
+                        0% { transform: translateX(0); }
+                        100% { transform: translateX(-33.3333%); }
+                    }
+                    .animate-marquee {
+                        display: flex;
+                        width: max-content;
+                        animation: marquee 35s linear infinite;
+                    }
+                    .animate-marquee:hover {
+                        animation-play-state: paused;
+                    }
+                `}} />
+                <div className="max-w-7xl mx-auto px-6 mb-6">
+                    <p className="text-center text-[10px] uppercase tracking-[0.25em] text-darktext/50 dark:text-gray-400 font-semibold">Telah Dipercaya Oleh Mitra Korporat & BUMN Terkemuka</p>
+                </div>
+
+                <div className="relative w-full">
+                    {/* Gradient shadows for fading overlay effect */}
+                    <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white via-white/80 to-transparent dark:from-[#150A0B] dark:via-[#150A0B]/80 dark:to-transparent z-10 pointer-events-none" />
+                    <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white via-white/80 to-transparent dark:from-[#150A0B] dark:via-[#150A0B]/80 dark:to-transparent z-10 pointer-events-none" />
+
+                    <div className="overflow-hidden w-full">
+                        <div className="animate-marquee py-2 flex items-center space-x-16">
+                            {[
+                                ...(partners.length > 0 ? partners : [
+                                    { id: 1, name: 'BANK MANDIRI', logo_path: null },
+                                    { id: 2, name: 'PERTAMINA', logo_path: null },
+                                    { id: 3, name: 'TELKOM INDONESIA', logo_path: null },
+                                    { id: 4, name: 'BANK BCA', logo_path: null },
+                                    { id: 5, name: 'PLN GROUP', logo_path: null },
+                                    { id: 6, name: 'KEMENTERIAN RI', logo_path: null }
+                                ]),
+                                ...(partners.length > 0 ? partners : [
+                                    { id: 1, name: 'BANK MANDIRI', logo_path: null },
+                                    { id: 2, name: 'PERTAMINA', logo_path: null },
+                                    { id: 3, name: 'TELKOM INDONESIA', logo_path: null },
+                                    { id: 4, name: 'BANK BCA', logo_path: null },
+                                    { id: 5, name: 'PLN GROUP', logo_path: null },
+                                    { id: 6, name: 'KEMENTERIAN RI', logo_path: null }
+                                ]),
+                                ...(partners.length > 0 ? partners : [
+                                    { id: 1, name: 'BANK MANDIRI', logo_path: null },
+                                    { id: 2, name: 'PERTAMINA', logo_path: null },
+                                    { id: 3, name: 'TELKOM INDONESIA', logo_path: null },
+                                    { id: 4, name: 'BANK BCA', logo_path: null },
+                                    { id: 5, name: 'PLN GROUP', logo_path: null },
+                                    { id: 6, name: 'KEMENTERIAN RI', logo_path: null }
+                                ])
+                            ].map((partner, index) => (
+                                <div key={`${partner.id}-${index}`} className="flex items-center justify-center h-16 w-40 flex-shrink-0 opacity-60 hover:opacity-100 transition-opacity duration-300">
                                     {partner.logo_path ? (
                                         <img
                                             src={partner.logo_path}
@@ -512,22 +558,13 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                                             className="h-10 w-auto object-contain max-w-[140px] filter grayscale dark:invert hover:grayscale-0 transition-all duration-300"
                                         />
                                     ) : (
-                                        <div className="font-bold text-base text-primary dark:text-secondary/80 tracking-wide text-center uppercase">
+                                        <div className="font-bold text-base text-primary dark:text-secondary/85 tracking-wide text-center uppercase whitespace-nowrap">
                                             {partner.name}
                                         </div>
                                     )}
                                 </div>
-                            ))
-                        ) : (
-                            <>
-                                <div className="font-bold text-lg text-primary tracking-wide">BANK MANDIRI</div>
-                                <div className="font-bold text-lg text-primary tracking-wide">PERTAMINA</div>
-                                <div className="font-bold text-lg text-primary tracking-wide">TELKOM INDONESIA</div>
-                                <div className="font-bold text-lg text-primary tracking-wide">BANK BCA</div>
-                                <div className="font-bold text-lg text-primary tracking-wide">PLN GROUP</div>
-                                <div className="font-bold text-lg text-primary tracking-wide">KEMENTERIAN RI</div>
-                            </>
-                        )}
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>
