@@ -351,32 +351,34 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
     return (
         <div className="min-h-screen bg-cream text-darktext font-sans scroll-smooth select-none selection:bg-secondary/30">
             <Head>
-                <title>Dapoer Ratu Catering Premium - Wedding, Corporate & Private Event</title>
-                <meta name="description" content="Menyajikan pengalaman kuliner premium. Catering bintang lima terbaik di Indonesia untuk pernikahan, event korporat, BUMN, dan private party." />
-                <meta property="og:title" content="Dapoer Ratu Catering Premium" />
-                <meta property="og:description" content="Kuliner premium untuk momen tak terlupakan. Layanan katering profesional di Indonesia." />
+                <title>Catering Bone - Dapoer Ratu Catering Premium | Nasi Kotak & Prasmanan Bone</title>
+                <meta name="description" content="Jasa catering Bone premium terbaik dari Dapoer Ratu. Menyediakan paket prasmanan Bone, nasi kotak Bone, nasi tumpeng, snack box, dan catering pernikahan halal di Bone." />
+                <meta name="keywords" content="catering bone, katering bone, nasi kotak bone, nasi box bone, prasmanan bone, catering pernikahan bone, dapoer ratu catering" />
+                <meta property="og:title" content="Catering Bone - Dapoer Ratu Catering Premium" />
+                <meta property="og:description" content="Paket prasmanan & nasi kotak premium terbaik di Kabupaten Bone, Sulawesi Selatan. Bersertifikat Halal." />
                 <meta property="og:image" content="/images/hero_background.webp" />
                 <meta name="robots" content="index, follow" />
                 <script type="application/ld+json">
                     {JSON.stringify({
                         "@context": "https://schema.org",
                         "@type": "FoodEstablishment",
-                        "name": "Dapoer Ratu Catering Premium",
-                        "image": "/images/hero_background.webp",
+                        "name": "Dapoer Ratu Catering Premium Bone",
+                        "image": "/images/logo_original.png",
                         "@id": "https://dapoerratucatering.com",
                         "url": "https://dapoerratucatering.com",
                         "telephone": getSetting('company_phone', '+6281234567890'),
                         "address": {
                             "@type": "PostalAddress",
-                            "streetAddress": "Jl. Senopati No.45, Kebayoran Baru",
-                            "addressLocality": "Jakarta Selatan",
-                            "postalCode": "12190",
+                            "streetAddress": getSetting('company_address', 'Jl. Sungai Tangka, Watampone'),
+                            "addressLocality": "Bone",
+                            "addressRegion": "Sulawesi Selatan",
+                            "postalCode": "92711",
                             "addressCountry": "ID"
                         },
                         "geo": {
                             "@type": "GeoCoordinates",
-                            "latitude": -6.2235,
-                            "longitude": 106.8085
+                            "latitude": -4.5375,
+                            "longitude": 120.329
                         },
                         "openingHoursSpecification": [
                             {
@@ -1334,7 +1336,7 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                             <span className="font-playfair text-2xl font-bold tracking-wider text-secondary block leading-none">DAPOER RATU</span>
                         </div>
                         <p className="text-xs text-white/70 font-light leading-relaxed">
-                            Catering premium bercitarasa bintang lima yang menyajikan sajian berkelas dan pelayanan profesional untuk perayaan terbaik Anda di Indonesia.
+                            Jasa catering Bone premium dari Dapoer Ratu. Menyajikan menu prasmanan Bone, paket nasi kotak Bone, tumpeng hias, dan catering pernikahan terbaik dengan standar bintang lima dan kebersihan terjamin di Kabupaten Bone, Sulawesi Selatan.
                         </p>
                         <div className="flex space-x-3 pt-2">
                             <a 
