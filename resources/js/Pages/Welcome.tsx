@@ -738,11 +738,13 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                             >
                                 <X className="w-4 h-4" />
                             </button>
-                            <img
-                                src={activeDetailMenu.image_path}
-                                alt={activeDetailMenu.name}
-                                className="w-full h-56 object-cover"
-                            />
+                            <div className="w-full h-64 sm:h-72 bg-neutral-900/5 dark:bg-[#1C0D0E]/20 flex items-center justify-center overflow-hidden relative border-b border-primary/5">
+                                <img
+                                    src={activeDetailMenu.image_path}
+                                    alt={activeDetailMenu.name}
+                                    className="w-full h-full object-contain"
+                                />
+                            </div>
                             <div className="p-8 space-y-6">
                                 <div className="space-y-2">
                                     <span className="text-[10px] uppercase font-bold text-secondary tracking-widest">{activeDetailMenu.category}</span>
