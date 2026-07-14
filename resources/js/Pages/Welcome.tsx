@@ -351,11 +351,11 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
     return (
         <div className="min-h-screen bg-cream text-darktext font-sans scroll-smooth select-none selection:bg-secondary/30">
             <Head>
-                <title>Catering Bone - Dapoer Ratu Catering Premium | Nasi Kotak & Prasmanan Bone</title>
-                <meta name="description" content="Jasa catering Bone premium terbaik dari Dapoer Ratu. Menyediakan paket prasmanan Bone, nasi kotak Bone, nasi tumpeng, snack box, dan catering pernikahan halal di Bone." />
-                <meta name="keywords" content="catering bone, katering bone, nasi kotak bone, nasi box bone, prasmanan bone, catering pernikahan bone, dapoer ratu catering" />
-                <meta property="og:title" content="Catering Bone - Dapoer Ratu Catering Premium" />
-                <meta property="og:description" content="Paket prasmanan & nasi kotak premium terbaik di Kabupaten Bone, Sulawesi Selatan. Bersertifikat Halal." />
+                <title>{getSetting('seo_title', 'Catering Bone - Dapoer Ratu Catering Premium | Nasi Kotak & Prasmanan Bone')}</title>
+                <meta name="description" content={getSetting('seo_description', 'Jasa catering Bone premium terbaik dari Dapoer Ratu. Menyediakan paket prasmanan Bone, nasi kotak Bone, nasi tumpeng, snack box, dan catering pernikahan halal di Bone.')} />
+                <meta name="keywords" content={getSetting('seo_keywords', 'catering bone, katering bone, nasi kotak bone, nasi box bone, prasmanan bone, catering pernikahan bone, dapoer ratu catering')} />
+                <meta property="og:title" content={getSetting('seo_title', 'Catering Bone - Dapoer Ratu Catering Premium')} />
+                <meta property="og:description" content={getSetting('seo_description', 'Paket prasmanan & nasi kotak premium terbaik di Kabupaten Bone, Sulawesi Selatan. Bersertifikat Halal.')} />
                 <meta property="og:image" content="/images/hero_background.webp" />
                 <meta name="robots" content="index, follow" />
                 <script type="application/ld+json">
@@ -377,8 +377,8 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                         },
                         "geo": {
                             "@type": "GeoCoordinates",
-                            "latitude": -4.5375,
-                            "longitude": 120.329
+                            "latitude": parseFloat(getSetting('seo_latitude', '-4.5375')),
+                            "longitude": parseFloat(getSetting('seo_longitude', '120.329'))
                         },
                         "openingHoursSpecification": [
                             {

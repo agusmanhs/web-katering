@@ -209,6 +209,11 @@ export default function Dashboard({
         stats_satisfaction: settings.stats_satisfaction || '',
         stats_satisfaction_label: settings.stats_satisfaction_label || '',
         lkpp_ekatalog_url: settings.lkpp_ekatalog_url || '',
+        seo_title: settings.seo_title || '',
+        seo_description: settings.seo_description || '',
+        seo_keywords: settings.seo_keywords || '',
+        seo_latitude: settings.seo_latitude || '',
+        seo_longitude: settings.seo_longitude || '',
     });
 
     const [heroBgFile, setHeroBgFile] = useState<File | null>(null);
@@ -1339,6 +1344,68 @@ export default function Dashboard({
                                         onChange={(e) => setSettingsForm({ ...settingsForm, lkpp_ekatalog_url: e.target.value })}
                                         className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
                                     />
+                                </div>
+
+                                <h4 className="text-sm font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-red-950/40 pb-2 mt-8">Optimasi SEO & Pencarian Google (Search Engine Optimization)</h4>
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">SEO Page Title (Judul Pencarian Google)</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Contoh: Catering Bone - Dapoer Ratu Catering Premium | Nasi Kotak & Prasmanan Bone"
+                                            value={settingsForm.seo_title}
+                                            onChange={(e) => setSettingsForm({ ...settingsForm, seo_title: e.target.value })}
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                        />
+                                        <span className="text-[10px] text-gray-500 dark:text-gray-400 mt-1 block">Judul halaman utama yang muncul di tab browser dan hasil pencarian Google. Usahakan memuat kata kunci pencarian.</span>
+                                    </div>
+                                    
+                                    <div>
+                                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">SEO Meta Description (Rangkuman Pencarian)</label>
+                                        <textarea
+                                            rows={2}
+                                            placeholder="Contoh: Jasa catering Bone premium terbaik dari Dapoer Ratu. Menyediakan paket prasmanan Bone, nasi kotak Bone, tumpeng..."
+                                            value={settingsForm.seo_description}
+                                            onChange={(e) => setSettingsForm({ ...settingsForm, seo_description: e.target.value })}
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none"
+                                        />
+                                        <span className="text-[10px] text-gray-500 dark:text-gray-400 mt-1 block">Deskripsi singkat di bawah judul halaman pada hasil pencarian Google (maksimal 160 karakter untuk tampilan terbaik).</span>
+                                    </div>
+                                    
+                                    <div>
+                                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">SEO Meta Keywords (Kata Kunci Tag - Pisahkan dengan koma)</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Contoh: catering bone, nasi kotak bone, prasmanan bone, nasi box bone"
+                                            value={settingsForm.seo_keywords}
+                                            onChange={(e) => setSettingsForm({ ...settingsForm, seo_keywords: e.target.value })}
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                        />
+                                        <span className="text-[10px] text-gray-500 dark:text-gray-400 mt-1 block">Kata kunci spesifik yang relevan dengan bisnis katering Anda untuk membantu identifikasi robot mesin pencari.</span>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                        <div>
+                                            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Titik Koordinat Peta: Latitude (Garis Lintang)</label>
+                                            <input
+                                                type="text"
+                                                placeholder="Contoh: -4.5375"
+                                                value={settingsForm.seo_latitude}
+                                                onChange={(e) => setSettingsForm({ ...settingsForm, seo_latitude: e.target.value })}
+                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Titik Koordinat Peta: Longitude (Garis Lintang)</label>
+                                            <input
+                                                type="text"
+                                                placeholder="Contoh: 120.329"
+                                                value={settingsForm.seo_longitude}
+                                                onChange={(e) => setSettingsForm({ ...settingsForm, seo_longitude: e.target.value })}
+                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <button
