@@ -737,7 +737,7 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                             >
                                 <X className="w-4 h-4" />
                             </button>
-                            <div className="w-full h-64 sm:h-72 bg-neutral-900/5 dark:bg-[#1C0D0E]/20 flex items-center justify-center overflow-hidden relative border-b border-primary/5">
+                            <div className="w-full h-64 md:h-96 bg-neutral-900/5 dark:bg-[#1C0D0E]/20 flex items-center justify-center overflow-hidden relative border-b border-primary/5">
                                 <img
                                     src={activeDetailMenu.image_path}
                                     alt={activeDetailMenu.name}
