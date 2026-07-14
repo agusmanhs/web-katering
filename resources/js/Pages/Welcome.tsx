@@ -729,49 +729,70 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
-                            className="bg-white max-w-lg w-full rounded-2xl overflow-hidden shadow-2xl relative"
+                            className="bg-white max-w-lg md:max-w-4xl w-full rounded-2xl overflow-hidden shadow-2xl relative"
                         >
                             <button
                                 onClick={() => setActiveDetailMenu(null)}
-                                className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black transition-colors"
+                                className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black transition-colors"
                             >
                                 <X className="w-4 h-4" />
                             </button>
-                            <div className="w-full h-64 md:h-96 bg-neutral-900/5 dark:bg-[#1C0D0E]/20 flex items-center justify-center overflow-hidden relative border-b border-primary/5">
-                                <img
-                                    src={activeDetailMenu.image_path}
-                                    alt={activeDetailMenu.name}
-                                    className="w-full h-full object-contain"
-                                />
-                            </div>
-                            <div className="p-8 space-y-6">
-                                <div className="space-y-2">
-                                    <span className="text-[10px] uppercase font-bold text-secondary tracking-widest">{activeDetailMenu.category}</span>
-                                    <h3 className="font-playfair text-2xl font-bold text-primary">{activeDetailMenu.name}</h3>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-12 w-full">
+                                {/* Left Column: Image */}
+                                <div className="col-span-1 md:col-span-6 lg:col-span-7 h-64 md:h-[480px] bg-neutral-900/5 dark:bg-[#1C0D0E]/20 flex items-center justify-center overflow-hidden relative border-b md:border-b-0 md:border-r border-primary/5">
+                                    {/* Blurred ambient background */}
+                                    <img
+                                        src={activeDetailMenu.image_path}
+                                        alt=""
+                                        className="absolute inset-0 w-full h-full object-cover filter blur-xl opacity-20 scale-105 pointer-events-none"
+                                    />
+                                    {/* Sharp food image */}
+                                    <img
+                                        src={activeDetailMenu.image_path}
+                                        alt={activeDetailMenu.name}
+                                        className="relative max-w-full max-h-full object-contain z-10 p-4"
+                                    />
                                 </div>
-                                <p className="text-sm text-darktext/70 leading-relaxed font-light">{activeDetailMenu.description}</p>
-                                <div className="space-y-2">
-                                    <span className="text-xs font-semibold text-primary block">Keistimewaan Sajian:</span>
-                                    <div className="flex flex-wrap gap-2">
-                                        {activeDetailMenu.tags?.map((tag, idx) => (
-                                            <span key={idx} className="bg-primary/5 text-primary text-xs px-3 py-1 rounded-full">
-                                                ✔ {tag}
+                                
+                                {/* Right Column: Details */}
+                                <div className="col-span-1 md:col-span-6 lg:col-span-5 p-6 md:p-8 flex flex-col justify-between md:h-[480px] overflow-y-auto space-y-6">
+                                    <div className="space-y-4">
+                                        <div className="space-y-1">
+                                            <span className="text-[10px] uppercase font-bold text-secondary tracking-widest">{activeDetailMenu.category}</span>
+                                            <h3 className="font-playfair text-2xl font-bold text-primary leading-tight">{activeDetailMenu.name}</h3>
+                                        </div>
+                                        
+                                        <p className="text-sm text-darktext/70 leading-relaxed font-light">{activeDetailMenu.description}</p>
+                                        
+                                        <div className="space-y-2">
+                                            <span className="text-xs font-semibold text-primary block">Keistimewaan Sajian:</span>
+                                            <div className="flex flex-wrap gap-2">
+                                                {activeDetailMenu.tags?.map((tag, idx) => (
+                                                    <span key={idx} className="bg-primary/5 text-primary text-[11px] px-2.5 py-1 rounded-full font-medium">
+                                                        ✔ {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="flex flex-row justify-between items-center pt-5 border-t border-primary/5 gap-4">
+                                        <div>
+                                            <span className="text-[10px] text-darktext/40 block uppercase tracking-wider font-semibold">Estimasi Investasi</span>
+                                            <span className="text-xl font-bold text-secondary block leading-none mt-1">
+                                                {formatIDR(activeDetailMenu.price_from)} 
+                                                <span className="text-xs font-normal text-darktext/60"> / pax</span>
                                             </span>
-                                        ))}
+                                        </div>
+                                        <a
+                                            href="#quote"
+                                            onClick={() => setActiveDetailMenu(null)}
+                                            className="px-5 py-2.5 bg-primary text-white text-xs font-bold rounded-full hover:bg-secondary transition-colors whitespace-nowrap"
+                                        >
+                                            Pesan Sajian Ini
+                                        </a>
                                     </div>
-                                </div>
-                                <div className="flex justify-between items-center pt-6 border-t border-primary/5">
-                                    <div>
-                                        <span className="text-xs text-darktext/40 block">Estimasi Investasi</span>
-                                        <span className="text-xl font-bold text-secondary">{formatIDR(activeDetailMenu.price_from)} <span className="text-xs font-normal text-darktext/60">/ pax</span></span>
-                                    </div>
-                                    <a
-                                        href="#quote"
-                                        onClick={() => setActiveDetailMenu(null)}
-                                        className="px-6 py-2.5 bg-primary text-white text-xs font-semibold rounded-full hover:bg-secondary transition-colors"
-                                    >
-                                        Pesan Sajian Ini
-                                    </a>
                                 </div>
                             </div>
                         </motion.div>
