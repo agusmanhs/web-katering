@@ -221,6 +221,15 @@ export default function Dashboard({
     const [sliderAfterFile, setSliderAfterFile] = useState<File | null>(null);
     const [menuImageFile, setMenuImageFile] = useState<File | null>(null);
     const [partnerLogoFile, setPartnerLogoFile] = useState<File | null>(null);
+    const getWhatsAppLink = (phone: string) => {
+        let cleaned = phone.replace(/[^0-9]/g, '');
+        if (cleaned.startsWith('0')) {
+            cleaned = '62' + cleaned.slice(1);
+        } else if (cleaned.startsWith('8')) {
+            cleaned = '62' + cleaned;
+        }
+        return `https://wa.me/${cleaned}`;
+    };
 
     // Quote actions
     const updateQuoteStatus = (id: number, status: 'pending' | 'contacted' | 'closed') => {
@@ -693,7 +702,7 @@ export default function Dashboard({
                                                         </td>
                                                         <td className="px-4 py-4">
                                                             <div className="font-bold text-gray-900 dark:text-white">{lead.name}</div>
-                                                            <div className="text-xs text-gray-500"><a href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}`} target="_blank" rel="noreferrer" className="text-[#E5B82C] dark:text-red-400 hover:text-red-750 hover:underline">{lead.phone}</a></div>
+                                                            <div className="text-xs text-gray-500"><a href={getWhatsAppLink(lead.phone)} target="_blank" rel="noreferrer" className="text-[#E5B82C] dark:text-red-400 hover:text-red-750 hover:underline">{lead.phone}</a></div>
                                                             <div className="text-xs text-gray-400">{lead.email}</div>
                                                         </td>
                                                         <td className="px-4 py-4">
