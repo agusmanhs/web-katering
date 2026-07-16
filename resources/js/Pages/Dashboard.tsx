@@ -218,6 +218,9 @@ export default function Dashboard({
         promo_video_subtitle: settings.promo_video_subtitle || '',
         promo_video_url: settings.promo_video_url || '',
         show_before_after: settings.show_before_after || '1',
+        show_promo_popup: settings.show_promo_popup || '0',
+        promo_popup_image: settings.promo_popup_image || '',
+        promo_popup_link: settings.promo_popup_link || '',
     });
 
     const [heroBgFile, setHeroBgFile] = useState<File | null>(null);
@@ -225,6 +228,7 @@ export default function Dashboard({
     const [sliderAfterFile, setSliderAfterFile] = useState<File | null>(null);
     const [menuImageFile, setMenuImageFile] = useState<File | null>(null);
     const [partnerLogoFile, setPartnerLogoFile] = useState<File | null>(null);
+    const [promoPopupFile, setPromoPopupFile] = useState<File | null>(null);
     const getWhatsAppLink = (phone: string) => {
         let cleaned = phone.replace(/[^0-9]/g, '');
         if (cleaned.startsWith('0')) {
@@ -574,6 +578,7 @@ export default function Dashboard({
             if (key === 'hero_bg_image' && heroBgFile) return;
             if (key === 'slider_before_image' && sliderBeforeFile) return;
             if (key === 'slider_after_image' && sliderAfterFile) return;
+            if (key === 'promo_popup_image' && promoPopupFile) return;
             
             formData.append(`settings[${key}]`, String(val));
         });
@@ -587,6 +592,9 @@ export default function Dashboard({
         if (sliderAfterFile) {
             formData.append('settings[slider_after_image]', sliderAfterFile);
         }
+        if (promoPopupFile) {
+            formData.append('settings[promo_popup_image]', promoPopupFile);
+        }
         
         router.post('/admin/settings', formData, {
             forceFormData: true,
@@ -594,6 +602,7 @@ export default function Dashboard({
                 setHeroBgFile(null);
                 setSliderBeforeFile(null);
                 setSliderAfterFile(null);
+                setPromoPopupFile(null);
                 alert('Pengaturan dan gambar berhasil diperbarui!');
             }
         });
@@ -1633,46 +1642,114 @@ export default function Dashboard({
                         </div>
                     )}
 
-                    {/* Web Settings - Video Promosi Tab */}
+                    {/* Web Settings - Video & Banner Promosi Tab */}
                     {activeTab === 'promo-video' && (
-                        <div className="bg-white shadow sm:rounded-lg dark:bg-[#1E1112] border border-red-100/30 dark:border-red-950/40 p-8">
-                            <h3 className="text-lg font-medium text-gray-900 dark:text-white border-b pb-4 mb-6">Pengaturan Video Promosi</h3>
-                            <form onSubmit={handleSettingsSubmit} className="space-y-6">
-                                <div className="space-y-4 max-w-2xl">
-                                    <div>
-                                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Judul Seksi Promosi</label>
-                                        <input
-                                            type="text"
-                                            placeholder="Contoh: Keseruan di Balik Layar Kami"
-                                            value={settingsForm.promo_video_title}
-                                            onChange={(e) => setSettingsForm({ ...settingsForm, promo_video_title: e.target.value })}
-                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
-                                        />
+                        <div className="bg-white shadow sm:rounded-lg dark:bg-[#1E1112] border border-red-100/30 dark:border-red-950/40 p-8 space-y-8">
+                            <div>
+                                <h3 className="text-lg font-medium text-gray-900 dark:text-white border-b pb-4 mb-2">Pengaturan Promosi Website</h3>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">Kelola video aksi/behind-the-scenes dan brosur pop-up penawaran spesial Anda di satu tempat.</p>
+                            </div>
+                            
+                            <form onSubmit={handleSettingsSubmit} className="space-y-8">
+                                {/* SEKSI 1: Video Promosi */}
+                                <div className="space-y-4 max-w-2xl bg-gray-50/20 dark:bg-red-950/2 border border-gray-100 dark:border-red-950/10 p-6 rounded-2xl">
+                                    <h4 className="text-sm font-semibold text-primary dark:text-red-400 border-b pb-2 mb-4">📹 Bagian Video Promosi</h4>
+                                    <div className="space-y-4">
+                                        <div>
+                                            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Judul Seksi Promosi</label>
+                                            <input
+                                                type="text"
+                                                placeholder="Contoh: Keseruan di Balik Layar Kami"
+                                                value={settingsForm.promo_video_title}
+                                                onChange={(e) => setSettingsForm({ ...settingsForm, promo_video_title: e.target.value })}
+                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                            />
+                                        </div>
+                                        
+                                        <div>
+                                            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Sub-Judul / Keterangan</label>
+                                            <textarea
+                                                rows={2}
+                                                placeholder="Contoh: Lihat bagaimana hidangan premium disajikan dengan standar kebersihan tinggi oleh chef kami."
+                                                value={settingsForm.promo_video_subtitle}
+                                                onChange={(e) => setSettingsForm({ ...settingsForm, promo_video_subtitle: e.target.value })}
+                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none"
+                                            />
+                                        </div>
+                                        
+                                        <div>
+                                            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Tautan URL Video YouTube atau Shorts</label>
+                                            <input
+                                                type="url"
+                                                placeholder="Contoh: https://www.youtube.com/watch?v=... atau https://www.youtube.com/shorts/..."
+                                                value={settingsForm.promo_video_url}
+                                                onChange={(e) => setSettingsForm({ ...settingsForm, promo_video_url: e.target.value })}
+                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                            />
+                                            <span className="text-[10px] text-gray-500 dark:text-gray-400 mt-1 block">
+                                                Masukkan link lengkap video YouTube standar atau YouTube Shorts.
+                                            </span>
+                                        </div>
                                     </div>
+                                </div>
+
+                                {/* SEKSI 2: Pamflet Promosi Pop-up */}
+                                <div className="space-y-4 max-w-2xl bg-gray-50/20 dark:bg-red-950/2 border border-gray-100 dark:border-red-950/10 p-6 rounded-2xl">
+                                    <h4 className="text-sm font-semibold text-primary dark:text-red-400 border-b pb-2 mb-4">🎁 Pop-up Pamflet Promosi (Layar Pertama Load)</h4>
                                     
-                                    <div>
-                                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Sub-Judul / Keterangan</label>
-                                        <textarea
-                                            rows={2}
-                                            placeholder="Contoh: Lihat bagaimana hidangan premium disajikan dengan standar kebersihan tinggi oleh chef kami."
-                                            value={settingsForm.promo_video_subtitle}
-                                            onChange={(e) => setSettingsForm({ ...settingsForm, promo_video_subtitle: e.target.value })}
-                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none"
-                                        />
+                                    <div className="bg-gray-50 dark:bg-[#130708] p-4 rounded-xl border border-gray-200 dark:border-red-950/20 flex items-center justify-between mb-4">
+                                        <div className="space-y-0.5">
+                                            <div className="text-xs font-semibold text-gray-900 dark:text-white">Status Pop-up Promosi</div>
+                                            <div className="text-[10px] text-gray-500 dark:text-gray-400">Tampilkan modal brosur/pamflet promo saat pertama kali website dibuka.</div>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            onClick={() => setSettingsForm({ ...settingsForm, show_promo_popup: settingsForm.show_promo_popup === '1' ? '0' : '1' })}
+                                            className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out outline-hidden ${
+                                                settingsForm.show_promo_popup === '1' ? 'bg-[#7C1A22]' : 'bg-gray-200 dark:bg-gray-800'
+                                            }`}
+                                        >
+                                            <span
+                                                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${
+                                                    settingsForm.show_promo_popup === '1' ? 'translate-x-5' : 'translate-x-0'
+                                                }`}
+                                            />
+                                        </button>
                                     </div>
-                                    
-                                    <div>
-                                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Tautan URL Video YouTube atau Shorts</label>
-                                        <input
-                                            type="url"
-                                            placeholder="Contoh: https://www.youtube.com/watch?v=... atau https://www.youtube.com/shorts/..."
-                                            value={settingsForm.promo_video_url}
-                                            onChange={(e) => setSettingsForm({ ...settingsForm, promo_video_url: e.target.value })}
-                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
-                                        />
-                                        <span className="text-[10px] text-gray-500 dark:text-gray-400 mt-1 block">
-                                            Masukkan link lengkap video YouTube standar atau YouTube Shorts. Sistem akan mendeteksi formatnya secara otomatis untuk ditampilkan secara responsif.
-                                        </span>
+
+                                    <div className="space-y-4">
+                                        <div>
+                                            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Gambar Brosur / Pamflet Promo (Portrait / Tegak Direkomendasikan)</label>
+                                            <div className="flex flex-col gap-2">
+                                                {settingsForm.promo_popup_image && (
+                                                    <div className="relative w-32 border dark:border-red-950/40 rounded-lg overflow-hidden shadow-md">
+                                                        <img src={settingsForm.promo_popup_image} alt="Brosur promo preview" className="w-full object-contain" />
+                                                    </div>
+                                                )}
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    onChange={(e) => setPromoPopupFile(e.target.files ? e.target.files[0] : null)}
+                                                    className="w-full text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-red-50 file:text-[#7C1A22] hover:file:bg-red-100 dark:file:bg-red-950/30 dark:file:text-red-400"
+                                                />
+                                                {promoPopupFile && <p className="text-[10px] text-green-600 mt-1">✔ File terpilih: {promoPopupFile.name}</p>}
+                                                <p className="text-[10px] text-gray-400 mt-1">Current: {settingsForm.promo_popup_image || '-'}</p>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Tautan Aksi Klik Pamflet (WhatsApp / Halaman Kustom)</label>
+                                            <input
+                                                type="url"
+                                                placeholder="Contoh: https://wa.me/628123456789?text=Saya%20tertarik%20dengan%20promo..."
+                                                value={settingsForm.promo_popup_link}
+                                                onChange={(e) => setSettingsForm({ ...settingsForm, promo_popup_link: e.target.value })}
+                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                            />
+                                            <span className="text-[10px] text-gray-500 dark:text-gray-400 mt-1 block">
+                                                Jika diisi, mengeklik gambar pamflet di halaman utama akan mengarahkan pengunjung ke link ini.
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -1680,7 +1757,7 @@ export default function Dashboard({
                                     type="submit"
                                     className="px-6 py-2.5 bg-[#E5B82C] hover:bg-[#c99e1e] text-white font-bold text-xs rounded-lg shadow-md shadow-yellow-500/5 transition-all cursor-pointer"
                                 >
-                                    Simpan Video Promosi
+                                    Simpan Promosi Website
                                 </button>
                             </form>
                         </div>

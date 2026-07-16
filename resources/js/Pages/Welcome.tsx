@@ -167,7 +167,27 @@ export default function Welcome({
     const [selectedCertificate, setSelectedCertificate] = useState<CertificateItem | null>(null);
     const [activeDetailMenu, setActiveDetailMenu] = useState<MenuItem | null>(null);
     const [activePromoVideo, setActivePromoVideo] = useState<string | null>(null);
+    const [showPromoPopupModal, setShowPromoPopupModal] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+
+    // Trigger promo popup modal onload (checked via sessionStorage)
+    useEffect(() => {
+        const isPromoActive = getSetting('show_promo_popup', '0') === '1';
+        const promoImage = getSetting('promo_popup_image', '');
+        const hasViewedPromo = sessionStorage.getItem('promo_popup_viewed') === 'true';
+
+        if (isPromoActive && promoImage && !hasViewedPromo) {
+            const timer = setTimeout(() => {
+                setShowPromoPopupModal(true);
+            }, 1200);
+            return () => clearTimeout(timer);
+        }
+    }, [settings]);
+
+    const handleClosePromoModal = () => {
+        setShowPromoPopupModal(false);
+        sessionStorage.setItem('promo_popup_viewed', 'true');
+    };
 
     // Before After Slider State
     const [sliderPosition, setSliderPosition] = useState(50);
@@ -1274,6 +1294,76 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                         </div>
                     );
                 })()}
+
+                {showPromoPopupModal && (
+                    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4" onClick={handleClosePromoModal}>
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+                            className="relative max-w-md w-full bg-white dark:bg-[#1E1112] rounded-3xl overflow-hidden shadow-2xl border border-secondary/20 cursor-default"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {/* Close Button */}
+                            <button
+                                onClick={handleClosePromoModal}
+                                className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-black/50 hover:bg-black/80 text-white flex items-center justify-center transition-colors cursor-pointer"
+                            >
+                                <X className="w-4 h-4" />
+                            </button>
+                            
+                            {/* Promo Content wrapper */}
+                            <div className="flex flex-col">
+                                {getSetting('promo_popup_link', '') ? (
+                                    <a href={getSetting('promo_popup_link', '')} target="_blank" rel="noopener noreferrer" className="block relative aspect-[4/5] overflow-hidden group">
+                                        <img
+                                            src={getSetting('promo_popup_image', '')}
+                                            alt="Pamflet Promosi"
+                                            className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
+                                        />
+                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+                                    </a>
+                                ) : (
+                                    <div className="relative aspect-[4/5] overflow-hidden">
+                                        <img
+                                            src={getSetting('promo_popup_image', '')}
+                                            alt="Pamflet Promosi"
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                )}
+                                
+                                <div className="p-6 text-center space-y-4 bg-cream/30 dark:bg-red-950/5 border-t border-primary/5">
+                                    <h4 className="font-playfair text-lg font-bold text-primary dark:text-white">
+                                        Penawaran Spesial Dapoer Ratu
+                                    </h4>
+                                    <p className="text-xs text-darktext/70 dark:text-gray-300 font-light leading-relaxed">
+                                        Dapatkan penawaran katering premium eksklusif untuk momen istimewa Anda hari ini.
+                                    </p>
+                                    <div className="flex justify-center gap-3 pt-2">
+                                        {getSetting('promo_popup_link', '') && (
+                                            <a
+                                                href={getSetting('promo_popup_link', '')}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="px-6 py-2.5 bg-primary text-white text-xs font-bold rounded-full hover:bg-secondary transition-all cursor-pointer shadow-md shadow-primary/10"
+                                            >
+                                                Klaim Promo Sekarang
+                                            </a>
+                                        )}
+                                        <button
+                                            onClick={handleClosePromoModal}
+                                            className="px-6 py-2.5 bg-neutral-200 dark:bg-neutral-800 text-darktext dark:text-white text-xs font-bold rounded-full hover:bg-neutral-300 dark:hover:bg-neutral-700 transition-all cursor-pointer"
+                                        >
+                                            Nanti Saja
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
             </AnimatePresence>
 
             {/* Testimonials */}
