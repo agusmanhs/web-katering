@@ -616,6 +616,7 @@ export default function Dashboard({
         { id: 'partners', label: 'Mitra / Klien', icon: <Building className="w-4 h-4" />, onClick: () => setActiveTab('partners'), active: activeTab === 'partners' },
         { id: 'portfolios', label: 'Portofolio Gallery', icon: <Image className="w-4 h-4" />, onClick: () => setActiveTab('portfolios'), active: activeTab === 'portfolios' },
         { id: 'certificates', label: 'Sertifikat & Legalitas', icon: <ShieldCheck className="w-4 h-4" />, onClick: () => setActiveTab('certificates'), active: activeTab === 'certificates' },
+        { id: 'promo-video', label: 'Video Promosi', icon: <Video className="w-4 h-4" />, onClick: () => setActiveTab('promo-video'), active: activeTab === 'promo-video' },
         {
             id: 'settings',
             label: 'Web Settings',
@@ -626,7 +627,6 @@ export default function Dashboard({
                 { id: 'settings-contact', label: 'Kontak & Sosmed', icon: <Phone className="w-4 h-4" />, onClick: () => setActiveTab('settings-contact'), active: activeTab === 'settings-contact' },
                 { id: 'settings-features', label: 'Keunggulan & Stats', icon: <Sparkles className="w-4 h-4" />, onClick: () => setActiveTab('settings-features'), active: activeTab === 'settings-features' },
                 { id: 'settings-seo', label: 'Optimasi SEO', icon: <Globe className="w-4 h-4" />, onClick: () => setActiveTab('settings-seo'), active: activeTab === 'settings-seo' },
-                { id: 'settings-video', label: 'Video Promosi', icon: <Video className="w-4 h-4" />, onClick: () => setActiveTab('settings-video'), active: activeTab === 'settings-video' },
             ]
         }
     ];
@@ -648,7 +648,7 @@ export default function Dashboard({
                     {activeTab === 'settings-contact' && 'Web Settings > Kontak & Sosmed'}
                     {activeTab === 'settings-features' && 'Web Settings > Keunggulan & Stats'}
                     {activeTab === 'settings-seo' && 'Web Settings > Optimasi SEO'}
-                    {activeTab === 'settings-video' && 'Web Settings > Video Promosi'}
+                    {activeTab === 'promo-video' && 'Video Promosi Website'}
                 </h2>
             }
         >
@@ -1612,7 +1612,7 @@ export default function Dashboard({
                     )}
 
                     {/* Web Settings - Video Promosi Tab */}
-                    {activeTab === 'settings-video' && (
+                    {activeTab === 'promo-video' && (
                         <div className="bg-white shadow sm:rounded-lg dark:bg-[#1E1112] border border-red-100/30 dark:border-red-950/40 p-8">
                             <h3 className="text-lg font-medium text-gray-900 dark:text-white border-b pb-4 mb-6">Pengaturan Video Promosi</h3>
                             <form onSubmit={handleSettingsSubmit} className="space-y-6">
