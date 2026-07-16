@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import {
     Phone, Mail, Calendar, Users, FileText, CheckCircle,
     Plus, Edit, Trash2, Settings as SettingsIcon, MessageSquare,
-    HelpCircle, ChefHat, Building, Star, Award, ShieldCheck, Sparkles, Check, X, Sliders, Image, Globe
+    HelpCircle, ChefHat, Building, Star, Award, ShieldCheck, Sparkles, Check, X, Sliders, Image, Globe, Video
 } from 'lucide-react';
 
 interface QuoteRequest {
@@ -214,6 +214,9 @@ export default function Dashboard({
         seo_keywords: settings.seo_keywords || '',
         seo_latitude: settings.seo_latitude || '',
         seo_longitude: settings.seo_longitude || '',
+        promo_video_title: settings.promo_video_title || '',
+        promo_video_subtitle: settings.promo_video_subtitle || '',
+        promo_video_url: settings.promo_video_url || '',
     });
 
     const [heroBgFile, setHeroBgFile] = useState<File | null>(null);
@@ -623,6 +626,7 @@ export default function Dashboard({
                 { id: 'settings-contact', label: 'Kontak & Sosmed', icon: <Phone className="w-4 h-4" />, onClick: () => setActiveTab('settings-contact'), active: activeTab === 'settings-contact' },
                 { id: 'settings-features', label: 'Keunggulan & Stats', icon: <Sparkles className="w-4 h-4" />, onClick: () => setActiveTab('settings-features'), active: activeTab === 'settings-features' },
                 { id: 'settings-seo', label: 'Optimasi SEO', icon: <Globe className="w-4 h-4" />, onClick: () => setActiveTab('settings-seo'), active: activeTab === 'settings-seo' },
+                { id: 'settings-video', label: 'Video Promosi', icon: <Video className="w-4 h-4" />, onClick: () => setActiveTab('settings-video'), active: activeTab === 'settings-video' },
             ]
         }
     ];
@@ -644,6 +648,7 @@ export default function Dashboard({
                     {activeTab === 'settings-contact' && 'Web Settings > Kontak & Sosmed'}
                     {activeTab === 'settings-features' && 'Web Settings > Keunggulan & Stats'}
                     {activeTab === 'settings-seo' && 'Web Settings > Optimasi SEO'}
+                    {activeTab === 'settings-video' && 'Web Settings > Video Promosi'}
                 </h2>
             }
         >
@@ -1601,6 +1606,59 @@ export default function Dashboard({
                                     className="px-6 py-2.5 bg-[#E5B82C] hover:bg-[#c99e1e] text-white font-bold text-xs rounded-lg shadow-md shadow-yellow-500/5 transition-all cursor-pointer"
                                 >
                                     Simpan Pengaturan SEO
+                                </button>
+                            </form>
+                        </div>
+                    )}
+
+                    {/* Web Settings - Video Promosi Tab */}
+                    {activeTab === 'settings-video' && (
+                        <div className="bg-white shadow sm:rounded-lg dark:bg-[#1E1112] border border-red-100/30 dark:border-red-950/40 p-8">
+                            <h3 className="text-lg font-medium text-gray-900 dark:text-white border-b pb-4 mb-6">Pengaturan Video Promosi</h3>
+                            <form onSubmit={handleSettingsSubmit} className="space-y-6">
+                                <div className="space-y-4 max-w-2xl">
+                                    <div>
+                                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Judul Seksi Promosi</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Contoh: Keseruan di Balik Layar Kami"
+                                            value={settingsForm.promo_video_title}
+                                            onChange={(e) => setSettingsForm({ ...settingsForm, promo_video_title: e.target.value })}
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                        />
+                                    </div>
+                                    
+                                    <div>
+                                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Sub-Judul / Keterangan</label>
+                                        <textarea
+                                            rows={2}
+                                            placeholder="Contoh: Lihat bagaimana hidangan premium disajikan dengan standar kebersihan tinggi oleh chef kami."
+                                            value={settingsForm.promo_video_subtitle}
+                                            onChange={(e) => setSettingsForm({ ...settingsForm, promo_video_subtitle: e.target.value })}
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-none"
+                                        />
+                                    </div>
+                                    
+                                    <div>
+                                        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Tautan URL Video YouTube atau Shorts</label>
+                                        <input
+                                            type="url"
+                                            placeholder="Contoh: https://www.youtube.com/watch?v=... atau https://www.youtube.com/shorts/..."
+                                            value={settingsForm.promo_video_url}
+                                            onChange={(e) => setSettingsForm({ ...settingsForm, promo_video_url: e.target.value })}
+                                            className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                        />
+                                        <span className="text-[10px] text-gray-500 dark:text-gray-400 mt-1 block">
+                                            Masukkan link lengkap video YouTube standar atau YouTube Shorts. Sistem akan mendeteksi formatnya secara otomatis untuk ditampilkan secara responsif.
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    className="px-6 py-2.5 bg-[#E5B82C] hover:bg-[#c99e1e] text-white font-bold text-xs rounded-lg shadow-md shadow-yellow-500/5 transition-all cursor-pointer"
+                                >
+                                    Simpan Video Promosi
                                 </button>
                             </form>
                         </div>

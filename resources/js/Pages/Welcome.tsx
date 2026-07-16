@@ -166,6 +166,7 @@ export default function Welcome({
     const [lightboxImage, setLightboxImage] = useState<string | null>(null);
     const [selectedCertificate, setSelectedCertificate] = useState<CertificateItem | null>(null);
     const [activeDetailMenu, setActiveDetailMenu] = useState<MenuItem | null>(null);
+    const [activePromoVideo, setActivePromoVideo] = useState<string | null>(null);
     const [scrolled, setScrolled] = useState(false);
 
     // Before After Slider State
@@ -235,6 +236,37 @@ export default function Welcome({
     // Helper to get settings keys
     const getSetting = (key: string, defaultValue: string) => {
         return settings[key] !== undefined && settings[key] !== null ? settings[key] : defaultValue;
+    };
+
+    // Helper to extract YouTube video ID and check format
+    const getYouTubeIdAndType = (url: string) => {
+        if (!url) return { id: null, isShort: false };
+        let id: string | null = null;
+        let isShort = false;
+        
+        if (url.includes('/shorts/')) {
+            const parts = url.split('/shorts/');
+            if (parts[1]) {
+                id = parts[1].split('?')[0].split('&')[0];
+                isShort = true;
+            }
+        } else if (url.includes('youtu.be/')) {
+            const parts = url.split('youtu.be/');
+            if (parts[1]) {
+                id = parts[1].split('?')[0].split('&')[0];
+            }
+        } else if (url.includes('v=')) {
+            const parts = url.split('v=');
+            if (parts[1]) {
+                id = parts[1].split('&')[0];
+            }
+        } else if (url.includes('embed/')) {
+            const parts = url.split('embed/');
+            if (parts[1]) {
+                id = parts[1].split('?')[0];
+            }
+        }
+        return { id, isShort };
     };
 
     // Helper to map icon components
@@ -943,6 +975,108 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                 </section>
             )}
 
+            {/* Promo Video Section */}
+            {getSetting('promo_video_url', '') && (() => {
+                const { id: ytId, isShort } = getYouTubeIdAndType(getSetting('promo_video_url', ''));
+                if (!ytId) return null;
+                
+                const promoTitle = getSetting('promo_video_title', 'Dapoer Ratu in Action');
+                const promoSubtitle = getSetting('promo_video_subtitle', 'Saksikan komitmen kami menyajikan hidangan premium bercitarasa hotel bintang 5 secara higienis.');
+                
+                return (
+                    <section className="py-24 bg-cream relative overflow-hidden border-t border-primary/5">
+                        <div className="max-w-7xl mx-auto px-6">
+                            {isShort ? (
+                                /* Layout untuk Shorts (Vertikal) */
+                                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                                    <div className="lg:col-span-7 space-y-8 order-2 lg:order-1">
+                                        <span className="text-xs tracking-[0.2em] font-semibold text-secondary uppercase">Video Promosi</span>
+                                        <h2 className="font-playfair text-3xl sm:text-5xl font-bold text-primary leading-tight">
+                                            {promoTitle}
+                                        </h2>
+                                        <p className="text-sm text-darktext/75 font-light leading-relaxed max-w-xl">
+                                            {promoSubtitle}
+                                        </p>
+                                        <div className="flex flex-wrap gap-4 pt-2">
+                                            <button
+                                                onClick={() => setActivePromoVideo(ytId)}
+                                                className="px-6 py-3 bg-primary text-white text-xs font-bold rounded-full hover:bg-secondary transition-all flex items-center space-x-2 shadow-lg shadow-primary/10 hover:scale-105 cursor-pointer"
+                                            >
+                                                <span>Putar Video Shorts</span>
+                                                <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="lg:col-span-5 flex justify-center order-1 lg:order-2">
+                                        {/* Mockup Smartphone */}
+                                        <div className="relative w-72 h-[510px] bg-neutral-900 rounded-[40px] p-3 shadow-2xl border-4 border-neutral-800/80 overflow-hidden group hover:scale-[1.02] transition-transform duration-300">
+                                            {/* Speaker/Camera notch */}
+                                            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-5 w-32 bg-neutral-900 rounded-b-2xl z-20" />
+                                            
+                                            {/* Preview Card */}
+                                            <div className="relative w-full h-full rounded-[30px] overflow-hidden bg-black/10">
+                                                <img 
+                                                    src={`https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`} 
+                                                    alt={promoTitle} 
+                                                    className="w-full h-full object-cover opacity-80"
+                                                    onError={(e) => {
+                                                        (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+                                                    }}
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
+                                                    <button 
+                                                        onClick={() => setActivePromoVideo(ytId)}
+                                                        className="w-14 h-14 rounded-full bg-secondary text-primary flex items-center justify-center mx-auto mb-4 hover:scale-110 active:scale-95 transition-all shadow-lg cursor-pointer"
+                                                    >
+                                                        <svg className="w-6 h-6 fill-current ml-1" viewBox="0 0 24 24">
+                                                            <path d="M8 5v14l11-7z" />
+                                                        </svg>
+                                                    </button>
+                                                    <p className="text-xs font-semibold text-center text-white/90">Ketuk untuk Memutar Shorts</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (
+                                /* Layout untuk Video Standar (Horizontal) */
+                                <div className="max-w-4xl mx-auto text-center space-y-12">
+                                    <div className="space-y-4">
+                                        <span className="text-xs tracking-[0.2em] font-semibold text-secondary uppercase">Video Promosi</span>
+                                        <h2 className="font-playfair text-3xl sm:text-5xl font-bold text-primary">{promoTitle}</h2>
+                                        <p className="max-w-xl mx-auto text-sm text-darktext/65 font-light leading-relaxed">{promoSubtitle}</p>
+                                    </div>
+                                    
+                                    {/* Cinematic Video Card */}
+                                    <div className="relative aspect-video w-full rounded-3xl overflow-hidden shadow-2xl bg-neutral-900 border border-primary/5 group max-w-3xl mx-auto">
+                                        <img 
+                                            src={`https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`} 
+                                            alt={promoTitle} 
+                                            className="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-500"
+                                            onError={(e) => {
+                                                (e.target as HTMLImageElement).src = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+                                            }}
+                                        />
+                                        <div className="absolute inset-0 bg-black/35 flex items-center justify-center p-6">
+                                            <button 
+                                                onClick={() => setActivePromoVideo(ytId)}
+                                                className="w-20 h-20 rounded-full bg-secondary text-primary flex items-center justify-center hover:scale-110 active:scale-95 transition-all shadow-xl shadow-black/20 cursor-pointer relative"
+                                            >
+                                                <span className="absolute inset-0 rounded-full bg-secondary/30 animate-ping" />
+                                                <svg className="w-8 h-8 fill-current ml-1 z-10" viewBox="0 0 24 24">
+                                                    <path d="M8 5v14l11-7z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </section>
+                );
+            })()}
+
             {/* Before After Image Comparison Slider */}
             <section className="py-24 bg-white/60 border-t border-primary/5">
                 <div className="max-w-4xl mx-auto px-6 text-center space-y-12">
@@ -1106,6 +1240,38 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
                         </motion.div>
                     </div>
                 )}
+
+                {activePromoVideo && (() => {
+                    const { isShort } = getYouTubeIdAndType(getSetting('promo_video_url', ''));
+                    return (
+                        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4" onClick={() => setActivePromoVideo(null)}>
+                            <motion.div
+                                initial={{ scale: 0.95, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                exit={{ scale: 0.95, opacity: 0 }}
+                                className={`relative w-full rounded-2xl overflow-hidden shadow-2xl bg-black ${
+                                    isShort ? 'max-w-xs h-[85vh] aspect-[9/16]' : 'max-w-4xl aspect-video'
+                                }`}
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                <button
+                                    onClick={() => setActivePromoVideo(null)}
+                                    className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black transition-colors cursor-pointer"
+                                >
+                                    <X className="w-4 h-4" />
+                                </button>
+                                <iframe
+                                    src={`https://www.youtube.com/embed/${activePromoVideo}?autoplay=1`}
+                                    title="YouTube Video Player"
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowFullScreen
+                                    className="w-full h-full"
+                                />
+                            </motion.div>
+                        </div>
+                    );
+                })()}
             </AnimatePresence>
 
             {/* Testimonials */}
