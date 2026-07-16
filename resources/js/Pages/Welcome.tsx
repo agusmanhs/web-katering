@@ -1078,61 +1078,63 @@ Mohon segera hubungi saya kembali untuk mendiskusikan menu. Terima kasih!`;
             })()}
 
             {/* Before After Image Comparison Slider */}
-            <section className="py-24 bg-white/60 border-t border-primary/5">
-                <div className="max-w-4xl mx-auto px-6 text-center space-y-12">
-                    <div className="space-y-4">
-                        <span className="text-xs tracking-[0.2em] font-semibold text-secondary uppercase">Visual Metamorphosis</span>
-                        <h2 className="font-playfair text-3xl sm:text-5xl font-bold text-primary">Saksikan Transformasi Layanan Kami</h2>
-                        <p className="max-w-md mx-auto text-sm text-darktext/60 font-light">Geser slider untuk melihat perbandingan ruangan kosong sebelum dan sesudah disetup oleh kru catering profesional kami.</p>
-                    </div>
-
-                    {/* Interactive Slider */}
-                    <div
-                        ref={sliderContainerRef}
-                        className="relative h-96 sm:h-[480px] w-full rounded-2xl overflow-hidden shadow-lg select-none cursor-ew-resize"
-                        onMouseMove={handleMouseMove}
-                        onTouchMove={handleTouchMove}
-                    >
-                        {/* Before Image */}
-                        <div className="absolute inset-0">
-                            <img
-                                src={getSetting('slider_before_image', '/images/ballroom_empty.webp')}
-                                alt="Ballroom Empty"
-                                className="w-full h-full object-cover pointer-events-none"
-                            />
-                            <div className="absolute top-4 left-4 bg-black/60 text-white text-[10px] px-3 py-1.5 rounded-full backdrop-blur-md">
-                                {getSetting('slider_before_label', 'Sebelum Setup')}
-                            </div>
+            {getSetting('show_before_after', '1') === '1' && (
+                <section className="py-24 bg-white/60 border-t border-primary/5">
+                    <div className="max-w-4xl mx-auto px-6 text-center space-y-12">
+                        <div className="space-y-4">
+                            <span className="text-xs tracking-[0.2em] font-semibold text-secondary uppercase">Visual Metamorphosis</span>
+                            <h2 className="font-playfair text-3xl sm:text-5xl font-bold text-primary">Saksikan Transformasi Layanan Kami</h2>
+                            <p className="max-w-md mx-auto text-sm text-darktext/60 font-light">Geser slider untuk melihat perbandingan ruangan kosong sebelum dan sesudah disetup oleh kru catering profesional kami.</p>
                         </div>
 
-                        {/* After Image */}
+                        {/* Interactive Slider */}
                         <div
-                            className="absolute inset-y-0 left-0 overflow-hidden"
-                            style={{ width: `${sliderPosition}%` }}
+                            ref={sliderContainerRef}
+                            className="relative h-96 sm:h-[480px] w-full rounded-2xl overflow-hidden shadow-lg select-none cursor-ew-resize"
+                            onMouseMove={handleMouseMove}
+                            onTouchMove={handleTouchMove}
                         >
-                            <img
-                                src={getSetting('slider_after_image', '/images/gallery_wedding_setup.webp')}
-                                alt="Ballroom Set Up"
-                                className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-                                style={{ width: sliderContainerRef.current?.getBoundingClientRect().width }}
-                            />
-                            <div className="absolute top-4 right-4 bg-secondary text-primary text-[10px] font-bold px-3 py-1.5 rounded-full shadow">
-                                {getSetting('slider_after_label', 'Sesudah Setup')}
+                            {/* Before Image */}
+                            <div className="absolute inset-0">
+                                <img
+                                    src={getSetting('slider_before_image', '/images/ballroom_empty.webp')}
+                                    alt="Ballroom Empty"
+                                    className="w-full h-full object-cover pointer-events-none"
+                                />
+                                <div className="absolute top-4 left-4 bg-black/60 text-white text-[10px] px-3 py-1.5 rounded-full backdrop-blur-md">
+                                    {getSetting('slider_before_label', 'Sebelum Setup')}
+                                </div>
                             </div>
-                        </div>
 
-                        {/* Divider Line & Handle */}
-                        <div
-                            className="absolute inset-y-0 w-1 bg-white cursor-ew-resize z-20 flex items-center justify-center"
-                            style={{ left: `${sliderPosition}%` }}
-                        >
-                            <div className="w-8 h-8 rounded-full bg-secondary border-2 border-white flex items-center justify-center shadow-lg">
-                                <span className="text-primary text-xs font-black">↔</span>
+                            {/* After Image */}
+                            <div
+                                className="absolute inset-y-0 left-0 overflow-hidden"
+                                style={{ width: `${sliderPosition}%` }}
+                            >
+                                <img
+                                    src={getSetting('slider_after_image', '/images/gallery_wedding_setup.webp')}
+                                    alt="Ballroom Set Up"
+                                    className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                                    style={{ width: sliderContainerRef.current?.getBoundingClientRect().width }}
+                                />
+                                <div className="absolute top-4 right-4 bg-secondary text-primary text-[10px] font-bold px-3 py-1.5 rounded-full shadow">
+                                    {getSetting('slider_after_label', 'Sesudah Setup')}
+                                </div>
+                            </div>
+
+                            {/* Divider Line & Handle */}
+                            <div
+                                className="absolute inset-y-0 w-1 bg-white cursor-ew-resize z-20 flex items-center justify-center"
+                                style={{ left: `${sliderPosition}%` }}
+                            >
+                                <div className="w-8 h-8 rounded-full bg-secondary border-2 border-white flex items-center justify-center shadow-lg">
+                                    <span className="text-primary text-xs font-black">↔</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            )}
 
             {/* Gallery (Masonry Layout) */}
             <section id="gallery" className="py-24 bg-white">

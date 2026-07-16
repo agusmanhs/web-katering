@@ -217,6 +217,7 @@ export default function Dashboard({
         promo_video_title: settings.promo_video_title || '',
         promo_video_subtitle: settings.promo_video_subtitle || '',
         promo_video_url: settings.promo_video_url || '',
+        show_before_after: settings.show_before_after || '1',
     });
 
     const [heroBgFile, setHeroBgFile] = useState<File | null>(null);
@@ -1167,6 +1168,27 @@ export default function Dashboard({
                                 </div>
 
                                 <h4 className="text-sm font-semibold text-gray-900 dark:text-white border-b pb-2 pt-4">Pengaturan Before-After Slider</h4>
+                                
+                                <div className="bg-gray-50/50 dark:bg-red-950/5 p-4 rounded-xl border border-gray-100 dark:border-red-950/20 flex items-center justify-between">
+                                    <div className="space-y-0.5">
+                                        <div className="text-xs font-semibold text-gray-900 dark:text-white">Status Tampilan Slider</div>
+                                        <div className="text-[10px] text-gray-500 dark:text-gray-400">Tampilkan atau sembunyikan slider before-after (Visual Metamorphosis) di halaman depan.</div>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => setSettingsForm({ ...settingsForm, show_before_after: settingsForm.show_before_after === '1' ? '0' : '1' })}
+                                        className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out outline-hidden ${
+                                            settingsForm.show_before_after === '1' ? 'bg-[#7C1A22]' : 'bg-gray-200 dark:bg-gray-800'
+                                        }`}
+                                    >
+                                        <span
+                                            className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out ${
+                                                settingsForm.show_before_after === '1' ? 'translate-x-5' : 'translate-x-0'
+                                            }`}
+                                        />
+                                    </button>
+                                </div>
+
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                     <div className="space-y-4">
                                         <div>
