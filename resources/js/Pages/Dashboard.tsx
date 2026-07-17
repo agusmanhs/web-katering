@@ -221,6 +221,28 @@ export default function Dashboard({
         show_promo_popup: settings.show_promo_popup || '0',
         promo_popup_image: settings.promo_popup_image || '',
         promo_popup_link: settings.promo_popup_link || '',
+        promo_popup_wa_phone: settings.promo_popup_wa_phone || (() => {
+            if (settings.promo_popup_link && settings.promo_popup_link.includes('wa.me/')) {
+                try {
+                    const url = new URL(settings.promo_popup_link);
+                    return url.pathname.replace('/', '') || '';
+                } catch (e) {
+                    return '';
+                }
+            }
+            return '';
+        })(),
+        promo_popup_wa_text: settings.promo_popup_wa_text || (() => {
+            if (settings.promo_popup_link && settings.promo_popup_link.includes('wa.me/')) {
+                try {
+                    const url = new URL(settings.promo_popup_link);
+                    return decodeURIComponent(url.searchParams.get('text') || '');
+                } catch (e) {
+                    return '';
+                }
+            }
+            return '';
+        })(),
     });
 
     const [heroBgFile, setHeroBgFile] = useState<File | null>(null);
@@ -1737,18 +1759,62 @@ export default function Dashboard({
                                             </div>
                                         </div>
 
-                                        <div>
-                                            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Tautan Aksi Klik Pamflet (WhatsApp / Halaman Kustom)</label>
-                                            <input
-                                                type="url"
-                                                placeholder="Contoh: https://wa.me/628123456789?text=Saya%20tertarik%20dengan%20promo..."
-                                                value={settingsForm.promo_popup_link}
-                                                onChange={(e) => setSettingsForm({ ...settingsForm, promo_popup_link: e.target.value })}
-                                                className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
-                                            />
-                                            <span className="text-[10px] text-gray-500 dark:text-gray-400 mt-1 block">
-                                                Jika diisi, mengeklik gambar pamflet di halaman utama akan mengarahkan pengunjung ke link ini.
-                                            </span>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <div>
+                                                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Nomor WhatsApp Penerima Promo</label>
+                                                <input
+                                                    type="text"
+                                                    placeholder="Contoh: 081234567890"
+                                                    value={settingsForm.promo_popup_wa_phone}
+                                                    onChange={(e) => {
+                                                        const phone = e.target.value;
+                                                        let cleaned = phone.replace(/[^0-9]/g, '');
+                                                        if (cleaned.startsWith('0')) {
+                                                            cleaned = '62' + cleaned.slice(1);
+                                                        } else if (cleaned.startsWith('8')) {
+                                                            cleaned = '62' + cleaned;
+                                                        }
+                                                        const link = cleaned ? `https://wa.me/${cleaned}${settingsForm.promo_popup_wa_text ? '?text=' + encodeURIComponent(settingsForm.promo_popup_wa_text) : ''}` : '';
+                                                        setSettingsForm({
+                                                            ...settingsForm,
+                                                            promo_popup_wa_phone: phone,
+                                                            promo_popup_link: link
+                                                        });
+                                                    }}
+                                                    className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white"
+                                                />
+                                                <span className="text-[10px] text-gray-500 dark:text-gray-400 mt-1 block">
+                                                    Masukkan nomor WhatsApp tujuan (misal: 0812xxxxxx).
+                                                </span>
+                                            </div>
+
+                                            <div>
+                                                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">Pesan WhatsApp Promo</label>
+                                                <textarea
+                                                    placeholder="Contoh: Halo Dapoer Ratu, saya tertarik dengan promo..."
+                                                    value={settingsForm.promo_popup_wa_text}
+                                                    onChange={(e) => {
+                                                        const text = e.target.value;
+                                                        let cleaned = settingsForm.promo_popup_wa_phone.replace(/[^0-9]/g, '');
+                                                        if (cleaned.startsWith('0')) {
+                                                            cleaned = '62' + cleaned.slice(1);
+                                                        } else if (cleaned.startsWith('8')) {
+                                                            cleaned = '62' + cleaned;
+                                                        }
+                                                        const link = cleaned ? `https://wa.me/${cleaned}${text ? '?text=' + encodeURIComponent(text) : ''}` : '';
+                                                        setSettingsForm({
+                                                            ...settingsForm,
+                                                            promo_popup_wa_text: text,
+                                                            promo_popup_link: link
+                                                        });
+                                                    }}
+                                                    rows={1}
+                                                    className="w-full px-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-red-950/40 dark:bg-[#130708] outline-none focus:border-[#7C1A22] focus:ring-1 focus:ring-[#7C1A22] text-gray-900 dark:text-white resize-y min-h-[38px]"
+                                                />
+                                                <span className="text-[10px] text-gray-500 dark:text-gray-400 mt-1 block">
+                                                    Pesan otomatis yang akan dikirim oleh pelanggan saat mengeklik promo.
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
